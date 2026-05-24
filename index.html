@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chibaik Power — Solar Solutions and Education, Nigeria</title>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">⚡ <em>CHIBAIK</em> POWER</div>
+
+  <!-- Desktop nav -->
+  <div class="nav-center">
+    <!-- Solutions -->
+    <div class="nav-item" id="dd-sol">
+      <button class="nav-btn" onclick="toggleDd('dd-sol')">Solutions <span class="nav-arr">▾</span></button>
+      <div class="dropdown">
+        <button class="ddi" onclick="scrollS('#compare');closeAllDd()">
+          <span class="ddi-icon">🔋</span>
+          <div><div class="ddi-label">Solar Power Stations</div><div class="ddi-sub">Portable, plug and play</div></div>
+        </button>
+        <button class="ddi" onclick="scrollS('#compare');closeAllDd()">
+          <span class="ddi-icon">🌞</span>
+          <div><div class="ddi-label">Let There Be Light Package</div><div class="ddi-sub">Full inverter and battery system</div></div>
+        </button>
+        <button class="ddi" onclick="scrollS('#compare');closeAllDd()">
+          <span class="ddi-icon">🏠</span>
+          <div><div class="ddi-label">Solar Installation</div><div class="ddi-sub">Full setup at your property</div></div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Products (non-clickable) -->
+    <div class="nav-item">
+      <div class="nav-btn nav-products-btn">Products <span class="soon">Soon</span></div>
+    </div>
+
+    <!-- Tools -->
+    <div class="nav-item" id="dd-tools">
+      <button class="nav-btn" onclick="toggleDd('dd-tools')">Tools <span class="nav-arr">▾</span></button>
+      <div class="dropdown">
+        <button class="ddi" onclick="openCalc();closeAllDd()">
+          <span class="ddi-icon">⚡</span>
+          <div><div class="ddi-label">Load Calculator</div><div class="ddi-sub">Find your perfect solar match</div></div>
+        </button>
+        <button class="ddi" onclick="scrollS('#fuel');closeAllDd()">
+          <span class="ddi-icon">⛽</span>
+          <div><div class="ddi-label">Fuel Cost Calculator</div><div class="ddi-sub">See what your generator really costs</div></div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Learn -->
+    <div class="nav-item" id="dd-learn">
+      <button class="nav-btn" onclick="toggleDd('dd-learn')">Learn <span class="nav-arr">▾</span></button>
+      <div class="dropdown">
+        <button class="ddi" onclick="scrollS('#solar101');closeAllDd()">
+          <span class="ddi-icon">📚</span>
+          <div><div class="ddi-label">Solar 101</div><div class="ddi-sub">Plain English, no jargon</div></div>
+        </button>
+        <button class="ddi" onclick="scrollS('#faq');closeAllDd()">
+          <span class="ddi-icon">❓</span>
+          <div><div class="ddi-label">FAQ</div><div class="ddi-sub">Answers to real questions</div></div>
+        </button>
+        <button class="ddi" onclick="scrollS('#glossary');closeAllDd()">
+          <span class="ddi-icon">📖</span>
+          <div><div class="ddi-label">Solar Glossary</div><div class="ddi-sub">Every solar term explained simply</div></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav-end">
+    <a class="nav-cta" href="https://wa.me/+2347057027857" target="_blank">💬 Chat Us</a>
+    <button class="hamburger" onclick="toggleMob()" id="hamBtn">☰</button>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mob-nav" id="mobNav">
+  <div class="mob-section">
+    <div class="mob-section-title">Solutions</div>
+    <button class="mob-link" onclick="scrollS('#compare');closeMob()">⚡ Solar Power Stations</button>
+    <button class="mob-link" onclick="scrollS('#compare');closeMob()">🌞 Let There Be Light Package</button>
+    <button class="mob-link" onclick="scrollS('#compare');closeMob()">🏠 Solar Installation</button>
+  </div>
+  <div class="mob-section" style="opacity:.5">
+    <div class="mob-section-title">Products <span class="soon">Coming Soon</span></div>
+  </div>
+  <div class="mob-sep"></div>
+  <div class="mob-section">
+    <div class="mob-section-title">Tools</div>
+    <button class="mob-link" onclick="openCalc();closeMob()">⚡ Load Calculator</button>
+    <button class="mob-link" onclick="scrollS('#fuel');closeMob()">⛽ Fuel Cost Calculator</button>
+  </div>
+  <div class="mob-sep"></div>
+  <div class="mob-section">
+    <div class="mob-section-title">Learn</div>
+    <button class="mob-link" onclick="scrollS('#solar101');closeMob()">📚 Solar 101</button>
+    <button class="mob-link" onclick="scrollS('#faq');closeMob()">❓ FAQ</button>
+    <button class="mob-link" onclick="scrollS('#glossary');closeMob()">📖 Glossary</button>
+  </div>
+  <a class="mob-cta" href="https://wa.me/+2347057027857" target="_blank">💬 Chat Us on WhatsApp</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-circle-1"></div>
+  <div class="hero-circle-2"></div>
+  <span class="hero-badge">Nigeria's Solar Resource Hub ⚡</span>
+  <span class="hero-sun">☀️</span>
+  <h1>Forget<br><span class="strike">NEPA</span><br>Forever.</h1>
+  <p class="hero-sub">Learn everything about solar, calculate your power needs and get the right solution delivered anywhere in Nigeria.</p>
+  <div class="hero-btns">
+    <a class="btn-dark" href="https://wa.me/+2347057027857" target="_blank">💬 Chat Us on WhatsApp</a>
+    <button class="btn-outline" onclick="openCalc()">⚡ Calculate My Load Free</button>
+  </div>
+  <p class="scroll-hint">↓ &nbsp;scroll&nbsp; ↓</p>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust">
+  <div class="trust-inner">
+    <div class="t-item"><span>🆓</span><span>Free consultation, <strong>zero pressure</strong></span></div>
+    <span class="t-dot">·</span>
+    <div class="t-item"><span>🚚</span><span>Delivery <strong>anywhere in Nigeria</strong></span></div>
+    <span class="t-dot">·</span>
+    <div class="t-item"><span>✅</span><span>Sourced from <strong>trusted suppliers</strong></span></div>
+    <span class="t-dot">·</span>
+    <div class="t-item"><span>📱</span><span><strong>Direct, personal service</strong>, no bots</span></div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <p class="eyebrow anim">Simple Process</p>
+    <h2 class="sec-h anim d1">How It Works</h2>
+    <div class="steps">
+      <div class="step anim d1">
+        <div class="step-n">01</div>
+        <span class="step-icon">⚡</span>
+        <div class="step-title">Calculate Your Load</div>
+        <p class="step-desc">Use the free load calculator to select every appliance you want to power. It tells you exactly how many watts you need and which solar options can handle it.</p>
+      </div>
+      <div class="step anim d2">
+        <div class="step-n">02</div>
+        <span class="step-icon">🎯</span>
+        <div class="step-title">See What Fits You</div>
+        <p class="step-desc">Based on your load, you see real solar power stations and full solar packages available in Nigeria right now, with honest runtime estimates for each one.</p>
+      </div>
+      <div class="step anim d3">
+        <div class="step-n">03</div>
+        <span class="step-icon">📦</span>
+        <div class="step-title">We Source and Deliver</div>
+        <p class="step-desc">No showroom needed. You pick what you want, we go to the market, source it from trusted suppliers and deliver it straight to your door.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<div class="compare" id="compare">
+  <div class="cmp-b">
+    <div class="cmp-emoji anim">😭</div>
+    <div class="cmp-label">Without Solar</div>
+    <div class="cmp-title anim d1">Your Life<br>Right Now</div>
+    <div class="cmp-list">
+      <div class="cmp-item anim d2"><span>🕯️</span> Light taken at 7pm again</div>
+      <div class="cmp-item anim d3"><span>⛽</span> Buying fuel every week</div>
+      <div class="cmp-item anim d4"><span>🔊</span> Generator noise all night</div>
+      <div class="cmp-item anim d5"><span>🔥</span> Sweating in the dark</div>
+      <div class="cmp-item anim d6"><span>💸</span> Paying a bill for darkness</div>
+    </div>
+  </div>
+  <div class="cmp-a">
+    <div class="cmp-emoji anim">😎</div>
+    <div class="cmp-label">With Chibaik Solar</div>
+    <div class="cmp-title anim d1">Your Life<br>After</div>
+    <div class="cmp-list">
+      <div class="cmp-item anim d2"><span>💡</span> 24/7 power. Always.</div>
+      <div class="cmp-item anim d3"><span>🚫</span> Zero fuel cost</div>
+      <div class="cmp-item anim d4"><span>🤫</span> Silent all night</div>
+      <div class="cmp-item anim d5"><span>❄️</span> AC on whenever you want</div>
+      <div class="cmp-item anim d6"><span>📉</span> Lower bills, more savings</div>
+    </div>
+  </div>
+</div>
+
+<!-- FUEL CALCULATOR -->
+<section class="fuel" id="fuel">
+  <div class="fuel-inner">
+    <p class="eyebrow" style="text-align:center" >Reality Check</p>
+    <h2 class="sec-h anim" style="text-align:center">What Is Your Generator<br>Actually Costing You?</h2>
+    <p class="fuel-desc anim d1">Type in your numbers and see the true cost of running a generator over time.</p>
+    <div class="fuel-form anim d2">
+      <div class="fuel-field">
+        <label>Litres of fuel per week</label>
+        <input type="number" id="fc-l" placeholder="e.g. 10" min="0">
+      </div>
+      <div class="fuel-field">
+        <label>Fuel price per litre (₦)</label>
+        <input type="number" id="fc-p" placeholder="e.g. 950" min="0">
+      </div>
+      <div class="fuel-field">
+        <label>Generator hours per day</label>
+        <input type="number" id="fc-h" placeholder="e.g. 8" min="0" max="24">
+      </div>
+    </div>
+    <button class="fuel-go anim d3" onclick="calcFuel()">Calculate My Generator Cost →</button>
+
+    <div class="fuel-results" id="fuelRes">
+      <div class="fuel-panel">
+        <div class="fuel-row">
+          <span class="fuel-lbl">Per Week</span>
+          <span class="fuel-val" id="fc-weekly">—</span>
+        </div>
+        <div class="fuel-row">
+          <span class="fuel-lbl">Per Month</span>
+          <span class="fuel-val" id="fc-monthly">—</span>
+        </div>
+        <div class="fuel-row">
+          <span class="fuel-lbl">Per Year</span>
+          <span class="fuel-val" id="fc-yearly">—</span>
+        </div>
+        <div class="fuel-row fuel-row-big">
+          <span class="fuel-lbl" style="font-size:13px;font-weight:800;color:#999">Over 5 Years</span>
+          <span class="fuel-val fuel-val-big" id="fc-5yr">—</span>
+        </div>
+      </div>
+      <div class="fuel-insight-box">
+        <p class="fuel-insight-text" id="fc-insight">Calculating...</p>
+        <button class="fuel-insight-cta" onclick="openCalc()">⚡ See Solar Options for Your Load →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NUMBERS -->
+<div class="nums">
+  <div class="nums-grid">
+    <div class="num-card anim d1"><span class="num-emoji">☀️</span><div class="num-val" data-target="300" data-suffix="+">0</div><div class="num-lbl">Sunny Days Per Year</div></div>
+    <div class="num-card anim d2"><span class="num-emoji">⛽</span><div class="num-val">₦<span style="color:var(--g)" id="num-fuel">0</span></div><div class="num-lbl">Fuel Cost Monthly</div></div>
+    <div class="num-card anim d3"><span class="num-emoji">🔋</span><div class="num-val">24<span>/7</span></div><div class="num-lbl">Power. Always.</div></div>
+    <div class="num-card anim d4"><span class="num-emoji">🔇</span><div class="num-val">0<span>dB</span></div><div class="num-lbl">Generator Noise</div></div>
+  </div>
+</div>
+
+<!-- PRODUCTS (Coming Soon) -->
+<section class="products-sec" id="products">
+  <div class="products-inner">
+    <p class="eyebrow anim">Shop</p>
+    <h2 class="sec-h anim d1">Products</h2>
+    <div class="products-coming anim d2">
+      <div class="products-coming-icon">🏪</div>
+      <h3>Store Coming Soon</h3>
+      <p>We are working on building out the full product catalogue. Once live, you will be able to browse available solar power stations, inverters, batteries and panels with current stock and pricing. For now, use the load calculator to find what suits you and chat us directly to check availability.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOLAR 101 -->
+<section class="s101" id="solar101">
+  <div class="s101-inner">
+    <p class="eyebrow" style="text-align:center">Free Education</p>
+    <h2 class="sec-h anim" style="text-align:center">Solar 101</h2>
+    <p class="anim d1" style="text-align:center;font-size:13px;color:var(--text-muted);margin-top:-32px;transition:color .4s">Everything you need to know before spending a single naira. Plain English, zero jargon.</p>
+    <div class="s101-grid">
+      <div class="s101-card anim d1"><span class="s101-icon">⚡</span><div class="s101-title">Watt vs Watt-Hour</div><p class="s101-body">Think of a <strong>Watt (W)</strong> as your car's speed right now. A <strong>Watt-hour (Wh)</strong> is how far the tank takes you. A 100W fan running for 10 hours uses 1,000Wh. This is how solar batteries are measured so you know exactly how long they last.</p><span class="s101-tag">Start Here</span></div>
+      <div class="s101-card anim d2"><span class="s101-icon">☀️</span><div class="s101-title">Solar Panel</div><p class="s101-body">Panels sit on your roof and catch sunlight, turning it into electricity. A <strong>250W panel</strong> produces up to 250 watts in direct sunlight. Nigeria gets 4 to 6 peak sun hours daily which is excellent for solar generation.</p><span class="s101-tag">Generation</span></div>
+      <div class="s101-card anim d3"><span class="s101-icon">🔄</span><div class="s101-title">Inverter</div><p class="s101-body">Solar panels and batteries produce DC electricity. Your appliances need AC. The <strong>inverter converts DC to AC</strong> so everything runs normally. Its wattage rating is the maximum load it can handle at one time.</p><span class="s101-tag">Conversion</span></div>
+      <div class="s101-card anim d4"><span class="s101-icon">🔋</span><div class="s101-title">Battery</div><p class="s101-body">The battery stores energy from your panels during the day so you can use it at night or when it is cloudy. <strong>Lithium batteries</strong> last longer, charge faster and perform better than older lead-acid types used in most generators.</p><span class="s101-tag">Storage</span></div>
+      <div class="s101-card anim d5"><span class="s101-icon">🎛️</span><div class="s101-title">Charge Controller</div><p class="s101-body">Acts like a traffic warden between your panels and battery. It controls how much charge flows in, preventing overcharging which damages batteries. <strong>MPPT controllers</strong> are the most efficient type and squeeze the most out of your panels.</p><span class="s101-tag">Protection</span></div>
+      <div class="s101-card anim d6"><span class="s101-icon">🔌</span><div class="s101-title">Hybrid Inverter</div><p class="s101-body">Combines an inverter and charge controller into one smart unit. It manages your panels, battery and output all at once. <strong>The smarter choice</strong> for full solar installations because it reduces components and complexity.</p><span class="s101-tag">Smart Choice</span></div>
+      <div class="s101-card anim d7"><span class="s101-icon">🎒</span><div class="s101-title">Solar Generator</div><p class="s101-body">Packs a battery, inverter and charge controller into one portable box. <strong>Plug in, charge up, use it anywhere.</strong> No installation needed. The trade-off is the capacity is fixed and cannot be upgraded if your power needs grow.</p><span class="s101-tag">Plug and Play</span></div>
+      <div class="s101-card anim d8"><span class="s101-icon">🏝️</span><div class="s101-title">Off-Grid Living</div><p class="s101-body">Your home runs entirely on its own solar system with <strong>zero dependence on NEPA.</strong> Panels charge batteries during the day. Batteries power your home at night. No bills, no outages, no noise. Just your own private power supply.</p><span class="s101-tag">The Goal</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="faq-inner">
+    <p class="eyebrow" style="text-align:center">Common Questions</p>
+    <h2 class="sec-h anim" style="text-align:center">FAQ</h2>
+    <div class="faq-list">
+      <div class="faq-card anim d1"><button class="faq-q" onclick="toggleFaq(this)">Can solar power run my air conditioner? <span class="faq-arrow">▾</span></button><div class="faq-a"><p>Yes, solar can power an AC. A 1HP split unit uses around <strong>750W</strong> and a 1.5HP around 1,200W. You need a solar system rated above that wattage to run it without strain. The key question is battery size because that determines how long it runs. Use the load calculator to get a proper estimate for your exact situation.</p></div></div>
+      <div class="faq-card anim d2"><button class="faq-q" onclick="toggleFaq(this)">What happens when it rains or the sky is cloudy? <span class="faq-arrow">▾</span></button><div class="faq-a"><p>Panels still generate power on cloudy days, typically <strong>10 to 25 percent</strong> of their rated output. This is why battery storage is important. During sunny periods your battery fills up and that stored energy covers you when conditions are not ideal. Nigeria rarely has prolonged heavy cloud that would deplete a well-sized battery.</p></div></div>
+      <div class="faq-card anim d3"><button class="faq-q" onclick="toggleFaq(this)">How long does a solar battery last before it needs replacing? <span class="faq-arrow">▾</span></button><div class="faq-a"><p><strong>Lithium batteries</strong> typically last 5 to 10 years. <strong>Lead-acid batteries</strong> last 2 to 4 years. The main factor is how deeply you drain the battery regularly. Quality lithium batteries are rated for 2,000 to 3,500 full charge cycles before noticeable capacity loss.</p></div></div>
+      <div class="faq-card anim d4"><button class="faq-q" onclick="toggleFaq(this)">Can I start small and expand my solar system later? <span class="faq-arrow">▾</span></button><div class="faq-a"><p>Yes, if you go with a <strong>full solar system</strong> using a hybrid inverter and separate batteries. You can add more panels or batteries as your budget grows. Solar power stations cannot be expanded. Think of a full system as a building you can extend, while a power station is a tent.</p></div></div>
+      <div class="faq-card anim d5"><button class="faq-q" onclick="toggleFaq(this)">Is solar actually worth it in Nigeria? <span class="faq-arrow">▾</span></button><div class="faq-a"><p>If you spend <strong>₦20,000 or more per month on fuel</strong>, the answer is almost always yes. A basic solar setup can pay for itself within 12 to 18 months from fuel savings alone. Add the peace of mind, silence and consistent power and the value is very clear. Use the fuel cost calculator on this page to see your exact numbers.</p></div></div>
+      <div class="faq-card anim d6"><button class="faq-q" onclick="toggleFaq(this)">Do I need an electrician to set up a solar power station? <span class="faq-arrow">▾</span></button><div class="faq-a"><p>No. Solar power stations are <strong>plug and play.</strong> You charge them using the included panel or a wall socket, then plug your appliances in directly. No wiring, no installation, no electrician needed. Full solar systems are different as they require qualified installation.</p></div></div>
+      <div class="faq-card anim d7"><button class="faq-q" onclick="toggleFaq(this)">What if a component stops working after I buy it? <span class="faq-arrow">▾</span></button><div class="faq-a"><p>For <strong>solar power stations,</strong> the unit is covered by manufacturer warranty and we help you navigate the supplier process. For <strong>full solar systems,</strong> each component is separate, meaning a faulty battery does not affect your panels or inverter and only the faulty piece needs attention.</p></div></div>
+      <div class="faq-card anim d8"><button class="faq-q" onclick="toggleFaq(this)">How long does delivery take after I order? <span class="faq-arrow">▾</span></button><div class="faq-a"><p>Delivery within <strong>Lagos takes 1 to 2 business days.</strong> Other states take 2 to 4 business days depending on location. Chat us on WhatsApp to confirm availability and get a delivery timeline before you commit to anything.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- GLOSSARY -->
+<section class="gloss" id="glossary">
+  <div class="gloss-inner">
+    <p class="eyebrow" style="text-align:center">Quick Reference</p>
+    <h2 class="sec-h anim" style="text-align:center">Solar Glossary</h2>
+    <p class="anim d1" style="text-align:center;font-size:13px;color:var(--text-muted);margin-top:-32px;transition:color .4s">Every solar term you will hear, explained in plain English.</p>
+    <div class="gloss-wrap anim d2">
+      <span class="gloss-ico">🔍</span>
+      <input class="gloss-input" type="text" placeholder="Search a term, e.g. inverter, MPPT, DoD..." oninput="filterGloss(this.value)">
+    </div>
+    <div class="gloss-grid" id="glossGrid">
+      <div class="gloss-card anim d1" data-t="watt power watts"><div class="gloss-term">⚡ Watt (W)</div><p class="gloss-def">The unit of power. Measures how much electricity something uses at any given moment. A 60W fan uses 60 watts while running.</p></div>
+      <div class="gloss-card anim d2" data-t="watt-hour wh energy storage"><div class="gloss-term">⏱️ Watt-hour (Wh)</div><p class="gloss-def">The unit of energy. Measures electricity used over time. Running a 100W fan for 5 hours uses 500Wh of energy from your battery.</p></div>
+      <div class="gloss-card anim d3" data-t="kilowatt kwh unit bill"><div class="gloss-term">📊 Kilowatt-hour (kWh)</div><p class="gloss-def">1,000 watt-hours. This is the unit on your NEPA bill. One kWh is what it costs to run a 1,000W appliance for one hour straight.</p></div>
+      <div class="gloss-card anim d4" data-t="inverter dc ac convert"><div class="gloss-term">🔄 Inverter</div><p class="gloss-def">Converts DC electricity from your battery into AC electricity your home appliances can use. Its wattage rating is the max load it handles at once.</p></div>
+      <div class="gloss-card anim d5" data-t="battery capacity ah ampere hour"><div class="gloss-term">🔋 Battery Capacity</div><p class="gloss-def">How much energy a battery can store, measured in Ah or Wh. A 200Ah 12V battery holds approximately 2,400Wh of usable energy.</p></div>
+      <div class="gloss-card anim d6" data-t="depth discharge dod percentage"><div class="gloss-term">📉 Depth of Discharge (DoD)</div><p class="gloss-def">The percentage of battery capacity you use before recharging. Most lithium batteries recommend 80 to 90% DoD. Exceeding this regularly shortens battery life.</p></div>
+      <div class="gloss-card anim d1" data-t="mppt maximum power point tracking efficiency"><div class="gloss-term">🎛️ MPPT</div><p class="gloss-def">Maximum Power Point Tracking. A technology in charge controllers and hybrid inverters that squeezes maximum energy from your panels at all times.</p></div>
+      <div class="gloss-card anim d2" data-t="charge controller mppt pwm panel battery"><div class="gloss-term">🚦 Charge Controller</div><p class="gloss-def">Manages electricity flow from panels to battery. Prevents overcharging and battery damage. MPPT type is significantly more efficient than older PWM type.</p></div>
+      <div class="gloss-card anim d3" data-t="hybrid inverter smart all-in-one"><div class="gloss-term">🔌 Hybrid Inverter</div><p class="gloss-def">Combines inverter and MPPT charge controller into one unit. Manages your panels, battery and output automatically. Recommended for full solar installations.</p></div>
+      <div class="gloss-card anim d4" data-t="solar panel pv photovoltaic module"><div class="gloss-term">🌞 Solar Panel (PV Module)</div><p class="gloss-def">Converts sunlight into DC electricity through photovoltaic cells. Rated by wattage output under ideal conditions. Quality panels degrade less than 0.5% per year.</p></div>
+      <div class="gloss-card anim d5" data-t="load power appliances total watts"><div class="gloss-term">🏠 Load</div><p class="gloss-def">The total power your appliances consume at a given time, measured in watts. Knowing your load is the starting point for any solar purchase decision.</p></div>
+      <div class="gloss-card anim d6" data-t="off grid independent no nepa"><div class="gloss-term">🏝️ Off-Grid</div><p class="gloss-def">A solar setup that operates completely independently from the power grid. Your home runs entirely on solar and battery with zero connection to NEPA.</p></div>
+      <div class="gloss-card anim d1" data-t="solar generator power station portable"><div class="gloss-term">🎒 Solar Generator</div><p class="gloss-def">A portable all-in-one unit with battery, inverter and charge controller. No installation needed. Fixed capacity, cannot be expanded. Ideal for smaller loads.</p></div>
+      <div class="gloss-card anim d2" data-t="battery cycle life charge discharge lifespan"><div class="gloss-term">🔁 Battery Cycle</div><p class="gloss-def">One full charge and discharge counts as one cycle. Quality lithium batteries handle 2,000 to 3,500 cycles before noticeable capacity loss occurs.</p></div>
+      <div class="gloss-card anim d3" data-t="lifepo4 lithium iron phosphate safe battery"><div class="gloss-term">⚗️ LiFePO4 Battery</div><p class="gloss-def">The safest and most durable lithium battery type. Does not overheat or catch fire like older lithium types. Lasts longer and handles deep discharges better.</p></div>
+      <div class="gloss-card anim d4" data-t="peak sun hours psh sunlight daily"><div class="gloss-term">🕐 Peak Sun Hours</div><p class="gloss-def">Hours per day that sunlight is strong enough for panels to operate at full rated capacity. Most of Nigeria gets 4 to 6 peak sun hours daily, excellent for solar.</p></div>
+      <div class="gloss-empty" id="glossEmpty">No terms match your search. Try a different keyword.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-sec">
+  <div class="cta-bg-text">SOLAR</div>
+  <h2 class="anim">Stop <em>managing.</em><br>Start living.</h2>
+  <p class="cta-sub anim d1">One message. Free advice. Honest pricing. Delivered to your door. No showrooms, no pressure, no long stories.</p>
+  <a class="cta-wa anim d2" href="https://wa.me/+2347057027857" target="_blank">💬 &nbsp;Chat Us on WhatsApp</a>
+  <p class="cta-note anim d3">Free consultation · No commitment required</p>
+</section>
+
+<footer>
+  <div class="f-logo">⚡ CHIBAIK POWER</div>
+  <div class="f-copy">Powered by the sun · Not NEPA · Not fuel</div>
+</footer>
+
+<!-- THEME TOGGLE -->
+<div class="theme-toggle">
+  <button class="theme-btn active" id="btn-classic" onclick="setTheme('classic')">☀️ Classic</button>
+  <button class="theme-btn" id="btn-pro" onclick="setTheme('pro')">💼 Pro</button>
+</div>
+
+<!-- LOAD CALCULATOR OVERLAY -->
+<div class="calc-ov" id="calcOv">
+  <div class="calc-nav-bar">
+    <div class="calc-logo">⚡ CHIBAIK POWER</div>
+    <button class="calc-close-btn" onclick="closeCalc()">✕ Close</button>
+  </div>
+
+  <div class="calc-pg on" id="calcPg" style="align-self:flex-start;width:100%">
+    <h1 class="calc-h">What's Your <em>Load?</em></h1>
+    <p class="calc-hint">Select every appliance you want to power and choose the variant that matches yours. We calculate the rest.</p>
+    <div class="ctabs" id="ctabs"></div>
+    <div class="agrid" id="agrid"></div>
+  </div>
+
+  <div class="calc-pg" id="resPg" style="align-self:flex-start;width:100%">
+    <button class="back-btn" onclick="showCalcPg()">← Back to Calculator</button>
+    <div class="load-banner">
+      <p>Your Total Load</p>
+      <div class="load-big"><span id="loadNum">0</span><small> W</small></div>
+    </div>
+    <div class="rtabs">
+      <button class="rtab on" onclick="switchRTab('gen',this)">⚡ Solar Power Station</button>
+      <button class="rtab" onclick="switchRTab('solar',this)">🌞 Let There Be Light</button>
+    </div>
+    <div class="rpanel on" id="rp-gen">
+      <div class="batt-note"><span class="ni">⚠️</span><p><strong>Note:</strong> More appliances running at once means faster battery drain. Running fewer appliances at a time gives you longer battery life.</p></div>
+      <div class="disc-box disc-gen">
+        <div class="disc-side"><h4>✅ Advantages</h4>
+          <div class="disc-item"><span>•</span> Lower upfront cost</div>
+          <div class="disc-item"><span>•</span> Plug and play, no installation</div>
+          <div class="disc-item"><span>•</span> Portable, move it anywhere</div>
+          <div class="disc-item"><span>•</span> Same day use after delivery</div>
+        </div>
+        <div class="disc-side"><h4>❌ Limitations</h4>
+          <div class="disc-item"><span>•</span> Cannot be upgraded as load grows</div>
+          <div class="disc-item"><span>•</span> Fixed capacity, what you buy is final</div>
+          <div class="disc-item"><span>•</span> Not ideal for heavy loads long-term</div>
+        </div>
+      </div>
+      <div class="rgrid" id="rg-gen"></div>
+    </div>
+    <div class="rpanel" id="rp-solar">
+      <div class="batt-note"><span class="ni">⚠️</span><p><strong>Note:</strong> Duration shown is battery-only, for example at night. During daylight your panels continuously recharge the battery, giving far longer overall runtime.</p></div>
+      <div class="disc-box disc-sol">
+        <div class="disc-side"><h4>✅ Advantages</h4>
+          <div class="disc-item"><span>•</span> Expandable, add panels or batteries</div>
+          <div class="disc-item"><span>•</span> Handles heavier loads efficiently</div>
+          <div class="disc-item"><span>•</span> Best long-term investment</div>
+          <div class="disc-item"><span>•</span> Scales as your needs grow</div>
+        </div>
+        <div class="disc-side"><h4>❌ Limitations</h4>
+          <div class="disc-item"><span>•</span> Higher upfront cost</div>
+          <div class="disc-item"><span>•</span> Requires professional installation</div>
+          <div class="disc-item"><span>•</span> Not portable like a power station</div>
+        </div>
+      </div>
+      <div class="rgrid" id="rg-solar"></div>
+    </div>
+  </div>
+</div>
+
+<div class="total-bar" id="totalBar">
+  <div class="tb-l">
+    <span class="tb-lbl">Total Load</span>
+    <span class="tb-w" id="tb-w">0</span>
+    <span class="tb-u">Watts</span>
+  </div>
+  <div class="tb-r">
+    <button class="tb-reset" onclick="resetAll()">↺ Reset</button>
+    <button class="tb-rec" id="tb-rec" disabled onclick="showRes()">See Recommendations →</button>
+  </div>
+</div>
+
+<!-- WA MODAL -->
+<div class="wa-ov" id="waOv" onclick="closeWaOut(event)">
+  <div class="wa-box">
+    <button class="wa-x" onclick="closeWa()">✕</button>
+    <span class="wa-icon">💬</span>
+    <h3 class="wa-title">Ask If Available</h3>
+    <p class="wa-item">You are enquiring about:<br><strong id="waItem">—</strong></p>
+    <label class="wa-lbl" for="waName">Your Name (optional)</label>
+    <input class="wa-inp" id="waName" type="text" placeholder="e.g. Emeka, Amara..." maxlength="50">
+    <button class="wa-send" onclick="sendWa()">💬 &nbsp;Send Message on WhatsApp</button>
+    <button class="wa-skip" onclick="sendWaAnon()">Skip, chat without my name</button>
+  </div>
+</div>
+
+
+<script src="script.js"></script>
+</body>
+</html>
