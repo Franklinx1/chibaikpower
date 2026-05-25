@@ -386,3 +386,50 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('waName').addEventListener('keydown', e => { if (e.key === 'Enter') sendWa(); });
   document.getElementById('fc-p').addEventListener('keydown', e => { if (e.key === 'Enter') calcFuel(); });
 });
+
+// ═══════════════════════════════
+//  DID YOU KNOW POPUP
+// ═══════════════════════════════
+const dykFacts = [
+  { icon: '🌍', text: 'Nigeria gets up to 7 hours of peak sunlight daily. Germany, the world\'s solar leader, averages just 3. Nigeria has every natural advantage to be a solar powerhouse.' },
+  { icon: '☀️', text: 'One hour of sunlight hitting Earth contains more energy than everything humanity consumes in an entire year. Solar is not a small solution.' },
+  { icon: '💸', text: 'The average Nigerian household spends over ₦300,000 a year on generator fuel. A quality solar system costs the same and lasts 10 to 25 years.' },
+  { icon: '🔧', text: 'Solar panels have no moving parts. That is why they last 25 to 30 years with almost zero maintenance. A generator needs oil changes, repairs and fuel constantly.' },
+  { icon: '📊', text: 'Solar energy is now officially the cheapest source of electricity ever recorded in human history, according to the International Energy Agency.' },
+  { icon: '🌡️', text: 'Dust on solar panels reduces their output by up to 25%. A simple rinse with water every few weeks can recover all of that lost power at zero cost.' },
+  { icon: '🔋', text: 'Using a solar battery below 20% capacity regularly can cut its lifespan in half. Most people never know this until it is too late.' },
+  { icon: '📍', text: 'Nigeria\'s northern states have some of the highest solar irradiance levels on Earth. The Sahel region receives up to 2,200 kWh per square metre per year.' },
+  { icon: '⏱️', text: 'The payback period for solar in Nigeria is typically 12 to 24 months. After that, every unit of electricity your system generates is completely free.' },
+  { icon: '📱', text: 'Your phone, laptop, fan, TV and decoder together use less than 200 watts. A modest entry-level solar system can power all of them for 5 to 10 hours.' },
+  { icon: '♻️', text: 'A quality LiFePO4 lithium battery handles over 3,000 full charge cycles before losing capacity. At one cycle per day that is over 8 years of daily use.' },
+  { icon: '📉', text: 'Solar panels degrade less than 0.5% per year on average. After 25 years, a quality panel still operates at over 87% of its original capacity.' },
+  { icon: '💡', text: 'Running a 1.5HP air conditioner for 8 hours uses around 9.6kWh. Understanding your load before buying solar is the difference between a system that works and one that disappoints.' },
+  { icon: '🌐', text: 'NEPA outages cost the Nigerian economy an estimated $29 billion per year in lost productivity. Every home that goes solar removes itself from that equation.' },
+  { icon: '🔆', text: 'A single 300W solar panel in Nigeria generates roughly 1.5kWh of electricity every day. That comfortably powers your fan, TV, decoder and phone chargers for an entire evening.' },
+];
+
+(function initDyk() {
+  const fact = dykFacts[Math.floor(Math.random() * dykFacts.length)];
+  document.getElementById('dykText').textContent = fact.text;
+  document.getElementById('dykIcon').textContent = fact.icon;
+
+  // Enable close button and animate X after 5s + 1s delay (ring starts at 1s)
+  setTimeout(() => {
+    const btn = document.getElementById('dykClose');
+    const x   = document.getElementById('dykX');
+    btn.disabled = false;
+    btn.classList.add('ready');
+    x.classList.add('pop');
+    // Update ring stroke to show complete
+    document.getElementById('dykProgress').style.stroke = '#00C853';
+  }, 6000); // 5s ring + 1s initial delay
+})();
+
+function closeDyk() {
+  const overlay = document.getElementById('dykOverlay');
+  const card    = document.getElementById('dykCard');
+  if (!document.getElementById('dykClose').classList.contains('ready')) return;
+  card.classList.add('closing');
+  overlay.classList.add('closing');
+  setTimeout(() => overlay.remove(), 500);
+}
