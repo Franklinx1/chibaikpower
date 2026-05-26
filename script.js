@@ -391,21 +391,66 @@ document.addEventListener('DOMContentLoaded', () => {
 //  DID YOU KNOW POPUP
 // ═══════════════════════════════
 const dykFacts = [
-  { icon: '🌍', text: 'Nigeria gets up to 7 hours of peak sunlight daily. Germany, the world\'s solar leader, averages just 3. Nigeria has every natural advantage to be a solar powerhouse.' },
-  { icon: '☀️', text: 'One hour of sunlight hitting Earth contains more energy than everything humanity consumes in an entire year. Solar is not a small solution.' },
-  { icon: '💸', text: 'The average Nigerian household spends over ₦300,000 a year on generator fuel. A quality solar system costs the same and lasts 10 to 25 years.' },
-  { icon: '🔧', text: 'Solar panels have no moving parts. That is why they last 25 to 30 years with almost zero maintenance. A generator needs oil changes, repairs and fuel constantly.' },
-  { icon: '📊', text: 'Solar energy is now officially the cheapest source of electricity ever recorded in human history, according to the International Energy Agency.' },
-  { icon: '🌡️', text: 'Dust on solar panels reduces their output by up to 25%. A simple rinse with water every few weeks can recover all of that lost power at zero cost.' },
-  { icon: '🔋', text: 'Using a solar battery below 20% capacity regularly can cut its lifespan in half. Most people never know this until it is too late.' },
-  { icon: '📍', text: 'Nigeria\'s northern states have some of the highest solar irradiance levels on Earth. The Sahel region receives up to 2,200 kWh per square metre per year.' },
-  { icon: '⏱️', text: 'The payback period for solar in Nigeria is typically 12 to 24 months. After that, every unit of electricity your system generates is completely free.' },
-  { icon: '📱', text: 'Your phone, laptop, fan, TV and decoder together use less than 200 watts. A modest entry-level solar system can power all of them for 5 to 10 hours.' },
-  { icon: '♻️', text: 'A quality LiFePO4 lithium battery handles over 3,000 full charge cycles before losing capacity. At one cycle per day that is over 8 years of daily use.' },
-  { icon: '📉', text: 'Solar panels degrade less than 0.5% per year on average. After 25 years, a quality panel still operates at over 87% of its original capacity.' },
-  { icon: '💡', text: 'Running a 1.5HP air conditioner for 8 hours uses around 9.6kWh. Understanding your load before buying solar is the difference between a system that works and one that disappoints.' },
-  { icon: '🌐', text: 'NEPA outages cost the Nigerian economy an estimated $29 billion per year in lost productivity. Every home that goes solar removes itself from that equation.' },
-  { icon: '🔆', text: 'A single 300W solar panel in Nigeria generates roughly 1.5kWh of electricity every day. That comfortably powers your fan, TV, decoder and phone chargers for an entire evening.' },
+  {
+    icon: '⛽',
+    text: 'Add up every naira you spent on fuel last year. Most Lagos and Abuja households spend between ₦300,000 and ₦600,000 annually on generator fuel alone. That is school fees. A trip. A business investment. All going up in smoke — literally.'
+  },
+  {
+    icon: '😤',
+    text: 'NEPA takes light, you start the generator. NEPA brings light, you turn it off. The average Nigerian does this dance 3 to 5 times a day. Solar does not know that dance. It just stays on.'
+  },
+  {
+    icon: '🌞',
+    text: 'The same sun that makes you sweat in Lagos, Abuja, Kano or Port Harcourt is powerful enough to run your AC, charge your devices and power every light in your house — for free. Most people just have not captured it yet.'
+  },
+  {
+    icon: '🔧',
+    text: 'Your generator has been serviced at least twice this year. New spark plug, engine oil, repair man. Your solar panel? It just sits on the roof and works. No moving parts means almost nothing to fix for 25 to 30 years.'
+  },
+  {
+    icon: '📉',
+    text: 'Solar panels that cost ₦500,000 in 2010 now cost under ₦80,000. The price dropped over 90 percent in 15 years. Right now, today, is the best time in history to switch to solar. It only gets better from here.'
+  },
+  {
+    icon: '🌬️',
+    text: 'During harmattan, the dust settling on solar panels can quietly cut their output by up to 25 percent. A simple rinse with water once or twice a month during that season keeps your system running at full power.'
+  },
+  {
+    icon: '🔋',
+    text: 'Many Nigerians buy a solar system and drain the battery to zero every night, then wonder why it stopped holding charge within two years. Lithium batteries are designed to stop at 20 percent. Push past that regularly and you are slowly killing it.'
+  },
+  {
+    icon: '🌍',
+    text: 'If you live in Kano, Kaduna, Jos, Maiduguri or anywhere in the north, you sit on some of the strongest solar radiation on the planet. The same sun that makes the afternoon brutal is enough to power an entire compound for the whole night.'
+  },
+  {
+    icon: '💡',
+    text: 'Most Nigerians just want to charge their phone, watch TV, feel a fan moving and keep their fridge cold. Those four things together use roughly 250 to 300 watts. Even a basic entry-level solar system handles that comfortably for hours.'
+  },
+  {
+    icon: '❄️',
+    text: 'That 1.5HP AC pulling 1,200 watts is the number one reason solar systems disappoint buyers who skip the load calculation. One AC running all night can empty a mid-range battery before 3am. Know your load before you buy anything.'
+  },
+  {
+    icon: '🏫',
+    text: 'Think about children studying at night. In homes without stable power, kids read by candlelight or under poor generator lighting that is switched off by 10pm. One small solar system changes that permanently for the life of the home.'
+  },
+  {
+    icon: '🧊',
+    text: 'Every time NEPA takes light for hours, food spoils in the freezer. Businesses lose stock. Restaurants throw out ingredients. Solar keeps your freezer running through every outage, quietly saving you money you would never track but always feel.'
+  },
+  {
+    icon: '🏭',
+    text: 'Nigerian businesses lose an estimated $29 billion every year to bad electricity, according to the World Bank. That is enough to build six brand new international airports. That money is not missing — it is just going to fuel and lost productivity.'
+  },
+  {
+    icon: '♻️',
+    text: 'Your generator will need a full overhaul within 3 to 4 years and will likely need replacing within 8 to 10. A quality lithium solar battery is still running at over 80 percent capacity after 8 to 10 years of daily use. One is a constant cost. The other is a one-time investment.'
+  },
+  {
+    icon: '☀️',
+    text: 'The sun rises every single day in Nigeria without fail. It does not go on strike. It does not collapse the grid. It does not send a bill. It is the most reliable source of energy available to every Nigerian, completely free, every morning.'
+  },
 ];
 
 (function initDyk() {
