@@ -393,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const dykFacts = [
   {
     icon: '⛽',
-    text: 'Add up every naira you spent on fuel last year. Most Lagos and Abuja households spend between ₦300,000 and ₦600,000 annually on generator fuel alone. That is school fees. A trip. A business investment. All going up in smoke — literally.'
+    text: 'Add up every naira you spent on fuel last year. A household running a generator 8 hours daily at current pump prices spends close to ₦2 to ₦3 million every year on fuel alone. That is money that buys nothing permanent, fixes nothing and is gone forever by December.'
   },
   {
     icon: '😤',
