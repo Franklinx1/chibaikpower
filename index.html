@@ -4,10 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chibaik Power — Solar Solutions and Education, Nigeria</title>
+<meta name="description" content="Free solar load calculator for Nigeria. Find the right solar power station or inverter system for your home. Learn everything about solar in plain English.">
+<meta name="keywords" content="solar Nigeria, solar panel price Nigeria, load calculator solar, inverter Nigeria, solar power station Lagos, Chibaik Power">
+<meta property="og:title" content="Chibaik Power — Nigeria's Solar Resource Hub">
+<meta property="og:description" content="Calculate your load, see current prices and learn everything about solar before spending a naira.">
+<meta name="theme-color" content="#FFD000">
 <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<div class="scroll-prog" id="scrollProg"></div>
 
 <nav id="mainNav">
   <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">⚡ <em>CHIBAIK</em> POWER</div>
@@ -20,7 +27,7 @@
         <button class="ddi" onclick="scrollS('#compare');closeAllDd()"><span class="ddi-icon">🏠</span><div><div class="ddi-label">Solar Installation</div><div class="ddi-sub">Full setup at your property</div></div></button>
       </div>
     </div>
-    <div class="nav-item"><div class="nav-btn nav-prod-btn">Products <span class="soon">Soon</span></div></div>
+
     <div class="nav-item" id="dd-tools">
       <button class="nav-btn" onclick="toggleDd('dd-tools')">Tools <span class="nav-arr">▾</span></button>
       <div class="dropdown">
@@ -39,15 +46,12 @@
         <div class="dd-sep"></div>
         <button class="ddi" onclick="scrollS('#faq');closeAllDd()"><span class="ddi-icon">❓</span><div><div class="ddi-label">FAQ</div><div class="ddi-sub">Answers to real questions</div></div></button>
         <button class="ddi" onclick="scrollS('#glossary');closeAllDd()"><span class="ddi-icon">📖</span><div><div class="ddi-label">Glossary</div><div class="ddi-sub">Every solar term explained</div></div></button>
-      </div>
-    </div>
-    <div class="nav-item" id="dd-community">
-      <button class="nav-btn" onclick="toggleDd('dd-community')">Community <span class="nav-arr">▾</span></button>
-      <div class="dropdown">
-        <button class="ddi" onclick="scrollS('#solarmap');closeAllDd()"><span class="ddi-icon">🗺️</span><div><div class="ddi-label">Solar Map</div><div class="ddi-sub">See solar across Nigeria</div></div></button>
+        <div class="dd-sep"></div>
+        <button class="ddi" onclick="scrollS('#reviews');closeAllDd()"><span class="ddi-icon">⭐</span><div><div class="ddi-label">Reviews</div><div class="ddi-sub">See what others say</div></div></button>
         <button class="ddi" onclick="scrollS('#ask');closeAllDd()"><span class="ddi-icon">💬</span><div><div class="ddi-label">Ask a Question</div><div class="ddi-sub">Send us your solar question</div></div></button>
       </div>
     </div>
+    <button class="nav-btn" onclick="scrollS('#ask');closeAllDd()" style="font-weight:800;color:var(--text)">Ask Us</button>
   </div>
   <div class="nav-end">
     <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle light/dark mode">🌙</button>
@@ -77,8 +81,8 @@
     <button class="mob-link" onclick="scrollS('#glossary');closeMob()">📖 Glossary</button>
   </div>
   <div class="mob-sep"></div>
-  <div class="mob-section"><div class="mob-sec-title">Community</div>
-    <button class="mob-link" onclick="scrollS('#solarmap');closeMob()">🗺️ Solar Map</button>
+  <div class="mob-section">
+    <button class="mob-link" onclick="scrollS('#reviews');closeMob()">⭐ Reviews</button>
     <button class="mob-link" onclick="scrollS('#ask');closeMob()">💬 Ask a Question</button>
   </div>
   <a class="mob-cta" href="https://wa.me/+2347057027857" target="_blank">💬 Chat Us on WhatsApp</a>
@@ -95,6 +99,18 @@
     <a class="btn-dark" href="https://wa.me/+2347057027857" target="_blank">💬 Chat Us on WhatsApp</a>
     <button class="btn-outline" onclick="openCalc()">⚡ Calculate My Load Free</button>
   </div>
+  <div class="hero-quickcalc anim" id="heroQuickCalc">
+    <p class="hero-qc-label">Quick check — tap what you use at home</p>
+    <div class="hero-chips" id="heroChips"></div>
+    <div class="hero-qc-footer">
+      <div class="hero-qc-total">
+        <span class="hero-qc-lbl">Running total</span>
+        <span class="hero-qc-val" id="heroTotal">0W</span>
+      </div>
+      <button class="hero-qc-btn" onclick="openCalc()">Full Calculator →</button>
+    </div>
+  </div>
+
   <p class="scroll-hint">↓ scroll ↓</p>
 </section>
 
@@ -263,6 +279,9 @@
       <div class="faq-card anim d6"><button class="faq-q" onclick="toggleFaq(this)">Do I need an electrician to set up a solar power station? <span class="faq-arr">▾</span></button><div class="faq-a"><p>No. Solar power stations are <strong>plug and play.</strong> You charge them using the included panel or a wall socket, then plug your appliances in directly. No wiring, no installation, no electrician needed. Full solar systems require a qualified installer.</p></div></div>
       <div class="faq-card anim d7"><button class="faq-q" onclick="toggleFaq(this)">What if a component stops working after I buy it? <span class="faq-arr">▾</span></button><div class="faq-a"><p>For <strong>solar power stations,</strong> the unit is covered by manufacturer warranty. For <strong>full solar systems,</strong> each component is separate, meaning a faulty battery does not affect your panels or inverter. Only the faulty piece needs attention.</p></div></div>
       <div class="faq-card anim d8"><button class="faq-q" onclick="toggleFaq(this)">How long does delivery take after I order? <span class="faq-arr">▾</span></button><div class="faq-a"><p>Delivery within <strong>Lagos takes 1 to 2 business days.</strong> Other states take 2 to 4 business days depending on location. Chat us on WhatsApp to confirm availability and get a delivery timeline before committing.</p></div></div>
+      <div class="faq-card anim d1"><button class="faq-q" onclick="toggleFaq(this)">What size inverter do I need for my home? <span class="faq-arr">▾</span></button><div class="faq-a"><p>Your inverter should handle the <strong>peak load</strong> of all appliances running at the same time. We recommend choosing an inverter rated at least <strong>25% higher</strong> than your total load to account for surge currents from devices like refrigerators and pumps. Use the load calculator on this page to find your exact total, then add 25% on top.</p></div></div>
+      <div class="faq-card anim d2"><button class="faq-q" onclick="toggleFaq(this)">What is the difference between Monocrystalline and Polycrystalline panels? <span class="faq-arr">▾</span></button><div class="faq-a"><p><strong>Monocrystalline panels</strong> are made from a single crystal structure, making them more efficient and better at performing in low-light or overcast conditions. They take up less roof space per watt. <strong>Polycrystalline panels</strong> are generally cheaper but require more roof space to produce the same power output. For most Nigerian homes where roof space may be limited, monocrystalline is the recommended choice.</p></div></div>
+      <div class="faq-card anim d3"><button class="faq-q" onclick="toggleFaq(this)">How much maintenance does a solar system actually require? <span class="faq-arr">▾</span></button><div class="faq-a"><p>Solar systems are very low-maintenance. The most important task is <strong>cleaning the panels every few months</strong> to remove dust, especially during harmattan. Aside from that, ensuring your inverter is installed in a well-ventilated area and doing a quick check of cable connections once a year is usually all that is needed. There are no oil changes, no fuel filters, no engine parts. That is one of the biggest advantages over a generator.</p></div></div>
     </div>
   </div>
 </section>
@@ -316,33 +335,57 @@
   </div>
 </section>
 
-<!-- SOLAR MAP -->
-<section class="map-sec" id="solarmap">
-  <div class="map-inner">
-    <p class="eyebrow">Community</p>
-    <h2 class="sec-h anim">Solar Across Nigeria</h2>
-    <p class="map-sub anim d1">Solar adoption heat map by state. Tap your state to represent it.</p>
-    <div class="map-counter anim d2" id="mapCounter">0</div>
-    <div class="map-counter-label anim d3">states represented by visitors</div>
-    <div class="map-grid anim d4" id="mapGrid"></div>
-    <div class="map-legend anim d5">
-      <div class="map-legend-item"><div class="map-legend-dot" style="background:rgba(255,208,0,.12)"></div>Low adoption</div>
-      <div class="map-legend-item"><div class="map-legend-dot" style="background:rgba(255,208,0,.35)"></div>Medium</div>
-      <div class="map-legend-item"><div class="map-legend-dot" style="background:rgba(255,208,0,.7)"></div>High</div>
-      <div class="map-legend-item"><div class="map-legend-dot" style="background:#FFD000"></div>Very high / Tapped</div>
-    </div>
-  </div>
-</section>
 
-<!-- PRODUCTS -->
-<section class="products-sec" id="products">
-  <div class="products-inner">
-    <p class="eyebrow anim" style="text-align:center">Shop</p>
-    <h2 class="sec-h anim d1" style="text-align:center">Products</h2>
-    <div class="products-coming anim d2">
-      <div class="products-coming-icon">🏪</div>
-      <h3>Store Coming Soon</h3>
-      <p>We are building out the full product catalogue. Once live, you will browse available solar power stations, inverters, batteries and panels with current stock and pricing. For now use the load calculator and chat us to check availability.</p>
+
+
+
+<!-- REVIEWS -->
+<section class="reviews-sec" id="reviews">
+  <div class="reviews-inner">
+    <p class="eyebrow anim" style="text-align:center">Community Feedback</p>
+    <h2 class="sec-h anim d1" style="text-align:center">What People Are Saying</h2>
+
+    <div class="reviews-grid" id="reviewsGrid">
+      <div class="review-card anim d1">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"The load calculator is something I have never seen on any solar website in Nigeria. I finally understood exactly what I needed before spending anything. Saved me from buying the wrong system."</p>
+        <div class="review-author">Chukwuemeka A. &nbsp;·&nbsp; Lagos</div>
+      </div>
+      <div class="review-card anim d2">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"I used the fuel calculator and almost fell off my chair. I am spending over ₦480,000 a year on generator fuel. That number made me finally make the switch. Site is very educational."</p>
+        <div class="review-author">Fatima I. &nbsp;·&nbsp; Abuja</div>
+      </div>
+      <div class="review-card anim d3">
+        <div class="review-stars">★★★★☆</div>
+        <p class="review-text">"Solar 101 section is really good. I read it and understood more in 5 minutes than I did from watching YouTube videos for an hour. The myth busting part is also very accurate."</p>
+        <div class="review-author">Tunde B. &nbsp;·&nbsp; Ibadan</div>
+      </div>
+    </div>
+
+    <div class="review-form-box anim d2">
+      <h3 class="review-form-title">Leave Your Review</h3>
+      <p class="review-form-sub">Did this site help you? Share your experience or a recommendation and help other Nigerians make better solar decisions.</p>
+      <div class="star-row">
+        <span class="star-row-label">Your Rating</span>
+        <button class="star-btn" data-val="1" onclick="setRating(1)">★</button>
+        <button class="star-btn" data-val="2" onclick="setRating(2)">★</button>
+        <button class="star-btn" data-val="3" onclick="setRating(3)">★</button>
+        <button class="star-btn" data-val="4" onclick="setRating(4)">★</button>
+        <button class="star-btn" data-val="5" onclick="setRating(5)">★</button>
+      </div>
+      <div class="review-fields">
+        <div><label class="ask-label">Your Name (optional)</label><input class="review-input" id="revName" type="text" placeholder="e.g. Emeka"></div>
+        <div><label class="ask-label">Your State</label>
+          <select class="review-input" id="revState" style="appearance:none;-webkit-appearance:none">
+            <option value="">Select state</option>
+            <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
+          </select>
+        </div>
+        <textarea class="review-textarea" id="revText" placeholder="Share your experience, a recommendation, or anything that helped you..."></textarea>
+      </div>
+      <button class="review-btn" onclick="submitReview()">💬 &nbsp;Send Review on WhatsApp</button>
+      <p class="review-note">Your review goes directly to us on WhatsApp. If you give permission we may add it to this page to help others.</p>
     </div>
   </div>
 </section>
@@ -449,6 +492,12 @@
     </div>
   </div>
 </div>
+
+<!-- Sticky WhatsApp Float -->
+<a class="wa-float" id="waFloat" href="https://wa.me/+2347057027857" target="_blank" title="Chat us on WhatsApp">💬</a>
+
+<!-- Calc Toast -->
+<div class="calc-toast" id="calcToast"></div>
 
 <script src="script.js"></script>
 </body>

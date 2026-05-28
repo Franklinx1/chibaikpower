@@ -372,7 +372,7 @@ function renderApps() {
   document.getElementById('agrid').innerHTML = list.map(a => {
     const s = sel[a.id] || { vi: 0, q: 0 };
     return `<div class="acard${s.q > 0 ? ' lit' : ''}" id="ac-${a.id}">
-      <div class="a-img"><img src="${emojiImg(a.img)}" alt="${a.name}"></div>
+      <div class="a-img">${getAppSVG(a.id)}</div>
       <div class="a-body">
         <div class="a-name">${a.name}</div>
         <select class="a-sel" id="as-${a.id}" onchange="chVar('${a.id}',this.value)">
@@ -580,3 +580,221 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('waName').addEventListener('keydown', e => { if (e.key === 'Enter') sendWa(); });
   document.getElementById('fc-p').addEventListener('keydown', e => { if (e.key === 'Enter') calcFuel(); });
 });
+
+// ═══ GENERATOR LIVE COUNTER ═══
+const GEN_PER_SEC = 440277; // ₦38 billion ÷ 86,400 seconds = ₦440,277 per second
+
+function fmtCounter(n) {
+  if (n >= 1e12) return '₦' + (n / 1e12).toFixed(2) + ' Trillion';
+  if (n >= 1e9)  return '₦' + (n / 1e9).toFixed(2)  + ' Billion';
+  if (n >= 1e6)  return '₦' + (n / 1e6).toFixed(1)  + ' Million';
+  return '₦' + Math.round(n).toLocaleString();
+}
+
+function updateGenCounter() {
+  const todayEl = document.getElementById('genToday');
+  const monthEl = document.getElementById('genMonth');
+  const yearEl  = document.getElementById('genYear');
+  if (!todayEl) return;
+
+  const now = new Date();
+  const midnight = new Date(now);
+  midnight.setHours(0, 0, 0, 0);
+
+  const secToday  = (now - midnight) / 1000;
+  const today     = secToday * GEN_PER_SEC;
+  const month     = (now.getDate() - 1) * 38e9 + today;
+  const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 1)) / 86400000);
+  const year      = dayOfYear * 38e9 + today;
+
+  todayEl.textContent = fmtCounter(today);
+  monthEl.textContent = fmtCounter(month);
+  yearEl.textContent  = fmtCounter(year);
+}
+
+updateGenCounter();
+setInterval(updateGenCounter, 1000);
+
+// ═══ SCROLL PROGRESS BAR ═══
+window.addEventListener('scroll', () => {
+  const scrolled = document.documentElement.scrollTop;
+  const total = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  document.getElementById('scrollProg').style.width = ((scrolled / total) * 100) + '%';
+}, { passive: true });
+
+// ═══ HERO QUICK CALCULATOR ═══
+const quickApps = [
+  { name:'Lights',      icon:'💡', watts:45  },
+  { name:'Ceiling Fan', icon:'🌀', watts:60  },
+  { name:'TV 43"',      icon:'📺', watts:80  },
+  { name:'Fridge',      icon:'🧊', watts:150 },
+  { name:'DSTV',        icon:'📡', watts:20  },
+  { name:'Laptop',      icon:'💻', watts:65  },
+  { name:'AC 1HP',      icon:'❄️', watts:750 },
+  { name:'Phones',      icon:'📱', watts:60  },
+];
+
+function renderHeroChips() {
+  const el = document.getElementById('heroChips');
+  if (!el) return;
+  el.innerHTML = quickApps.map(a =>
+    `<button class="hero-chip" data-watts="${a.watts}" onclick="toggleChip(this)">
+      ${a.icon} ${a.name}<span class="chip-w">${a.watts}W</span>
+    </button>`
+  ).join('');
+}
+
+function toggleChip(btn) {
+  btn.classList.toggle('on');
+  updateHeroTotal();
+}
+
+function updateHeroTotal() {
+  let total = 0;
+  document.querySelectorAll('.hero-chip.on').forEach(c => { total += parseInt(c.dataset.watts); });
+  const el = document.getElementById('heroTotal');
+  if (!el) return;
+  el.textContent = total.toLocaleString() + 'W';
+  el.classList.add('bumped');
+  setTimeout(() => el.classList.remove('bumped'), 250);
+}
+
+// ═══ CALC TOAST ═══
+function showToast(msg) {
+  const t = document.getElementById('calcToast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ═══ HIDE/SHOW WA FLOAT WHEN CALC IS OPEN ═══
+const _openCalc = openCalc;
+openCalc = function() {
+  _openCalc();
+  document.getElementById('waFloat')?.classList.add('hide');
+};
+const _closeCalc = closeCalc;
+closeCalc = function() {
+  _closeCalc();
+  document.getElementById('waFloat')?.classList.remove('hide');
+};
+
+// Patch showRes to fire toast
+const _showRes = showRes;
+showRes = function() {
+  _showRes();
+  setTimeout(() => showToast('⚡ ' + totalLoad.toLocaleString() + 'W load — here are your options'), 400);
+};
+
+// ═══ INIT NEW FEATURES ═══
+document.addEventListener('DOMContentLoaded', () => {
+  renderHeroChips();
+});
+
+
+// ═══ CUSTOM APPLIANCE SVG ILLUSTRATIONS ═══
+const svgMap = {
+
+  'bulb-led': `<svg viewBox="0 0 80 80" fill="none"><path d="M40 10C25 10 15 22 15 34c0 10 7 17 13 22v6c0 2 2 4 5 4h14c3 0 5-2 5-4v-6c6-5 13-12 13-22C65 22 55 10 40 10z" stroke="#FFD000" stroke-width="2.5" stroke-linejoin="round" fill="rgba(255,208,0,.08)"/><line x1="30" y1="66" x2="30" y2="70" stroke="#FFD000" stroke-width="2"/><line x1="40" y1="66" x2="40" y2="70" stroke="#FFD000" stroke-width="2"/><line x1="50" y1="66" x2="50" y2="70" stroke="#FFD000" stroke-width="2"/><path d="M31 70v4c0 2 3 3 9 3s9-1 9-3v-4" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/><path d="M29 28q3-6 8-7" stroke="rgba(255,255,255,.3)" stroke-width="1.5" stroke-linecap="round"/></svg>`,
+
+  'bulb-cfl': `<svg viewBox="0 0 80 80" fill="none"><path d="M30 65V42q0-14-7-20-5-5-5-8 0-6 8-6 8 0 10 12h14q2-12 10-12 8 0 8 6 0 3-5 8-7 6-7 20v23" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)" stroke-linejoin="round"/><line x1="32" y1="65" x2="32" y2="69" stroke="#FFD000" stroke-width="2"/><line x1="40" y1="65" x2="40" y2="69" stroke="#FFD000" stroke-width="2"/><line x1="48" y1="65" x2="48" y2="69" stroke="#FFD000" stroke-width="2"/><path d="M33 69v4c0 2 3 3 7 3s7-1 7-3v-4" stroke="#FFD000" stroke-width="2"/></svg>`,
+
+  'flood': `<svg viewBox="0 0 80 80" fill="none"><rect x="20" y="24" width="40" height="28" rx="4" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><circle cx="40" cy="38" r="10" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.12)"/><circle cx="40" cy="38" r="5" fill="rgba(255,208,0,.3)"/><rect x="32" y="14" width="16" height="10" rx="2" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.07)"/><line x1="40" y1="8" x2="40" y2="14" stroke="#FFD000" stroke-width="2.5" stroke-linecap="round"/><line x1="22" y1="52" x2="18" y2="62" stroke="#FFD000" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="52" x2="62" y2="62" stroke="#FFD000" stroke-width="2" stroke-linecap="round"/></svg>`,
+
+  'strip': `<svg viewBox="0 0 80 80" fill="none"><rect x="6" y="32" width="68" height="16" rx="4" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><circle cx="18" cy="40" r="4" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.25)"/><circle cx="30" cy="40" r="4" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.2)"/><circle cx="42" cy="40" r="4" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.3)"/><circle cx="54" cy="40" r="4" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.2)"/><circle cx="66" cy="40" r="4" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.25)"/><path d="M6 36q0-8 8-10l58 0" stroke="#FFD000" stroke-width="1.5" stroke-dasharray="3 3" fill="none"/></svg>`,
+
+  'fan-c': `<svg viewBox="0 0 80 80" fill="none"><line x1="40" y1="6" x2="40" y2="16" stroke="#FFD000" stroke-width="3" stroke-linecap="round"/><circle cx="40" cy="40" r="9" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.12)"/><circle cx="40" cy="40" r="3" fill="#FFD000"/><ellipse cx="40" cy="22" rx="9" ry="14" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.07)"/><ellipse cx="58" cy="40" rx="14" ry="9" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.07)"/><ellipse cx="40" cy="58" rx="9" ry="14" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.07)"/><ellipse cx="22" cy="40" rx="14" ry="9" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.07)"/></svg>`,
+
+  'fan-s': `<svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="26" r="20" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.06)"/><circle cx="40" cy="26" r="13" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.04)"/><circle cx="40" cy="26" r="5" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.2)"/><line x1="40" y1="6" x2="40" y2="46" stroke="#FFD000" stroke-width="1" opacity=".35"/><line x1="20" y1="26" x2="60" y2="26" stroke="#FFD000" stroke-width="1" opacity=".35"/><line x1="26" y1="12" x2="54" y2="40" stroke="#FFD000" stroke-width="1" opacity=".35"/><line x1="54" y1="12" x2="26" y2="40" stroke="#FFD000" stroke-width="1" opacity=".35"/><line x1="40" y1="46" x2="40" y2="64" stroke="#FFD000" stroke-width="3" stroke-linecap="round"/><path d="M24 64q0 8 16 10q16-2 16-10" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/></svg>`,
+
+  'fan-t': `<svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="30" r="17" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.06)"/><circle cx="40" cy="30" r="11" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.04)"/><circle cx="40" cy="30" r="4" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.2)"/><line x1="40" y1="13" x2="40" y2="47" stroke="#FFD000" stroke-width="1" opacity=".35"/><line x1="23" y1="30" x2="57" y2="30" stroke="#FFD000" stroke-width="1" opacity=".35"/><line x1="40" y1="47" x2="40" y2="58" stroke="#FFD000" stroke-width="3" stroke-linecap="round"/><rect x="22" y="58" width="36" height="10" rx="4" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.08)"/></svg>`,
+
+  'fan-e': `<svg viewBox="0 0 80 80" fill="none"><rect x="10" y="10" width="60" height="60" rx="8" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.06)"/><circle cx="40" cy="40" r="22" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.04)"/><circle cx="40" cy="40" r="6" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.15)"/><line x1="40" y1="18" x2="40" y2="62" stroke="#FFD000" stroke-width="1" opacity=".3"/><line x1="18" y1="40" x2="62" y2="40" stroke="#FFD000" stroke-width="1" opacity=".3"/><line x1="24" y1="24" x2="56" y2="56" stroke="#FFD000" stroke-width="1" opacity=".3"/><line x1="56" y1="24" x2="24" y2="56" stroke="#FFD000" stroke-width="1" opacity=".3"/></svg>`,
+
+  'ac': `<svg viewBox="0 0 80 80" fill="none"><rect x="4" y="22" width="72" height="36" rx="6" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><rect x="8" y="26" width="58" height="28" rx="4" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.04)"/><line x1="12" y1="36" x2="62" y2="36" stroke="#FFD000" stroke-width="1.5"/><line x1="12" y1="42" x2="62" y2="42" stroke="#FFD000" stroke-width="1.5"/><line x1="12" y1="48" x2="62" y2="48" stroke="#FFD000" stroke-width="1.5"/><circle cx="70" cy="32" r="2.5" fill="#FFD000"/><circle cx="70" cy="40" r="2.5" fill="rgba(255,208,0,.3)"/><circle cx="70" cy="48" r="2.5" fill="rgba(255,208,0,.3)"/></svg>`,
+
+  'fridge-m': `<svg viewBox="0 0 80 80" fill="none"><rect x="18" y="10" width="44" height="62" rx="5" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><line x1="18" y1="30" x2="62" y2="30" stroke="#FFD000" stroke-width="2"/><path d="M52 16v11" stroke="#FFD000" stroke-width="3" stroke-linecap="round"/><path d="M52 34v30" stroke="#FFD000" stroke-width="3" stroke-linecap="round"/><line x1="24" y1="72" x2="56" y2="72" stroke="#FFD000" stroke-width="1.5" opacity=".5"/></svg>`,
+
+  'fridge': `<svg viewBox="0 0 80 80" fill="none"><rect x="14" y="6" width="52" height="68" rx="5" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><line x1="14" y1="28" x2="66" y2="28" stroke="#FFD000" stroke-width="2"/><path d="M54 12v12" stroke="#FFD000" stroke-width="3.5" stroke-linecap="round"/><path d="M54 32v36" stroke="#FFD000" stroke-width="3.5" stroke-linecap="round"/><line x1="20" y1="72" x2="60" y2="72" stroke="#FFD000" stroke-width="1.5" opacity=".4"/><line x1="20" y1="75" x2="60" y2="75" stroke="#FFD000" stroke-width="1.5" opacity=".4"/></svg>`,
+
+  'freezer': `<svg viewBox="0 0 80 80" fill="none"><rect x="6" y="28" width="68" height="42" rx="6" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><path d="M16 28l2-14h44l2 14" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.07)"/><path d="M20 18h40" stroke="#FFD000" stroke-width="1.5"/><path d="M28 28q12-6 24 0" stroke="#FFD000" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="40" cy="52" r="10" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/><line x1="40" y1="42" x2="40" y2="62" stroke="#FFD000" stroke-width="1.5" opacity=".4"/><line x1="30" y1="52" x2="50" y2="52" stroke="#FFD000" stroke-width="1.5" opacity=".4"/></svg>`,
+
+  'tv': `<svg viewBox="0 0 80 80" fill="none"><rect x="6" y="14" width="68" height="42" rx="4" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><rect x="10" y="18" width="60" height="34" rx="2" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.04)"/><path d="M30 56l-4 14h28l-4-14" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.07)"/><line x1="18" y1="70" x2="62" y2="70" stroke="#FFD000" stroke-width="3" stroke-linecap="round"/><path d="M14 22q2-2 4 0" stroke="rgba(255,255,255,.25)" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="68" cy="34" r="2" fill="#FFD000"/></svg>`,
+
+  'decoder': `<svg viewBox="0 0 80 80" fill="none"><rect x="8" y="26" width="64" height="28" rx="4" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><rect x="14" y="31" width="28" height="18" rx="2" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.08)"/><line x1="16" y1="36" x2="40" y2="36" stroke="#FFD000" stroke-width="1.5" opacity=".5"/><line x1="16" y1="41" x2="40" y2="41" stroke="#FFD000" stroke-width="1.5" opacity=".5"/><line x1="16" y1="46" x2="40" y2="46" stroke="#FFD000" stroke-width="1.5" opacity=".5"/><circle cx="54" cy="40" r="6" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/><circle cx="54" cy="40" r="2" fill="#FFD000"/><circle cx="66" cy="34" r="2" fill="#FFD000"/><circle cx="66" cy="40" r="2" fill="rgba(255,208,0,.3)"/><circle cx="66" cy="46" r="2" fill="rgba(255,208,0,.3)"/></svg>`,
+
+  'sound': `<svg viewBox="0 0 80 80" fill="none"><rect x="14" y="8" width="52" height="64" rx="6" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><circle cx="40" cy="36" r="18" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.05)"/><circle cx="40" cy="36" r="10" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/><circle cx="40" cy="36" r="4" fill="rgba(255,208,0,.35)"/><circle cx="40" cy="62" r="5" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.1)"/><circle cx="40" cy="62" r="2" fill="#FFD000"/><rect x="32" y="14" width="16" height="6" rx="2" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.08)"/></svg>`,
+
+  'console': `<svg viewBox="0 0 80 80" fill="none"><path d="M8 46q0 10 8 14l14 4q6 2 10-4q4 6 10 4l14-4q8-4 8-14L68 28q-2-8-10-8H22Q14 20 12 28z" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><line x1="22" y1="38" x2="22" y2="50" stroke="#FFD000" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="44" x2="28" y2="44" stroke="#FFD000" stroke-width="2" stroke-linecap="round"/><circle cx="52" cy="38" r="3" stroke="#FFD000" stroke-width="1.5"/><circle cx="60" cy="42" r="3" stroke="#FFD000" stroke-width="1.5"/><circle cx="60" cy="34" r="3" stroke="#FFD000" stroke-width="1.5"/><circle cx="52" cy="46" r="3" stroke="#FFD000" stroke-width="1.5"/><rect x="34" y="24" width="12" height="8" rx="2" stroke="#FFD000" stroke-width="1.5"/></svg>`,
+
+  'micro': `<svg viewBox="0 0 80 80" fill="none"><rect x="6" y="16" width="68" height="48" rx="6" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><rect x="10" y="20" width="48" height="40" rx="4" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.04)"/><circle cx="34" cy="40" r="14" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.08)"/><circle cx="34" cy="40" r="7" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.12)"/><line x1="56" y1="22" x2="56" y2="58" stroke="#FFD000" stroke-width="1" opacity=".3"/><rect x="62" y="20" width="8" height="40" rx="2" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.04)"/><circle cx="66" cy="30" r="3" stroke="#FFD000" stroke-width="1.5"/><circle cx="66" cy="40" r="3" fill="#FFD000"/><circle cx="66" cy="50" r="3" stroke="#FFD000" stroke-width="1.5"/><path d="M50 32h6" stroke="#FFD000" stroke-width="2" stroke-linecap="round"/></svg>`,
+
+  'kettle': `<svg viewBox="0 0 80 80" fill="none"><path d="M22 22q-4 18-2 36h36q2-18-2-36z" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)" stroke-linejoin="round"/><path d="M26 22h28q2-5 0-8H26q-2 3 0 8z" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/><path d="M56 30q12-4 14-10" stroke="#FFD000" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M22 28Q10 36 10 44q0 10 12 10" stroke="#FFD000" stroke-width="2.5" fill="none" stroke-linecap="round"/><ellipse cx="40" cy="60" rx="22" ry="5" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/></svg>`,
+
+  'blender': `<svg viewBox="0 0 80 80" fill="none"><path d="M28 14l-4 38h32l-4-38z" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)" stroke-linejoin="round"/><path d="M32 14h16q2-4 0-6H32q-2 2 0 6z" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/><line x1="26" y1="26" x2="54" y2="26" stroke="#FFD000" stroke-width="1" opacity=".35"/><line x1="25" y1="36" x2="55" y2="36" stroke="#FFD000" stroke-width="1" opacity=".35"/><line x1="24" y1="46" x2="56" y2="46" stroke="#FFD000" stroke-width="1" opacity=".35"/><rect x="20" y="52" width="40" height="12" rx="4" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.1)"/><rect x="28" y="64" width="24" height="8" rx="3" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.07)"/></svg>`,
+
+  'rice': `<svg viewBox="0 0 80 80" fill="none"><ellipse cx="40" cy="52" rx="28" ry="14" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><path d="M12 52V44q0-24 28-24q28 0 28 24v8" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><ellipse cx="40" cy="22" rx="16" ry="4" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.12)"/><line x1="40" y1="18" x2="40" y2="12" stroke="#FFD000" stroke-width="2.5" stroke-linecap="round"/><path d="M36 12l4-4 4 4" stroke="#FFD000" stroke-width="2" stroke-linejoin="round" fill="none"/><line x1="54" y1="50" x2="60" y2="50" stroke="#FFD000" stroke-width="2" stroke-linecap="round"/></svg>`,
+
+  'iron': `<svg viewBox="0 0 80 80" fill="none"><path d="M10 56V46q0-10 12-14h40q12 0 10 12l-8 12z" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)" stroke-linejoin="round"/><path d="M26 32V26q0-4 6-4h16q6 0 6 4v6" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.07)"/><circle cx="40" cy="24" r="3" fill="rgba(255,208,0,.3)"/><circle cx="24" cy="50" r="2" fill="rgba(255,208,0,.4)"/><circle cx="32" cy="50" r="2" fill="rgba(255,208,0,.4)"/><circle cx="40" cy="50" r="2" fill="rgba(255,208,0,.4)"/><circle cx="48" cy="50" r="2" fill="rgba(255,208,0,.4)"/></svg>`,
+
+  'toaster': `<svg viewBox="0 0 80 80" fill="none"><rect x="10" y="34" width="60" height="32" rx="6" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><rect x="22" y="22" width="14" height="20" rx="3" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/><rect x="44" y="22" width="14" height="20" rx="3" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/><line x1="26" y1="26" x2="32" y2="26" stroke="#FFD000" stroke-width="2" stroke-linecap="round"/><line x1="48" y1="26" x2="54" y2="26" stroke="#FFD000" stroke-width="2" stroke-linecap="round"/><circle cx="62" cy="46" r="5" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.08)"/><circle cx="62" cy="46" r="2" fill="#FFD000"/><line x1="14" y1="44" x2="48" y2="44" stroke="#FFD000" stroke-width="1.5" opacity=".4"/></svg>`,
+
+  'cooker': `<svg viewBox="0 0 80 80" fill="none"><rect x="8" y="46" width="64" height="22" rx="5" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><circle cx="28" cy="32" r="16" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><circle cx="28" cy="32" r="10" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/><circle cx="28" cy="32" r="5" fill="rgba(255,208,0,.25)"/><circle cx="60" cy="32" r="10" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.07)"/><circle cx="60" cy="32" r="5" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.15)"/><circle cx="22" cy="57" r="4" stroke="#FFD000" stroke-width="1.5"/><circle cx="40" cy="57" r="4" fill="#FFD000"/><circle cx="58" cy="57" r="4" stroke="#FFD000" stroke-width="1.5"/></svg>`,
+
+  'disp': `<svg viewBox="0 0 80 80" fill="none"><ellipse cx="40" cy="16" rx="16" ry="8" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.12)"/><path d="M24 16v6q0 4 16 4q16 0 16-4v-6" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.07)"/><rect x="22" y="26" width="36" height="46" rx="4" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><circle cx="40" cy="42" r="10" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.08)"/><rect x="28" y="54" width="10" height="7" rx="2" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.1)"/><rect x="42" y="54" width="10" height="7" rx="2" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.1)"/></svg>`,
+
+  'induction': `<svg viewBox="0 0 80 80" fill="none"><rect x="8" y="24" width="64" height="40" rx="6" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><circle cx="40" cy="44" r="16" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.08)"/><circle cx="40" cy="44" r="10" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.12)"/><circle cx="40" cy="44" r="5" fill="rgba(255,208,0,.25)"/><rect x="12" y="28" width="18" height="6" rx="2" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.08)"/><circle cx="64" cy="36" r="3" stroke="#FFD000" stroke-width="1.5"/><circle cx="64" cy="44" r="3" fill="#FFD000"/><circle cx="64" cy="52" r="3" stroke="#FFD000" stroke-width="1.5"/></svg>`,
+
+  'laptop': `<svg viewBox="0 0 80 80" fill="none"><path d="M12 12h56l-3 38H15z" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)" stroke-linejoin="round"/><path d="M16 16h48l-3 30H19z" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.04)" stroke-linejoin="round"/><path d="M8 50h64l4 12H4z" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.08)" stroke-linejoin="round"/><rect x="28" y="54" width="24" height="4" rx="2" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.1)"/><path d="M16 20q2-2 4 0" stroke="rgba(255,255,255,.25)" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>`,
+
+  'desktop': `<svg viewBox="0 0 80 80" fill="none"><rect x="8" y="8" width="64" height="44" rx="4" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><rect x="12" y="12" width="56" height="36" rx="2" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.04)"/><path d="M28 52l-4 12" stroke="#FFD000" stroke-width="2.5" stroke-linecap="round"/><path d="M52 52l4 12" stroke="#FFD000" stroke-width="2.5" stroke-linecap="round"/><line x1="18" y1="64" x2="62" y2="64" stroke="#FFD000" stroke-width="3" stroke-linecap="round"/><path d="M14 16q2-2 4 0" stroke="rgba(255,255,255,.25)" stroke-width="1.5" fill="none" stroke-linecap="round"/><circle cx="67" cy="28" r="2" fill="#FFD000"/></svg>`,
+
+  'printer': `<svg viewBox="0 0 80 80" fill="none"><rect x="8" y="28" width="64" height="30" rx="5" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><path d="M18 28V14h44v14" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.07)"/><rect x="22" y="18" width="36" height="10" rx="2" fill="rgba(255,208,0,.08)"/><path d="M22 48v14h36V48" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.07)"/><line x1="28" y1="52" x2="52" y2="52" stroke="#FFD000" stroke-width="1.5"/><line x1="28" y1="56" x2="52" y2="56" stroke="#FFD000" stroke-width="1.5"/><circle cx="60" cy="38" r="3" fill="#FFD000"/><circle cx="52" cy="38" r="3" stroke="#FFD000" stroke-width="1.5"/></svg>`,
+
+  'router': `<svg viewBox="0 0 80 80" fill="none"><rect x="10" y="44" width="60" height="22" rx="5" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><line x1="22" y1="44" x2="18" y2="18" stroke="#FFD000" stroke-width="3" stroke-linecap="round"/><line x1="40" y1="44" x2="40" y2="14" stroke="#FFD000" stroke-width="3" stroke-linecap="round"/><line x1="58" y1="44" x2="62" y2="18" stroke="#FFD000" stroke-width="3" stroke-linecap="round"/><circle cx="18" cy="16" r="3.5" fill="#FFD000"/><circle cx="40" cy="12" r="3.5" fill="#FFD000"/><circle cx="62" cy="16" r="3.5" fill="#FFD000"/><circle cx="20" cy="55" r="2.5" fill="#FFD000"/><circle cx="28" cy="55" r="2.5" fill="rgba(255,208,0,.3)"/><circle cx="36" cy="55" r="2.5" fill="rgba(255,208,0,.3)"/><line x1="48" y1="50" x2="64" y2="50" stroke="#FFD000" stroke-width="1.5"/><line x1="48" y1="55" x2="64" y2="55" stroke="#FFD000" stroke-width="1.5"/><line x1="48" y1="60" x2="64" y2="60" stroke="#FFD000" stroke-width="1.5"/></svg>`,
+
+  'phone': `<svg viewBox="0 0 80 80" fill="none"><rect x="22" y="6" width="36" height="56" rx="6" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><rect x="26" y="10" width="28" height="44" rx="3" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.04)"/><circle cx="40" cy="66" r="4" stroke="#FFD000" stroke-width="2"/><rect x="34" y="8" width="12" height="3" rx="1.5" fill="rgba(255,208,0,.2)"/><path d="M40 62v12q0 4-4 4" stroke="#FFD000" stroke-width="2" stroke-linecap="round" fill="none"/><rect x="28" y="74" width="16" height="6" rx="3" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.07)"/></svg>`,
+
+  'cctv': `<svg viewBox="0 0 80 80" fill="none"><ellipse cx="34" cy="32" rx="22" ry="16" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><circle cx="30" cy="32" r="10" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/><circle cx="30" cy="32" r="5" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.2)"/><circle cx="30" cy="32" r="2" fill="#FFD000"/><path d="M50 24l16-8v32l-16-8" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.07)"/><path d="M34 48v14" stroke="#FFD000" stroke-width="3" stroke-linecap="round"/><line x1="20" y1="62" x2="48" y2="62" stroke="#FFD000" stroke-width="3" stroke-linecap="round"/></svg>`,
+
+  'pump': `<svg viewBox="0 0 80 80" fill="none"><rect x="14" y="28" width="40" height="28" rx="6" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><circle cx="34" cy="42" r="10" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/><circle cx="34" cy="42" r="5" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.2)"/><circle cx="34" cy="42" r="2" fill="#FFD000"/><path d="M54 38h12v-8h8" stroke="#FFD000" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M54 46h12v8h8" stroke="#FFD000" stroke-width="3" stroke-linecap="round" fill="none"/><rect x="14" y="56" width="40" height="8" rx="3" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.08)"/></svg>`,
+
+  'washer': `<svg viewBox="0 0 80 80" fill="none"><rect x="8" y="8" width="64" height="68" rx="6" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><rect x="8" y="8" width="64" height="18" rx="6" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/><circle cx="22" cy="17" r="4" stroke="#FFD000" stroke-width="2"/><circle cx="35" cy="17" r="4" fill="#FFD000"/><rect x="48" y="12" width="18" height="10" rx="2" stroke="#FFD000" stroke-width="1.5"/><circle cx="40" cy="50" r="22" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.04)"/><circle cx="40" cy="50" r="16" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.08)"/><circle cx="40" cy="50" r="6" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.15)"/></svg>`,
+
+  'hairdryer': `<svg viewBox="0 0 80 80" fill="none"><ellipse cx="38" cy="30" rx="26" ry="18" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><circle cx="26" cy="30" r="12" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/><circle cx="26" cy="30" r="6" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.15)"/><path d="M38 48q-4 4-8 12q-2 6 2 8q6 0 8-6l2-14" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)" stroke-linecap="round" stroke-linejoin="round"/><line x1="56" y1="24" x2="64" y2="20" stroke="#FFD000" stroke-width="2" stroke-linecap="round"/><line x1="58" y1="30" x2="68" y2="30" stroke="#FFD000" stroke-width="2" stroke-linecap="round"/><line x1="56" y1="36" x2="64" y2="40" stroke="#FFD000" stroke-width="2" stroke-linecap="round"/></svg>`,
+
+  'heater': `<svg viewBox="0 0 80 80" fill="none"><rect x="24" y="10" width="32" height="56" rx="8" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><rect x="28" y="16" width="24" height="8" rx="3" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.1)"/><circle cx="40" cy="42" r="12" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.08)"/><circle cx="40" cy="42" r="6" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.15)"/><line x1="10" y1="60" x2="22" y2="60" stroke="#FFD000" stroke-width="3" stroke-linecap="round"/><line x1="58" y1="60" x2="70" y2="60" stroke="#FFD000" stroke-width="3" stroke-linecap="round"/><path d="M10 60q-4-2-4-6V34q0-6 4-6h12" stroke="#FFD000" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M58 28h12q4 0 4 6v20q0 4-4 6" stroke="#FFD000" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>`,
+
+  'fryer': `<svg viewBox="0 0 80 80" fill="none"><path d="M14 42q0-22 26-22q26 0 26 22v14q0 14-26 14q-26 0-26-14z" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><ellipse cx="40" cy="42" rx="22" ry="10" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/><ellipse cx="40" cy="40" rx="22" ry="10" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.08)"/><ellipse cx="40" cy="38" rx="16" ry="7" stroke="#FFD000" stroke-width="1.5" fill="rgba(255,208,0,.12)"/><circle cx="60" cy="54" r="5" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/><circle cx="60" cy="54" r="2" fill="#FFD000"/><rect x="28" y="64" width="24" height="6" rx="3" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.08)"/></svg>`,
+
+  'grinder': `<svg viewBox="0 0 80 80" fill="none"><ellipse cx="40" cy="20" rx="22" ry="8" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.1)"/><path d="M18 20v32q0 14 22 14q22 0 22-14V20" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><ellipse cx="40" cy="52" rx="22" ry="8" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/><line x1="22" y1="32" x2="58" y2="32" stroke="#FFD000" stroke-width="1" opacity=".35"/><line x1="22" y1="42" x2="58" y2="42" stroke="#FFD000" stroke-width="1" opacity=".35"/><path d="M34 66v8h12v-8" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.07)"/><line x1="28" y1="74" x2="52" y2="74" stroke="#FFD000" stroke-width="3" stroke-linecap="round"/><rect x="36" y="8" width="8" height="12" rx="2" stroke="#FFD000" stroke-width="2" fill="rgba(255,208,0,.1)"/></svg>`,
+
+};
+
+function getAppSVG(id) {
+  return svgMap[id] || `<svg viewBox="0 0 80 80" fill="none"><rect x="10" y="10" width="60" height="60" rx="8" stroke="#FFD000" stroke-width="2.5" fill="rgba(255,208,0,.07)"/><text x="40" y="48" font-size="22" text-anchor="middle" fill="#FFD000" font-family="sans-serif" font-weight="bold">?</text></svg>`;
+}
+
+// ═══ REVIEW SECTION ═══
+let reviewRating = 0;
+
+function setRating(val) {
+  reviewRating = val;
+  document.querySelectorAll('.star-btn').forEach(btn => {
+    btn.classList.toggle('on', parseInt(btn.dataset.val) <= val);
+  });
+}
+
+function submitReview() {
+  if (!reviewRating) { alert('Please select a star rating before sending.'); return; }
+  const name  = document.getElementById('revName').value.trim();
+  const state = document.getElementById('revState').value;
+  const text  = document.getElementById('revText').value.trim();
+  if (!text) { alert('Please write your review before sending.'); return; }
+  const stars  = '★'.repeat(reviewRating) + '☆'.repeat(5 - reviewRating);
+  const who    = name ? name : 'Anonymous';
+  const loc    = state ? ` from ${state}` : '';
+  const msg    = `Hi! I want to leave a review for Chibaik Power.\n\nName: ${who}${loc}\nRating: ${stars}\n\nReview: ${text}\n\n(You may share this on your website if you like)`;
+  window.open(`https://wa.me/+2347057027857?text=${encodeURIComponent(msg)}`, '_blank');
+}
