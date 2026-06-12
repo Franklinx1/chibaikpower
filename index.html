@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chibaik Power — Solar Solutions and Education, Nigeria</title>
+<title>Chibaik Power, Solar Solutions and Education, Nigeria</title>
 <meta name="description" content="Free solar load calculator for Nigeria. Find the right solar power station or inverter system for your home. Learn everything about solar in plain English.">
 <meta name="keywords" content="solar Nigeria, solar panel price Nigeria, load calculator solar, inverter Nigeria, solar power station Lagos, Chibaik Power">
-<meta property="og:title" content="Chibaik Power — Nigeria's Solar Resource Hub">
+<meta property="og:title" content="Chibaik Power, Nigeria's Solar Resource Hub">
 <meta property="og:description" content="Calculate your load, see current prices and learn everything about solar before spending a naira.">
 <meta name="theme-color" content="#FFD000">
 <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -33,8 +33,7 @@
       <div class="dropdown">
         <button class="ddi" onclick="openCalc();closeAllDd()"><span class="ddi-icon">⚡</span><div><div class="ddi-label">Load Calculator</div><div class="ddi-sub">Find your solar match</div></div></button>
         <button class="ddi" onclick="scrollS('#fuel');closeAllDd()"><span class="ddi-icon">⛽</span><div><div class="ddi-label">Fuel Cost Calculator</div><div class="ddi-sub">See your generator's true cost</div></div></button>
-        <div class="dd-sep"></div>
-        <button class="ddi" onclick="scrollS('#prices');closeAllDd()"><span class="ddi-icon">📊</span><div><div class="ddi-label">Price Tracker</div><div class="ddi-sub">Current market prices</div></div></button>
+        <button class="ddi" onclick="scrollS('#gencounter');closeAllDd()"><span class="ddi-icon">📡</span><div><div class="ddi-label">Live Spending Counter</div><div class="ddi-sub">Nigeria's fuel bill in real time</div></div></button>
       </div>
     </div>
     <div class="nav-item" id="dd-learn">
@@ -70,7 +69,7 @@
   <div class="mob-section"><div class="mob-sec-title">Tools</div>
     <button class="mob-link" onclick="openCalc();closeMob()">⚡ Load Calculator</button>
     <button class="mob-link" onclick="scrollS('#fuel');closeMob()">⛽ Fuel Cost Calculator</button>
-    <button class="mob-link" onclick="scrollS('#prices');closeMob()">📊 Price Tracker</button>
+    <button class="mob-link" onclick="scrollS('#gencounter');closeMob()">📡 Live Spending Counter</button>
   </div>
   <div class="mob-sep"></div>
   <div class="mob-section"><div class="mob-sec-title">Learn</div>
@@ -100,7 +99,7 @@
     <button class="btn-outline" onclick="openCalc()">⚡ Calculate My Load Free</button>
   </div>
   <div class="hero-quickcalc anim" id="heroQuickCalc">
-    <p class="hero-qc-label">Quick check — tap what you use at home</p>
+    <p class="hero-qc-label">Quick check, tap what you use at home</p>
     <div class="hero-chips" id="heroChips"></div>
     <div class="hero-qc-footer">
       <div class="hero-qc-total">
@@ -166,6 +165,34 @@
   </div>
 </div>
 
+<!-- GENERATOR COUNTER -->
+<section class="gen-sec" id="gencounter">
+  <div class="gen-inner">
+    <p class="eyebrow">Real Time</p>
+    <h2 class="sec-h anim">Nigeria Is Spending <em>Right Now</em></h2>
+    <p class="gen-sub anim d1">Estimated amount spent on generator fuel across Nigeria since midnight today. Every second, this number grows.</p>
+    <div class="gen-cards">
+      <div class="gen-card anim d1">
+        <div class="gen-card-label">Today So Far</div>
+        <div class="gen-card-val" id="genToday">Calculating...</div>
+        <div class="gen-card-note">since midnight</div>
+      </div>
+      <div class="gen-card anim d2">
+        <div class="gen-card-label">This Month</div>
+        <div class="gen-card-val" id="genMonth">Calculating...</div>
+        <div class="gen-card-note">and counting</div>
+      </div>
+      <div class="gen-card gen-card-highlight anim d3">
+        <div class="gen-card-label">This Year So Far</div>
+        <div class="gen-card-val" id="genYear">Calculating...</div>
+        <div class="gen-card-note">in 2026</div>
+      </div>
+    </div>
+    <p class="gen-disclaimer anim d4">Based on an estimated 38 billion naira spent daily on generator fuel across Nigeria. This money buys nothing permanent. Every naira is gone forever.</p>
+    <button class="gen-cta anim d5" onclick="scrollS('#fuel')">Calculate Your Personal Generator Cost</button>
+  </div>
+</section>
+
 <!-- FUEL CALCULATOR -->
 <section class="fuel-sec" id="fuel">
   <div class="fuel-inner">
@@ -180,10 +207,10 @@
     <button class="fuel-go anim d3" onclick="calcFuel()">Calculate My Generator Cost →</button>
     <div class="fuel-results" id="fuelRes">
       <div class="fuel-panel">
-        <div class="fuel-row"><span class="fuel-lbl">Per Week</span><span class="fuel-val" id="fc-weekly">—</span></div>
-        <div class="fuel-row"><span class="fuel-lbl">Per Month</span><span class="fuel-val" id="fc-monthly">—</span></div>
-        <div class="fuel-row"><span class="fuel-lbl">Per Year</span><span class="fuel-val" id="fc-yearly">—</span></div>
-        <div class="fuel-row"><span class="fuel-lbl" style="font-size:13px;font-weight:800;color:#999">Over 5 Years</span><span class="fuel-val big" id="fc-5yr">—</span></div>
+        <div class="fuel-row"><span class="fuel-lbl">Per Week</span><span class="fuel-val" id="fc-weekly">, </span></div>
+        <div class="fuel-row"><span class="fuel-lbl">Per Month</span><span class="fuel-val" id="fc-monthly">, </span></div>
+        <div class="fuel-row"><span class="fuel-lbl">Per Year</span><span class="fuel-val" id="fc-yearly">, </span></div>
+        <div class="fuel-row"><span class="fuel-lbl" style="font-size:13px;font-weight:800;color:#999">Over 5 Years</span><span class="fuel-val big" id="fc-5yr">, </span></div>
       </div>
       <div class="fuel-insight"><p id="fc-insight">Calculating...</p><button class="fuel-cta-btn" onclick="openCalc()">⚡ See Solar Options for Your Load →</button></div>
     </div>
@@ -200,17 +227,7 @@
   </div>
 </div>
 
-<!-- PRICE TRACKER -->
-<section class="prices-sec" id="prices">
-  <div class="prices-inner">
-    <p class="eyebrow anim" style="text-align:center">Market Prices</p>
-    <h2 class="sec-h anim d1" style="text-align:center">Current Solar Prices in Nigeria</h2>
-    <p class="prices-update anim d2">Last updated: June 2026</p>
-    <p class="prices-warning anim d3">⚠️ Prices fluctuate with the dollar rate. Chat us for the exact price on any item.</p>
-    <div class="price-tabs anim d4" id="priceTabs"></div>
-    <div id="pricePanels"></div>
-  </div>
-</section>
+
 
 <!-- SOLAR 101 -->
 <section class="s101" id="solar101">
@@ -349,17 +366,17 @@
       <div class="review-card anim d1">
         <div class="review-stars">★★★★★</div>
         <p class="review-text">"The load calculator is something I have never seen on any solar website in Nigeria. I finally understood exactly what I needed before spending anything. Saved me from buying the wrong system."</p>
-        <div class="review-author">Mark &nbsp;·&nbsp; Lagos</div>
+        <div class="review-author">Chukwuemeka A. &nbsp;·&nbsp; Lagos</div>
       </div>
       <div class="review-card anim d2">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">"I used the fuel calculator and almost fell off my chair. I am spending over ₦2m a year on generator fuel. That number made me finally make the switch. Site is very educational."</p>
+        <p class="review-text">"I used the fuel calculator and almost fell off my chair. I am spending over ₦480,000 a year on generator fuel. That number made me finally make the switch. Site is very educational."</p>
         <div class="review-author">Fatima I. &nbsp;·&nbsp; Abuja</div>
       </div>
       <div class="review-card anim d3">
         <div class="review-stars">★★★★☆</div>
         <p class="review-text">"Solar 101 section is really good. I read it and understood more in 5 minutes than I did from watching YouTube videos for an hour. The myth busting part is also very accurate."</p>
-        <div class="review-author">Anonymous &nbsp;·&nbsp; Ibadan</div>
+        <div class="review-author">Tunde B. &nbsp;·&nbsp; Ibadan</div>
       </div>
     </div>
 
@@ -441,6 +458,25 @@
     </div>
     <div class="rpanel" id="rp-solar">
       <div class="batt-note"><span class="ni">⚠️</span><p><strong>Note:</strong> Duration shown is battery-only, e.g. at night. During daylight your panels continuously recharge the battery, giving far longer overall runtime.</p></div>
+      <div class="sol-selectors">
+        <div class="sol-sel-row">
+          <span class="sol-sel-label">Panel Size</span>
+          <div class="sol-sel-group" id="panelBtns">
+            <button class="sol-sel-btn on" onclick="setSolarPanel(300,this)">300W</button>
+            <button class="sol-sel-btn" onclick="setSolarPanel(400,this)">400W</button>
+            <button class="sol-sel-btn" onclick="setSolarPanel(450,this)">450W</button>
+            <button class="sol-sel-btn" onclick="setSolarPanel(550,this)">550W</button>
+          </div>
+        </div>
+        <div class="sol-sel-row">
+          <span class="sol-sel-label">Battery Type</span>
+          <div class="sol-sel-group" id="battBtns">
+            <button class="sol-sel-btn on" onclick="setSolarBatt('lithium',this)">⚡ Lithium (LiFePO4)</button>
+            <button class="sol-sel-btn" onclick="setSolarBatt('tubular',this)">🔋 Tubular (Lead-Acid)</button>
+          </div>
+        </div>
+      </div>
+      <div class="batt-compare" id="battCompare"></div>
       <div class="disc-box disc-sol">
         <div class="disc-side"><h4>✅ Advantages</h4><div class="disc-item"><span>•</span>Expandable, add panels or batteries</div><div class="disc-item"><span>•</span>Best long-term investment</div><div class="disc-item"><span>•</span>Scales as your needs grow</div></div>
         <div class="disc-side"><h4>❌ Limitations</h4><div class="disc-item"><span>•</span>Higher upfront cost</div><div class="disc-item"><span>•</span>Requires professional installation</div></div>
@@ -461,7 +497,7 @@
     <button class="wa-x" onclick="closeWa()">✕</button>
     <span class="wa-icon">💬</span>
     <h3 class="wa-title">Ask If Available</h3>
-    <p class="wa-item">Enquiring about:<br><strong id="waItem">—</strong></p>
+    <p class="wa-item">Enquiring about:<br><strong id="waItem">, </strong></p>
     <label class="wa-lbl" for="waName">Your Name (optional)</label>
     <input class="wa-inp" id="waName" type="text" placeholder="e.g. Emeka, Amara..." maxlength="50">
     <button class="wa-send" onclick="sendWa()">💬 Send Message on WhatsApp</button>

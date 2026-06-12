@@ -1,4 +1,4 @@
-// ═══ THEME (Light/Dark — follows system, manual override) ═══
+// ═══ THEME (Light/Dark, follows system, manual override) ═══
 (function initTheme() {
   const saved = localStorage.getItem('chibaik-theme');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -88,75 +88,7 @@ function calcFuel() {
   setTimeout(() => r.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
 }
 
-// ═══ PRICE TRACKER ═══
-// ⬇ UPDATE PRICES HERE whenever market changes
-const priceData = {
-  lastUpdated: 'June 2026',
-  categories: [
-    {
-      id: 'panels', label: '☀️ Panels',
-      items: [
-        { icon: '🔆', name: '250W Monocrystalline Panel', min: 55000, max: 75000, note: 'Good for small to medium systems' },
-        { icon: '🔆', name: '300W Monocrystalline Panel', min: 65000, max: 90000, note: 'Most popular residential size' },
-        { icon: '🔆', name: '400W Monocrystalline Panel', min: 85000, max: 120000, note: 'Best value per watt' },
-        { icon: '🔆', name: '550W Monocrystalline Panel', min: 110000, max: 155000, note: 'For larger installations' },
-      ]
-    },
-    {
-      id: 'batteries', label: '🔋 Batteries',
-      items: [
-        { icon: '🔋', name: '100Ah / 12V LiFePO4 Battery', min: 280000, max: 380000, note: '~1.2kWh usable capacity' },
-        { icon: '🔋', name: '200Ah / 12V LiFePO4 Battery', min: 520000, max: 720000, note: '~2.4kWh usable capacity' },
-        { icon: '🔋', name: '100Ah / 24V LiFePO4 Battery', min: 320000, max: 460000, note: '~2.4kWh usable capacity' },
-        { icon: '🔋', name: '200Ah / 24V LiFePO4 Battery', min: 600000, max: 850000, note: '~4.8kWh usable capacity' },
-      ]
-    },
-    {
-      id: 'inverters', label: '⚡ Inverters',
-      items: [
-        { icon: '⚡', name: '1kW Pure Sine Wave Inverter', min: 75000, max: 120000, note: 'For small home loads' },
-        { icon: '⚡', name: '2kW Pure Sine Wave Inverter', min: 140000, max: 210000, note: 'Handles most household needs' },
-        { icon: '⚡', name: '3kW Hybrid Inverter', min: 260000, max: 390000, note: 'Recommended — built-in MPPT' },
-        { icon: '⚡', name: '5kW Hybrid Inverter', min: 450000, max: 680000, note: 'For heavy loads including AC' },
-      ]
-    },
-    {
-      id: 'controllers', label: '🎛️ Controllers',
-      items: [
-        { icon: '🎛️', name: '20A MPPT Charge Controller', min: 30000, max: 50000, note: 'For systems up to 260W panels at 12V' },
-        { icon: '🎛️', name: '40A MPPT Charge Controller', min: 60000, max: 90000, note: 'For systems up to 520W panels at 12V' },
-        { icon: '🎛️', name: '60A MPPT Charge Controller', min: 95000, max: 150000, note: 'For larger off-grid systems' },
-      ]
-    },
-  ]
-};
 
-function renderPriceTabs() {
-  const tabsEl = document.getElementById('priceTabs');
-  const panelsEl = document.getElementById('pricePanels');
-  if (!tabsEl || !panelsEl) return;
-  tabsEl.innerHTML = priceData.categories.map((c, i) =>
-    `<button class="price-tab${i === 0 ? ' on' : ''}" onclick="showPriceTab('${c.id}',this)">${c.label}</button>`
-  ).join('');
-  panelsEl.innerHTML = priceData.categories.map((c, i) => `
-    <div class="price-panel${i === 0 ? ' on' : ''}" id="pp-${c.id}">
-      ${c.items.map(item => `
-        <div class="price-card">
-          <span class="price-icon">${item.icon}</span>
-          <div class="price-name">${item.name}</div>
-          <div class="price-range">₦${item.min.toLocaleString()} — ₦${item.max.toLocaleString()}</div>
-          <div class="price-note-text">${item.note}</div>
-        </div>
-      `).join('')}
-    </div>
-  `).join('');
-}
-function showPriceTab(id, btn) {
-  document.querySelectorAll('.price-tab').forEach(b => b.classList.remove('on'));
-  document.querySelectorAll('.price-panel').forEach(p => p.classList.remove('on'));
-  btn.classList.add('on');
-  document.getElementById('pp-' + id)?.classList.add('on');
-}
 
 // ═══ ACCORDION (FAQ + MYTHS) ═══
 function toggleFaq(btn) {
@@ -196,64 +128,7 @@ function sendQuestion() {
   window.open(`https://wa.me/+2347057027857?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
-// ═══ NIGERIA SOLAR MAP ═══
-const nigeriaStates = [
-  { name:'Sokoto',      col:1, row:1, heat:2 }, { name:'Kebbi',       col:2, row:1, heat:2 },
-  { name:'Katsina',     col:4, row:1, heat:2 }, { name:'Kano',        col:5, row:1, heat:3 },
-  { name:'Jigawa',      col:6, row:1, heat:2 }, { name:'Borno',       col:9, row:1, heat:1 },
-  { name:'Zamfara',     col:3, row:2, heat:2 }, { name:'Kaduna',      col:4, row:2, heat:3 },
-  { name:'Bauchi',      col:6, row:2, heat:2 }, { name:'Gombe',       col:7, row:2, heat:2 },
-  { name:'Yobe',        col:8, row:2, heat:1 }, { name:'Niger',       col:2, row:3, heat:2 },
-  { name:'FCT',         col:5, row:3, heat:5 }, { name:'Plateau',     col:6, row:3, heat:3 },
-  { name:'Adamawa',     col:8, row:3, heat:2 }, { name:'Kwara',       col:2, row:4, heat:3 },
-  { name:'Kogi',        col:4, row:4, heat:2 }, { name:'Nasarawa',    col:5, row:4, heat:3 },
-  { name:'Benue',       col:6, row:4, heat:2 }, { name:'Taraba',      col:8, row:4, heat:2 },
-  { name:'Lagos',       col:1, row:5, heat:5 }, { name:'Ogun',        col:2, row:5, heat:4 },
-  { name:'Oyo',         col:3, row:5, heat:4 }, { name:'Osun',        col:4, row:5, heat:3 },
-  { name:'Ekiti',       col:5, row:5, heat:3 }, { name:'Ondo',        col:6, row:5, heat:3 },
-  { name:'Edo',         col:7, row:5, heat:3 }, { name:'Cross River', col:9, row:5, heat:3 },
-  { name:'Anambra',     col:4, row:6, heat:4 }, { name:'Enugu',       col:5, row:6, heat:3 },
-  { name:'Ebonyi',      col:6, row:6, heat:2 }, { name:'Delta',       col:7, row:6, heat:3 },
-  { name:'Akwa Ibom',   col:8, row:6, heat:4 }, { name:'Imo',         col:4, row:7, heat:3 },
-  { name:'Abia',        col:5, row:7, heat:3 }, { name:'Rivers',      col:7, row:7, heat:4 },
-  { name:'Bayelsa',     col:8, row:7, heat:2 },
-];
 
-function renderSolarMap() {
-  const grid = document.getElementById('mapGrid');
-  if (!grid) return;
-  grid.innerHTML = '';
-  nigeriaStates.forEach(s => {
-    const tapped = localStorage.getItem(`cmap-${s.name}`) === '1';
-    const cell = document.createElement('button');
-    cell.className = `map-cell h${s.heat}${tapped ? ' tapped' : ''}`;
-    cell.style.gridColumn = s.col;
-    cell.style.gridRow = s.row;
-    cell.innerHTML = s.name;
-    cell.title = s.name;
-    cell.onclick = () => tapState(s.name, cell);
-    grid.appendChild(cell);
-  });
-  updateMapCount();
-}
-
-function tapState(name, cell) {
-  const already = localStorage.getItem(`cmap-${name}`) === '1';
-  if (already) {
-    localStorage.removeItem(`cmap-${name}`);
-    cell.classList.remove('tapped');
-  } else {
-    localStorage.setItem(`cmap-${name}`, '1');
-    cell.classList.add('tapped');
-  }
-  updateMapCount();
-}
-
-function updateMapCount() {
-  const count = nigeriaStates.filter(s => localStorage.getItem(`cmap-${s.name}`) === '1').length;
-  const el = document.getElementById('mapCounter');
-  if (el) el.textContent = count;
-}
 
 // ═══ CALC OVERLAY ═══
 const appData = [
@@ -324,13 +199,43 @@ const stations = [
   { tier:'Heavy-Duty',   r:'12,000W / 14,330Wh Battery',max:12000, cap:14330 },
 ];
 const pkgs = [
-  { n:'Starter Package',    inv:'1kW Inverter',        bat:'100Ah / 12V Battery', bWh:1200, ctrl:'20A MPPT Charge Controller', pan:'2 × 250W Solar Panels', max:1000 },
-  { n:'Standard Package',   inv:'2kW Inverter',        bat:'200Ah / 12V Battery', bWh:2400, ctrl:'40A MPPT Charge Controller', pan:'4 × 250W Solar Panels', max:2000 },
-  { n:'Premium Package',    inv:'3kW Hybrid Inverter', bat:'200Ah / 24V Battery', bWh:4800, ctrl:'Built-in (Hybrid Inverter)', pan:'6 × 300W Solar Panels', max:3000 },
-  { n:'Heavy Duty Package', inv:'5kW Hybrid Inverter', bat:'400Ah / 24V Battery', bWh:9600, ctrl:'Built-in (Hybrid Inverter)', pan:'10 × 300W Solar Panels',max:5000 },
+  {
+    n:'Starter Package', inv:'1kW Inverter',
+    bat_li:'100Ah / 12V LiFePO4 Battery',      bWh_li:1200,
+    bat_tu:'200Ah / 12V Tubular Battery',       bWh_tu:1000,
+    ctrl_li:'20A MPPT Charge Controller',
+    ctrl_tu:'20A MPPT Charge Controller',
+    panelTotalW:500, max:1000
+  },
+  {
+    n:'Standard Package', inv:'2kW Inverter',
+    bat_li:'200Ah / 12V LiFePO4 Battery',      bWh_li:2400,
+    bat_tu:'2 x 200Ah / 12V Tubular Batteries', bWh_tu:2000,
+    ctrl_li:'40A MPPT Charge Controller',
+    ctrl_tu:'40A MPPT Charge Controller',
+    panelTotalW:1000, max:2000
+  },
+  {
+    n:'Premium Package', inv:'3kW Hybrid Inverter',
+    bat_li:'200Ah / 24V LiFePO4 Battery',      bWh_li:4800,
+    bat_tu:'400Ah / 24V Tubular Battery',       bWh_tu:4000,
+    ctrl_li:'Built-in (Hybrid Inverter)',
+    ctrl_tu:'Built-in (Hybrid Inverter)',
+    panelTotalW:1800, max:3000
+  },
+  {
+    n:'Heavy Duty Package', inv:'5kW Hybrid Inverter',
+    bat_li:'400Ah / 24V LiFePO4 Battery',      bWh_li:9600,
+    bat_tu:'800Ah / 24V Tubular Battery',       bWh_tu:8000,
+    ctrl_li:'Built-in (Hybrid Inverter)',
+    ctrl_tu:'Built-in (Hybrid Inverter)',
+    panelTotalW:3000, max:5000
+  },
 ];
 
 const sel = {};
+let solarPanelW = 300;
+let solarBattType = 'lithium';
 let totalLoad = 0, activeCat = 'all', waItem = '', waLoad = 0;
 
 function emojiImg(e) {
@@ -456,25 +361,85 @@ function buildGenRecs() {
 function buildSolRecs() {
   const grid = document.getElementById('rg-solar');
   const matches = pkgs.filter(p => p.max >= totalLoad);
-  if (!matches.length) { grid.innerHTML = `<div class="no-match"><p>Your load of <strong>${totalLoad.toLocaleString()}W</strong> exceeds standard packages. Chat us directly for a custom system.</p></div>`; return; }
-  const ref = Math.max(...matches.map(p => p.bWh / (totalLoad * 0.25)));
+  updateBattCompare();
+  if (!matches.length) {
+    grid.innerHTML = `<div class="no-match"><p>Your load of <strong>${totalLoad.toLocaleString()}W</strong> exceeds standard packages. Chat us directly and we will put together a custom system for you.</p></div>`;
+    return;
+  }
+  const ref = Math.max(...matches.map(p => {
+    const bWh = solarBattType === 'lithium' ? p.bWh_li : p.bWh_tu;
+    return bWh / (totalLoad * 0.25);
+  }));
   grid.innerHTML = matches.map(p => {
-    const yH = p.bWh / totalLoad, fH = p.bWh / p.max, lH = p.bWh / (totalLoad * 0.3);
-    const detail = `${p.inv}, ${p.bat}, ${p.pan}`;
+    const bat  = solarBattType === 'lithium' ? p.bat_li  : p.bat_tu;
+    const bWh  = solarBattType === 'lithium' ? p.bWh_li  : p.bWh_tu;
+    const ctrl = solarBattType === 'lithium' ? p.ctrl_li : p.ctrl_tu;
+    const panelCount = Math.ceil(p.panelTotalW / solarPanelW);
+    const panelStr   = `${panelCount} x ${solarPanelW}W Monocrystalline Panel${panelCount > 1 ? 's' : ''}`;
+    const yH = bWh / totalLoad, fH = bWh / p.max, lH = bWh / (totalLoad * 0.3);
+    const detail = `${p.inv}, ${bat}, ${panelStr}`;
     return `<div class="rcard" onclick="openWa('${p.n}','${p.n} (${detail})',${totalLoad})">
-      <span class="rbadge bg-sol">Let There Be Light ☀️</span>
+      <span class="rbadge bg-sol">Let There Be Light</span>
       <div class="r-title">${p.n}</div>
       <div class="pkg-specs">
         <div class="pkg-row"><span class="pi">⚡</span><strong>${p.inv}</strong></div>
-        <div class="pkg-row"><span class="pi">🔋</span><strong>${p.bat}</strong></div>
-        <div class="pkg-row"><span class="pi">🔌</span><strong>${p.ctrl}</strong></div>
-        <div class="pkg-row"><span class="pi">🌞</span><strong>${p.pan}</strong></div>
+        <div class="pkg-row"><span class="pi">🔋</span><strong>${bat}</strong></div>
+        <div class="pkg-row"><span class="pi">🔌</span><strong>${ctrl}</strong></div>
+        <div class="pkg-row"><span class="pi">🌞</span><strong>${panelStr}</strong></div>
       </div>
-      <div class="dur-row"><div class="dur-lbl">⚡ Your Load (${totalLoad.toLocaleString()}W) <span>${fmtD(yH)}</span></div><div class="dur-track"><div class="dur-fill" style="width:${bW(yH,ref)}%;background:linear-gradient(90deg,#FFD000,#FF8C00)"></div></div></div>
-      <div class="dur-row"><div class="dur-lbl">🔴 Inverter Full Load (${p.max.toLocaleString()}W) <span>${fmtD(fH)}</span></div><div class="dur-track"><div class="dur-fill" style="width:${bW(fH,ref)}%;background:linear-gradient(90deg,#FF4444,#FF8C00)"></div></div></div>
-      <div class="dur-row" style="margin-bottom:12px"><div class="dur-lbl">🟢 Light Use (30% of load) <span>${fmtD(lH)}</span></div><div class="dur-track"><div class="dur-fill" style="width:${bW(lH,ref)}%;background:linear-gradient(90deg,#00C853,#00E676)"></div></div></div>
-      <button class="rcta">💬 Ask If Available</button></div>`;
+      <div class="dur-row"><div class="dur-lbl">Your Load (${totalLoad.toLocaleString()}W) <span>${fmtD(yH)}</span></div><div class="dur-track"><div class="dur-fill" style="width:${bW(yH,ref)}%;background:linear-gradient(90deg,#FFD000,#FF8C00)"></div></div></div>
+      <div class="dur-row"><div class="dur-lbl">Inverter Full Load (${p.max.toLocaleString()}W) <span>${fmtD(fH)}</span></div><div class="dur-track"><div class="dur-fill" style="width:${bW(fH,ref)}%;background:linear-gradient(90deg,#FF4444,#FF8C00)"></div></div></div>
+      <div class="dur-row" style="margin-bottom:12px"><div class="dur-lbl">Light Use (30% of load) <span>${fmtD(lH)}</span></div><div class="dur-track"><div class="dur-fill" style="width:${bW(lH,ref)}%;background:linear-gradient(90deg,#00C853,#00E676)"></div></div></div>
+      <button class="rcta">Ask If Available</button></div>`;
   }).join('');
+}
+
+function setSolarPanel(w, btn) {
+  solarPanelW = w;
+  document.querySelectorAll('#panelBtns .sol-sel-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  buildSolRecs();
+}
+
+function setSolarBatt(type, btn) {
+  solarBattType = type;
+  document.querySelectorAll('#battBtns .sol-sel-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  buildSolRecs();
+}
+
+function updateBattCompare() {
+  const el = document.getElementById('battCompare');
+  if (!el) return;
+  if (solarBattType === 'lithium') {
+    el.innerHTML = `<div class="batt-info batt-info-li">
+      <div class="batt-info-col"><h4>Lithium (LiFePO4) Advantages</h4>
+        <div class="batt-info-item">Lasts 8 to 10 years with daily use</div>
+        <div class="batt-info-item">Zero maintenance required</div>
+        <div class="batt-info-item">Lighter and more compact</div>
+        <div class="batt-info-item">Safe up to 90% depth of discharge</div>
+        <div class="batt-info-item">Charges faster from solar panels</div>
+      </div>
+      <div class="batt-info-col"><h4>Lithium Disadvantages</h4>
+        <div class="batt-info-item neg">Higher upfront cost than tubular</div>
+      </div>
+    </div>`;
+  } else {
+    el.innerHTML = `<div class="batt-info batt-info-tu">
+      <div class="batt-info-col"><h4>Tubular (Lead-Acid) Advantages</h4>
+        <div class="batt-info-item">Lower upfront cost</div>
+        <div class="batt-info-item">Widely available across Nigeria</div>
+        <div class="batt-info-item">Can be serviced and repaired locally</div>
+      </div>
+      <div class="batt-info-col"><h4>Tubular Disadvantages</h4>
+        <div class="batt-info-item neg">Lasts only 3 to 5 years</div>
+        <div class="batt-info-item neg">Needs water topping every 3 months</div>
+        <div class="batt-info-item neg">Much heavier than lithium</div>
+        <div class="batt-info-item neg">Only safe to 50% depth of discharge</div>
+        <div class="batt-info-item neg">Must be in a ventilated space, produces gas when charging</div>
+      </div>
+    </div>`;
+  }
 }
 function switchRTab(tab, btn) {
   document.querySelectorAll('.rtab').forEach(b => b.classList.remove('on'));
@@ -483,7 +448,7 @@ function switchRTab(tab, btn) {
   document.getElementById('rp-' + tab).classList.add('on');
 }
 
-// ═══ SHARE — CALC ═══
+// ═══ SHARE, CALC ═══
 function shareCalc(platform) {
   const siteUrl = window.location.hostname !== 'localhost' ? window.location.href : 'https://chibaikpower.vercel.app';
   const msg = `My home needs ${totalLoad.toLocaleString()}W of solar power. I found this using the free Load Calculator at Chibaik Power. Calculate yours free: ${siteUrl} ⚡`;
@@ -558,7 +523,7 @@ function closeDyk() {
   setTimeout(() => document.getElementById('dykOverlay').remove(), 500);
 }
 
-// ═══ SHARE — DYK ═══
+// ═══ SHARE, DYK ═══
 function shareDyk(platform) {
   const siteUrl = window.location.hostname !== 'localhost' ? window.location.href : 'https://chibaikpower.vercel.app';
   const msg = `Solar fact from Chibaik Power: "${currentDykFact}" Learn more at ${siteUrl} ⚡`;
@@ -576,7 +541,6 @@ function shareDyk(platform) {
 // ═══ INIT ═══
 document.addEventListener('DOMContentLoaded', () => {
   renderPriceTabs();
-  renderSolarMap();
   document.getElementById('waName').addEventListener('keydown', e => { if (e.key === 'Enter') sendWa(); });
   document.getElementById('fc-p').addEventListener('keydown', e => { if (e.key === 'Enter') calcFuel(); });
 });
@@ -684,7 +648,7 @@ closeCalc = function() {
 const _showRes = showRes;
 showRes = function() {
   _showRes();
-  setTimeout(() => showToast('⚡ ' + totalLoad.toLocaleString() + 'W load — here are your options'), 400);
+  setTimeout(() => showToast('⚡ ' + totalLoad.toLocaleString() + 'W load, here are your options'), 400);
 };
 
 // ═══ INIT NEW FEATURES ═══
