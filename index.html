@@ -457,27 +457,31 @@
       <div class="rgrid" id="rg-gen"></div>
     </div>
     <div class="rpanel" id="rp-solar">
-      <div class="batt-note"><span class="ni">⚠️</span><p><strong>Note:</strong> Duration shown is battery-only, e.g. at night. During daylight your panels continuously recharge the battery, giving far longer overall runtime.</p></div>
+      <div class="batt-note"><span class="ni">💡</span><p><strong>How this works:</strong> Configure your battery and panels below. Every card below updates instantly to show exactly what your chosen setup will deliver — the inverter options shown are all the sizes that can safely handle your load.</p></div>
+
       <div class="sol-config">
 
-        <!-- BATTERY TYPE TOGGLE -->
+        <!-- BATTERY TYPE -->
         <div class="sol-config-section">
-          <div class="sol-config-label">1. Choose Battery Type</div>
+          <div class="sol-config-label">1. Battery Type</div>
+          <div class="sol-config-sublabel">Lithium lasts longer and needs zero maintenance. Tubular costs less upfront.</div>
           <div class="sol-sel-group" id="battBtns">
             <button class="sol-sel-btn on" onclick="setSolarBatt('lithium',this)">⚡ Lithium (LiFePO4)</button>
             <button class="sol-sel-btn" onclick="setSolarBatt('tubular',this)">🔋 Tubular (Lead-Acid)</button>
           </div>
         </div>
 
-        <!-- BATTERY SIZE SELECTOR -->
+        <!-- BATTERY SIZE -->
         <div class="sol-config-section" id="battSizeSection">
-          <div class="sol-config-label">2. Choose Battery Size</div>
+          <div class="sol-config-label">2. Battery Size</div>
+          <div class="sol-config-sublabel">How much energy each battery stores.</div>
           <div class="sol-sel-group" id="battSizeBtns"></div>
         </div>
 
-        <!-- BATTERY COUNTER -->
+        <!-- BATTERY COUNT -->
         <div class="sol-config-section">
           <div class="sol-config-label">3. Number of Batteries</div>
+          <div class="sol-config-sublabel">More batteries = more backup hours. Multiply freely.</div>
           <div class="sol-counter-row">
             <button class="sol-cnt-btn sol-cnt-minus" onclick="changeBattCount(-1)">−</button>
             <div class="sol-cnt-display">
@@ -493,9 +497,10 @@
           <div class="sol-insight" id="battInsight"></div>
         </div>
 
-        <!-- PANEL SIZE SELECTOR -->
+        <!-- PANEL SIZE -->
         <div class="sol-config-section">
-          <div class="sol-config-label">4. Choose Panel Size</div>
+          <div class="sol-config-label">4. Panel Size</div>
+          <div class="sol-config-sublabel">Higher wattage panels charge your battery faster.</div>
           <div class="sol-sel-group" id="panelBtns">
             <button class="sol-sel-btn" onclick="setSolarPanel(200,this)">200W</button>
             <button class="sol-sel-btn on" onclick="setSolarPanel(300,this)">300W</button>
@@ -505,9 +510,10 @@
           </div>
         </div>
 
-        <!-- PANEL COUNTER -->
+        <!-- PANEL COUNT -->
         <div class="sol-config-section">
           <div class="sol-config-label">5. Number of Panels</div>
+          <div class="sol-config-sublabel">More panels = faster daily recharge of your battery.</div>
           <div class="sol-counter-row">
             <button class="sol-cnt-btn sol-cnt-minus" onclick="changePanelCount(-1)">−</button>
             <div class="sol-cnt-display">
@@ -524,11 +530,15 @@
         </div>
 
       </div>
+
       <div class="batt-compare" id="battCompare"></div>
+
       <div class="disc-box disc-sol">
-        <div class="disc-side"><h4>✅ Advantages</h4><div class="disc-item"><span>•</span>Expandable, add panels or batteries</div><div class="disc-item"><span>•</span>Best long-term investment</div><div class="disc-item"><span>•</span>Scales as your needs grow</div></div>
-        <div class="disc-side"><h4>❌ Limitations</h4><div class="disc-item"><span>•</span>Higher upfront cost</div><div class="disc-item"><span>•</span>Requires professional installation</div></div>
+        <div class="disc-side"><h4>✅ Advantages</h4><div class="disc-item"><span>•</span>Expandable — add panels or batteries any time</div><div class="disc-item"><span>•</span>Best long-term investment</div><div class="disc-item"><span>•</span>Hybrid inverters also charge from the grid</div></div>
+        <div class="disc-side"><h4>❌ Limitations</h4><div class="disc-item"><span>•</span>Higher upfront cost than a power station</div><div class="disc-item"><span>•</span>Requires professional installation</div></div>
       </div>
+
+      <p class="sol-recs-label">Inverters that can handle your <strong id="sol-load-label">load</strong> — all using your chosen battery and panels above ↑</p>
       <div class="rgrid" id="rg-solar"></div>
     </div>
   </div>
@@ -553,23 +563,22 @@
   </div>
 </div>
 
-<!-- DYK POPUP -->
-<div class="dyk-popup" id="dykPopup">
-  <button class="dyk-close" id="dykClose" disabled onclick="closeDyk()">
-    <svg class="dyk-ring" viewBox="0 0 48 48"><circle class="dyk-track" cx="24" cy="24" r="20"/><circle class="dyk-progress" cx="24" cy="24" r="20" id="dykProgress"/></svg>
-    <span class="dyk-x" id="dykX">✕</span>
-  </button>
-  <div class="dyk-inner">
-    <span class="dyk-icon" id="dykIcon">💡</span>
-    <div class="dyk-badge">Did You Know?</div>
-    <p class="dyk-text" id="dykText"></p>
-    <div class="dyk-rule"></div>
-    <p class="dyk-source">Chibaik Power &nbsp;·&nbsp; Solar Education</p>
-    <div class="dyk-share">
-      <span class="dyk-share-label">Share</span>
-      <button class="dyk-share-btn dyk-wa-btn" onclick="shareDyk('whatsapp')">💬 WhatsApp</button>
-      <button class="dyk-share-btn dyk-tw-btn" onclick="shareDyk('twitter')">𝕏 Twitter</button>
-      <button class="dyk-share-btn dyk-cp-btn" onclick="shareDyk('copy')" id="dykCopyBtn">📋 Copy</button>
+    <button class="dyk-close" id="dykClose" disabled onclick="closeDyk()">
+      <svg class="dyk-ring" viewBox="0 0 48 48"><circle class="dyk-track" cx="24" cy="24" r="20"/><circle class="dyk-progress" cx="24" cy="24" r="20" id="dykProgress"/></svg>
+      <span class="dyk-x" id="dykX">✕</span>
+    </button>
+    <div class="dyk-inner">
+      <span class="dyk-icon" id="dykIcon">💡</span>
+      <div class="dyk-badge">Did You Know?</div>
+      <p class="dyk-text" id="dykText"></p>
+      <div class="dyk-rule"></div>
+      <p class="dyk-source">Chibaik Power &nbsp;·&nbsp; Solar Education</p>
+      <div class="dyk-share">
+        <span class="dyk-share-label">Share</span>
+        <button class="dyk-share-btn dyk-wa-btn" onclick="shareDyk('whatsapp')">💬 WhatsApp</button>
+        <button class="dyk-share-btn dyk-tw-btn" onclick="shareDyk('twitter')">𝕏 Twitter</button>
+        <button class="dyk-share-btn dyk-cp-btn" onclick="shareDyk('copy')" id="dykCopyBtn">📋 Copy</button>
+      </div>
     </div>
   </div>
 </div>

@@ -198,39 +198,20 @@ const stations = [
   { tier:'Heavy-Duty',   r:'7,200W / 6,000Wh Battery',  max:7200,  cap:6000  },
   { tier:'Heavy-Duty',   r:'12,000W / 14,330Wh Battery',max:12000, cap:14330 },
 ];
-const pkgs = [
-  {
-    n:'Starter Package', inv:'1kW Inverter',
-    bat_li:'100Ah / 12V LiFePO4 Battery',      bWh_li:1200,
-    bat_tu:'200Ah / 12V Tubular Battery',       bWh_tu:1000,
-    ctrl_li:'20A MPPT Charge Controller',
-    ctrl_tu:'20A MPPT Charge Controller',
-    panelTotalW:500, max:1000
-  },
-  {
-    n:'Standard Package', inv:'2kW Inverter',
-    bat_li:'200Ah / 12V LiFePO4 Battery',      bWh_li:2400,
-    bat_tu:'2 x 200Ah / 12V Tubular Batteries', bWh_tu:2000,
-    ctrl_li:'40A MPPT Charge Controller',
-    ctrl_tu:'40A MPPT Charge Controller',
-    panelTotalW:1000, max:2000
-  },
-  {
-    n:'Premium Package', inv:'3kW Hybrid Inverter',
-    bat_li:'200Ah / 24V LiFePO4 Battery',      bWh_li:4800,
-    bat_tu:'400Ah / 24V Tubular Battery',       bWh_tu:4000,
-    ctrl_li:'Built-in (Hybrid Inverter)',
-    ctrl_tu:'Built-in (Hybrid Inverter)',
-    panelTotalW:1800, max:3000
-  },
-  {
-    n:'Heavy Duty Package', inv:'5kW Hybrid Inverter',
-    bat_li:'400Ah / 24V LiFePO4 Battery',      bWh_li:9600,
-    bat_tu:'800Ah / 24V Tubular Battery',       bWh_tu:8000,
-    ctrl_li:'Built-in (Hybrid Inverter)',
-    ctrl_tu:'Built-in (Hybrid Inverter)',
-    panelTotalW:3000, max:5000
-  },
+// ═══ HYBRID INVERTER OPTIONS (Nigeria market, common ratings) ═══
+// These are the inverter tiers available. The system picks the right one
+// based on the user's load and lets them see all options that can handle it.
+const inverterTiers = [
+  { label:'1kW Inverter',        kW:1,   maxW:1000,  ctrl:'20A MPPT Charge Controller' },
+  { label:'1.5kW Inverter',      kW:1.5, maxW:1500,  ctrl:'30A MPPT Charge Controller' },
+  { label:'2kW Hybrid Inverter', kW:2,   maxW:2000,  ctrl:'Built-in MPPT' },
+  { label:'3kW Hybrid Inverter', kW:3,   maxW:3000,  ctrl:'Built-in MPPT' },
+  { label:'3.5kW Hybrid Inverter',kW:3.5,maxW:3500,  ctrl:'Built-in MPPT' },
+  { label:'4kW Hybrid Inverter', kW:4,   maxW:4000,  ctrl:'Built-in MPPT' },
+  { label:'5kW Hybrid Inverter', kW:5,   maxW:5000,  ctrl:'Built-in MPPT' },
+  { label:'6kW Hybrid Inverter', kW:6,   maxW:6000,  ctrl:'Built-in MPPT' },
+  { label:'8kW Hybrid Inverter', kW:8,   maxW:8000,  ctrl:'Built-in MPPT' },
+  { label:'10kW Hybrid Inverter',kW:10,  maxW:10000, ctrl:'Built-in MPPT' },
 ];
 
 const sel = {};
@@ -257,6 +238,8 @@ function showRes() {
   document.getElementById('resPg').classList.add('on');
   hideTB();
   document.getElementById('loadNum').textContent = totalLoad.toLocaleString();
+  const solLabel = document.getElementById('sol-load-label');
+  if (solLabel) solLabel.textContent = totalLoad.toLocaleString() + 'W load';
   buildGenRecs(); buildSolRecs();
   document.getElementById('calcOv').scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -360,37 +343,65 @@ function buildGenRecs() {
 }
 function buildSolRecs() {
   const grid = document.getElementById('rg-solar');
-  const matches = pkgs.filter(p => p.max >= totalLoad);
+  if (!grid) return;
   updateBattCompare();
-  if (!matches.length) {
-    grid.innerHTML = `<div class="no-match"><p>Your load of <strong>${totalLoad.toLocaleString()}W</strong> exceeds standard packages. Chat us directly and we will put together a custom system for you.</p></div>`;
+
+  // Build battery label from user's selection
+  const battLabel = solarBattType === 'lithium'
+    ? `${solarBattCount} x ${solarBattSizeKwh}kWh LiFePO4 Battery${solarBattCount > 1 ? 'ies' : ''}`
+    : `${solarBattCount} x ${(tubularSizes.find(s => s.kWh === solarBattSizeKwh)?.label || solarBattSizeKwh + 'kWh')} Tubular Battery${solarBattCount > 1 ? 'ies' : ''}`;
+
+  // Total usable battery energy from user's selection
+  const usableEff   = solarBattType === 'lithium' ? 0.9 : 0.5;
+  const totalBattWh = solarBattSizeKwh * solarBattCount * 1000; // raw Wh
+  const usableWh    = totalBattWh * usableEff;
+
+  // Total panel generation from user's selection
+  const totalPanelW = solarPanelW * solarPanelCount;
+  const panelLabel  = `${solarPanelCount} x ${solarPanelW}W Monocrystalline Panel${solarPanelCount > 1 ? 's' : ''}`;
+
+  // Filter inverters that can handle the user's load (with 25% headroom)
+  const safeLoad = totalLoad * 1.25;
+  const matches  = inverterTiers.filter(inv => inv.maxW >= safeLoad);
+
+  if (totalLoad === 0) {
+    grid.innerHTML = `<div class="no-match"><p>Add appliances in the calculator to see your solar system options.</p></div>`;
     return;
   }
-  const ref = Math.max(...matches.map(p => {
-    const bWh = solarBattType === 'lithium' ? p.bWh_li : p.bWh_tu;
-    return bWh / (totalLoad * 0.25);
-  }));
-  grid.innerHTML = matches.map(p => {
-    const bat  = solarBattType === 'lithium' ? p.bat_li  : p.bat_tu;
-    const bWh  = solarBattType === 'lithium' ? p.bWh_li  : p.bWh_tu;
-    const ctrl = solarBattType === 'lithium' ? p.ctrl_li : p.ctrl_tu;
-    const panelCount = Math.ceil(p.panelTotalW / solarPanelW);
-    const panelStr   = `${panelCount} x ${solarPanelW}W Monocrystalline Panel${panelCount > 1 ? 's' : ''}`;
-    const yH = bWh / totalLoad, fH = bWh / p.max, lH = bWh / (totalLoad * 0.3);
-    const detail = `${p.inv}, ${bat}, ${panelStr}`;
-    return `<div class="rcard" onclick="openWa('${p.n}','${p.n} (${detail})',${totalLoad})">
+
+  if (!matches.length) {
+    grid.innerHTML = `<div class="no-match"><p>Your load of <strong>${totalLoad.toLocaleString()}W</strong> is very high. <strong>Chat us directly</strong> and we will design a custom system for you.</p><a href="https://wa.me/+2347057027857" target="_blank" class="rcta" style="display:inline-flex;margin-top:12px;text-decoration:none">💬 Chat Us on WhatsApp</a></div>`;
+    return;
+  }
+
+  // Duration calculations using user's battery
+  const ref = usableWh / (totalLoad * 0.25 || 1);
+
+  grid.innerHTML = matches.map(inv => {
+    const yH = usableWh / (totalLoad || 1);         // hours at user load
+    const fH = usableWh / inv.maxW;                  // hours at inverter max
+    const lH = usableWh / (totalLoad * 0.3 || 1);   // hours at 30% load
+    const dailyGenWh = totalPanelW * PEAK_SUN_HOURS;
+
+    const detail = `${inv.label}, ${battLabel}, ${panelLabel}`;
+    const isHybrid = inv.label.includes('Hybrid');
+
+    return `<div class="rcard sol-rcard" onclick="openWa('${inv.label} System','${inv.label} (${detail})',${totalLoad})">
       <span class="rbadge bg-sol">Let There Be Light</span>
-      <div class="r-title">${p.n}</div>
+      <div class="r-title">${inv.label}</div>
       <div class="pkg-specs">
-        <div class="pkg-row"><span class="pi">⚡</span><strong>${p.inv}</strong></div>
-        <div class="pkg-row"><span class="pi">🔋</span><strong>${bat}</strong></div>
-        <div class="pkg-row"><span class="pi">🔌</span><strong>${ctrl}</strong></div>
-        <div class="pkg-row"><span class="pi">🌞</span><strong>${panelStr}</strong></div>
+        <div class="pkg-row"><span class="pi">⚡</span><strong>${inv.label}</strong></div>
+        <div class="pkg-row"><span class="pi">🔋</span><strong>${battLabel}</strong></div>
+        <div class="pkg-row"><span class="pi">🔌</span><strong>${inv.ctrl}</strong></div>
+        <div class="pkg-row"><span class="pi">🌞</span><strong>${panelLabel}</strong></div>
+        <div class="pkg-row"><span class="pi">☀️</span><strong>${dailyGenWh.toLocaleString()}Wh generated per day</strong></div>
       </div>
-      <div class="dur-row"><div class="dur-lbl">Your Load (${totalLoad.toLocaleString()}W) <span>${fmtD(yH)}</span></div><div class="dur-track"><div class="dur-fill" style="width:${bW(yH,ref)}%;background:linear-gradient(90deg,#FFD000,#FF8C00)"></div></div></div>
-      <div class="dur-row"><div class="dur-lbl">Inverter Full Load (${p.max.toLocaleString()}W) <span>${fmtD(fH)}</span></div><div class="dur-track"><div class="dur-fill" style="width:${bW(fH,ref)}%;background:linear-gradient(90deg,#FF4444,#FF8C00)"></div></div></div>
-      <div class="dur-row" style="margin-bottom:12px"><div class="dur-lbl">Light Use (30% of load) <span>${fmtD(lH)}</span></div><div class="dur-track"><div class="dur-fill" style="width:${bW(lH,ref)}%;background:linear-gradient(90deg,#00C853,#00E676)"></div></div></div>
-      <button class="rcta">Ask If Available</button></div>`;
+      <div class="dur-row"><div class="dur-lbl">⚡ Your Load (${totalLoad.toLocaleString()}W) <span>${fmtD(yH)}</span></div><div class="dur-track"><div class="dur-fill" style="width:${bW(yH,ref)}%;background:linear-gradient(90deg,#FFD000,#FF8C00)"></div></div></div>
+      <div class="dur-row"><div class="dur-lbl">🔴 Inverter Max (${inv.maxW.toLocaleString()}W) <span>${fmtD(fH)}</span></div><div class="dur-track"><div class="dur-fill" style="width:${bW(fH,ref)}%;background:linear-gradient(90deg,#FF4444,#FF8C00)"></div></div></div>
+      <div class="dur-row" style="margin-bottom:12px"><div class="dur-lbl">🟢 Light Use (30% load) <span>${fmtD(lH)}</span></div><div class="dur-track"><div class="dur-fill" style="width:${bW(lH,ref)}%;background:linear-gradient(90deg,#00C853,#00E676)"></div></div></div>
+      ${isHybrid ? '<div class="rcard-note">✅ Hybrid inverter — grid charging + solar charging built in</div>' : ''}
+      <button class="rcta">💬 Ask If Available</button>
+    </div>`;
   }).join('');
 }
 
@@ -480,45 +491,6 @@ function shareDyk(platform) {
       btn.textContent = '✅ Copied';
       setTimeout(() => btn.textContent = '📋 Copy', 2000);
     });
-  }
-}
-
-function openDyk(text, icon) {
-  currentDykFact = text;
-  const popup = document.getElementById('dykPopup');
-  if (!popup) return;
-  const textEl = document.getElementById('dykText');
-  const iconEl = document.getElementById('dykIcon');
-  const closeBtn = document.getElementById('dykClose');
-  const xEl = document.getElementById('dykX');
-  const progress = document.getElementById('dykProgress');
-  if (textEl) textEl.textContent = text;
-  if (iconEl && icon) iconEl.textContent = icon;
-  popup.classList.add('open');
-  // countdown timer to enable close button
-  if (closeBtn) {
-    closeBtn.disabled = true;
-    if (xEl) xEl.style.opacity = '0';
-    const duration = 5000;
-    const circumference = 2 * Math.PI * 20;
-    if (progress) {
-      progress.style.strokeDasharray = circumference;
-      progress.style.strokeDashoffset = circumference;
-    }
-    let start = null;
-    const tick = (ts) => {
-      if (!start) start = ts;
-      const elapsed = ts - start;
-      const p = Math.min(elapsed / duration, 1);
-      if (progress) progress.style.strokeDashoffset = circumference * (1 - p);
-      if (p < 1) {
-        requestAnimationFrame(tick);
-      } else {
-        closeBtn.disabled = false;
-        if (xEl) xEl.style.opacity = '1';
-      }
-    };
-    requestAnimationFrame(tick);
   }
 }
 

@@ -570,6 +570,16 @@ footer{background:#0A0A0A;border-top:1px solid rgba(255,255,255,.05);padding:16p
 .batt-info-item.neg::before{content:"✗";color:#FF3B3B}
 @media(max-width:600px){.batt-info{grid-template-columns:1fr}.sol-sel-row{flex-direction:column;align-items:flex-start}}
 
+/* SOL CONFIG SUBLABEL */
+.sol-config-sublabel{font-size:11px;color:#555;line-height:1.5;margin-top:-4px}
+
+/* RCARD NOTE (hybrid badge) */
+.rcard-note{font-size:11px;color:#00C853;font-weight:700;padding:7px 10px;background:rgba(0,200,83,.08);border:1px solid rgba(0,200,83,.2);border-radius:8px;margin-bottom:10px}
+
+/* SOL RECS LABEL */
+.sol-recs-label{font-size:11px;color:#555;font-weight:700;margin:20px 0 10px;padding:10px 14px;background:#111;border-radius:10px;border:1px solid #1e1e1e;line-height:1.5}
+.sol-recs-label strong{color:#FFD000}
+
 /* SOL CONFIG PANEL */
 .sol-config{background:var(--bg-alt);border:var(--border);border-radius:var(--radius-sm);padding:20px 18px;margin-bottom:16px;display:flex;flex-direction:column;gap:18px;transition:background .3s,border-color .3s}
 .sol-config-section{display:flex;flex-direction:column;gap:8px}
