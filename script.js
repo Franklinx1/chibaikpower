@@ -482,7 +482,7 @@ function sendWaAnon() { window.open(`https://wa.me/+2347057027857?text=${encodeU
 
 // ═══ DYK POPUP ═══
 const dykFacts = [
-  { icon:'⛽', text:'Add up every naira you spent on fuel last year. Most Lagos and Abuja households spend between ₦300,000 and ₦600,000 annually on generator fuel alone. That is school fees. A trip. A business investment. All going up in smoke, literally.' },
+  { icon:'⛽', text:'Add up every naira you spent on fuel last year. Most Lagos and Abuja households spend between ₦3,000,000 and ₦16,000,000 annually on generator fuel alone. That is school fees. A trip. A business investment. All going up in smoke, literally.' },
   { icon:'😤', text:'NEPA takes light, you start the generator. NEPA brings light, you turn it off. The average Nigerian does this dance 3 to 5 times a day. Solar does not know that dance. It just stays on.' },
   { icon:'🌞', text:'The same sun that makes you sweat in Lagos, Abuja, Kano or Port Harcourt is powerful enough to run your AC, charge your devices and power every light in your house for free. Most people just have not captured it yet.' },
   { icon:'🔧', text:'Your generator has been serviced at least twice this year. New spark plug, engine oil, repair man. Your solar panel? It just sits on the roof and works. No moving parts means almost nothing to fix for 25 to 30 years.' },
@@ -517,7 +517,7 @@ function initDyk() {
     if (btn) { btn.disabled = false; btn.classList.add('ready'); }
     if (x)   { x.classList.add('pop'); }
     if (prog) { prog.style.stroke = '#00C853'; }
-  }, 6000);
+  }, 3000);
 }
 
 function closeDyk() {
