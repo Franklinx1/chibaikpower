@@ -553,22 +553,23 @@
   </div>
 </div>
 
-    <button class="dyk-close" id="dykClose" disabled onclick="closeDyk()">
-      <svg class="dyk-ring" viewBox="0 0 48 48"><circle class="dyk-track" cx="24" cy="24" r="20"/><circle class="dyk-progress" cx="24" cy="24" r="20" id="dykProgress"/></svg>
-      <span class="dyk-x" id="dykX">✕</span>
-    </button>
-    <div class="dyk-inner">
-      <span class="dyk-icon" id="dykIcon">💡</span>
-      <div class="dyk-badge">Did You Know?</div>
-      <p class="dyk-text" id="dykText"></p>
-      <div class="dyk-rule"></div>
-      <p class="dyk-source">Chibaik Power &nbsp;·&nbsp; Solar Education</p>
-      <div class="dyk-share">
-        <span class="dyk-share-label">Share</span>
-        <button class="dyk-share-btn dyk-wa-btn" onclick="shareDyk('whatsapp')">💬 WhatsApp</button>
-        <button class="dyk-share-btn dyk-tw-btn" onclick="shareDyk('twitter')">𝕏 Twitter</button>
-        <button class="dyk-share-btn dyk-cp-btn" onclick="shareDyk('copy')" id="dykCopyBtn">📋 Copy</button>
-      </div>
+<!-- DYK POPUP -->
+<div class="dyk-popup" id="dykPopup">
+  <button class="dyk-close" id="dykClose" disabled onclick="closeDyk()">
+    <svg class="dyk-ring" viewBox="0 0 48 48"><circle class="dyk-track" cx="24" cy="24" r="20"/><circle class="dyk-progress" cx="24" cy="24" r="20" id="dykProgress"/></svg>
+    <span class="dyk-x" id="dykX">✕</span>
+  </button>
+  <div class="dyk-inner">
+    <span class="dyk-icon" id="dykIcon">💡</span>
+    <div class="dyk-badge">Did You Know?</div>
+    <p class="dyk-text" id="dykText"></p>
+    <div class="dyk-rule"></div>
+    <p class="dyk-source">Chibaik Power &nbsp;·&nbsp; Solar Education</p>
+    <div class="dyk-share">
+      <span class="dyk-share-label">Share</span>
+      <button class="dyk-share-btn dyk-wa-btn" onclick="shareDyk('whatsapp')">💬 WhatsApp</button>
+      <button class="dyk-share-btn dyk-tw-btn" onclick="shareDyk('twitter')">𝕏 Twitter</button>
+      <button class="dyk-share-btn dyk-cp-btn" onclick="shareDyk('copy')" id="dykCopyBtn">📋 Copy</button>
     </div>
   </div>
 </div>

@@ -394,20 +394,6 @@ function buildSolRecs() {
   }).join('');
 }
 
-function setSolarPanel(w, btn) {
-  solarPanelW = w;
-  document.querySelectorAll('#panelBtns .sol-sel-btn').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-  buildSolRecs();
-}
-
-function setSolarBatt(type, btn) {
-  solarBattType = type;
-  document.querySelectorAll('#battBtns .sol-sel-btn').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-  buildSolRecs();
-}
-
 function updateBattCompare() {
   const el = document.getElementById('battCompare');
   if (!el) return;
@@ -481,7 +467,9 @@ function sendWa() { const n = document.getElementById('waName').value.trim(); wi
 function sendWaAnon() { window.open(`https://wa.me/+2347057027857?text=${encodeURIComponent(buildMsg(''))}`, '_blank'); closeWa(); }
 
 // ═══ DYK POPUP ═══
-// ═══ SHARE, DYK ═══
+let currentDykFact = '';
+
+function shareDyk(platform) {
   const siteUrl = window.location.hostname !== 'localhost' ? window.location.href : 'https://chibaikpower.vercel.app';
   const msg = `Solar fact from Chibaik Power: "${currentDykFact}" Learn more at ${siteUrl} ⚡`;
   if (platform === 'whatsapp') window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
@@ -495,9 +483,49 @@ function sendWaAnon() { window.open(`https://wa.me/+2347057027857?text=${encodeU
   }
 }
 
+function openDyk(text, icon) {
+  currentDykFact = text;
+  const popup = document.getElementById('dykPopup');
+  if (!popup) return;
+  const textEl = document.getElementById('dykText');
+  const iconEl = document.getElementById('dykIcon');
+  const closeBtn = document.getElementById('dykClose');
+  const xEl = document.getElementById('dykX');
+  const progress = document.getElementById('dykProgress');
+  if (textEl) textEl.textContent = text;
+  if (iconEl && icon) iconEl.textContent = icon;
+  popup.classList.add('open');
+  // countdown timer to enable close button
+  if (closeBtn) {
+    closeBtn.disabled = true;
+    if (xEl) xEl.style.opacity = '0';
+    const duration = 5000;
+    const circumference = 2 * Math.PI * 20;
+    if (progress) {
+      progress.style.strokeDasharray = circumference;
+      progress.style.strokeDashoffset = circumference;
+    }
+    let start = null;
+    const tick = (ts) => {
+      if (!start) start = ts;
+      const elapsed = ts - start;
+      const p = Math.min(elapsed / duration, 1);
+      if (progress) progress.style.strokeDashoffset = circumference * (1 - p);
+      if (p < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        closeBtn.disabled = false;
+        if (xEl) xEl.style.opacity = '1';
+      }
+    };
+    requestAnimationFrame(tick);
+  }
+}
 
-  document.getElementById('fc-p').addEventListener('keydown', e => { if (e.key === 'Enter') calcFuel(); });
-});
+function closeDyk() {
+  const popup = document.getElementById('dykPopup');
+  if (popup) popup.classList.remove('open');
+}
 
 // ═══ GENERATOR LIVE COUNTER ═══
 const GEN_PER_SEC = 440277; // ₦38 billion ÷ 86,400 seconds = ₦440,277 per second
@@ -731,8 +759,6 @@ const tubularSizes = [
   { label:'220Ah / 12V', kWh:2.2,  note:'Slightly more capacity than 200Ah. Good if you want a little extra backup time.' },
 ];
 
-let solarPanelW    = 300;
-let solarBattType  = 'lithium';
 let solarBattSizeKwh = 5;
 let solarBattCount = 1;
 let solarPanelCount = 2;
