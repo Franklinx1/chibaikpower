@@ -546,10 +546,7 @@ function shareDyk(platform) {
   }
 }
 
-// ═══ INIT ═══
-document.addEventListener('DOMContentLoaded', () => {
-  renderPriceTabs();
-  document.getElementById('waName').addEventListener('keydown', e => { if (e.key === 'Enter') sendWa(); });
+
   document.getElementById('fc-p').addEventListener('keydown', e => { if (e.key === 'Enter') calcFuel(); });
 });
 
@@ -659,10 +656,7 @@ showRes = function() {
   setTimeout(() => showToast('⚡ ' + totalLoad.toLocaleString() + 'W load, here are your options'), 400);
 };
 
-// ═══ INIT NEW FEATURES ═══
-document.addEventListener('DOMContentLoaded', () => {
-  renderHeroChips();
-});
+
 
 
 // ═══ CUSTOM APPLIANCE SVG ILLUSTRATIONS ═══
@@ -889,5 +883,32 @@ function updateCounterInsights() {
     panelInsightEl.classList.add('show');
   }
 }
+// ═══ SINGLE INIT BLOCK ═══
+document.addEventListener('DOMContentLoaded', () => {
 
-// counter patches moved to DOMContentLoaded
+  // 1. DYK popup
+  initDyk();
+
+  // 2. Hero quick calculator chips
+  renderHeroChips();
+
+  // 3. Keyboard shortcuts
+  const waNameEl = document.getElementById('waName');
+  if (waNameEl) waNameEl.addEventListener('keydown', e => { if (e.key === 'Enter') sendWa(); });
+  const fcpEl = document.getElementById('fc-p');
+  if (fcpEl) fcpEl.addEventListener('keydown', e => { if (e.key === 'Enter') calcFuel(); });
+
+  // 4. Patch recalc to also update counter insights
+  const _origRecalc = recalc;
+  recalc = function() { _origRecalc(); updateCounterInsights(); };
+
+  // 5. Patch showRes to init battery selectors and counter insights
+  const _origShowRes = showRes;
+  showRes = function() {
+    _origShowRes();
+    initBattSizes();
+    updateBattCompare();
+    updateCounterInsights();
+  };
+
+});
