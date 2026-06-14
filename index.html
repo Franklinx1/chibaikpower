@@ -3,88 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chibaik Power, Solar Solutions and Education, Nigeria</title>
-<meta name="description" content="Free solar load calculator for Nigeria. Find the right solar power station or inverter system for your home. Learn everything about solar in plain English.">
-<meta name="keywords" content="solar Nigeria, solar panel price Nigeria, load calculator solar, inverter Nigeria, solar power station Lagos, Chibaik Power">
-<meta property="og:title" content="Chibaik Power, Nigeria's Solar Resource Hub">
-<meta property="og:description" content="Calculate your load, see current prices and learn everything about solar before spending a naira.">
+<title>Chibaik Power — Nigeria's Free Solar Resource Hub</title>
+<meta name="description" content="Free solar load calculator for Nigeria. Find the right inverter system for your home, learn everything about solar in plain English, and stop wasting money on fuel.">
+<meta name="keywords" content="solar Nigeria, solar panel price Nigeria, load calculator solar, inverter Nigeria, solar power station Lagos, Chibaik Power, best solar company Nigeria">
+<link rel="canonical" href="https://chibaikpower.vercel.app/">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chibaikpower.vercel.app/">
+<meta property="og:title" content="Chibaik Power — Nigeria's Free Solar Resource Hub">
+<meta property="og:description" content="Calculate your load, learn the facts, and get the right solar system before spending a naira. Free tools, honest advice.">
+<meta property="og:image" content="https://chibaikpower.vercel.app/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#FFD000">
+<!-- Performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<!-- Schema.org Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "name": "Chibaik Power",
+      "description": "Nigeria's free solar resource hub. Free load calculator, solar education, and honest advice for Nigerians going solar.",
+      "url": "https://chibaikpower.vercel.app",
+      "telephone": "+2347057027857",
+      "address": { "@type": "PostalAddress", "addressCountry": "NG" },
+      "areaServed": "Nigeria",
+      "sameAs": [
+        "https://www.instagram.com/chibaikpower",
+        "https://www.facebook.com/chibaikpower"
+      ],
+      "openingHours": "Mo-Su 08:00-20:00"
+    },
+    {
+      "@type": "WebSite",
+      "name": "Chibaik Power",
+      "url": "https://chibaikpower.vercel.app",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://chibaikpower.vercel.app/learn.html",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
 <div class="scroll-prog" id="scrollProg"></div>
 
 <nav id="mainNav">
-  <div class="logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">⚡ <em>CHIBAIK</em> POWER</div>
+  <a class="logo" href="index.html" aria-label="Chibaik Power Home">⚡ <em>CHIBAIK</em> POWER</a>
   <div class="nav-center">
-    <div class="nav-item" id="dd-sol">
-      <button class="nav-btn" onclick="toggleDd('dd-sol')">Solutions <span class="nav-arr">▾</span></button>
-      <div class="dropdown">
-        <button class="ddi" onclick="scrollS('#compare');closeAllDd()"><span class="ddi-icon">🔋</span><div><div class="ddi-label">Solar Power Stations</div><div class="ddi-sub">Portable, plug and play</div></div></button>
-        <button class="ddi" onclick="scrollS('#compare');closeAllDd()"><span class="ddi-icon">🌞</span><div><div class="ddi-label">Let There Be Light</div><div class="ddi-sub">Full inverter and battery system</div></div></button>
-        <button class="ddi" onclick="scrollS('#compare');closeAllDd()"><span class="ddi-icon">🏠</span><div><div class="ddi-label">Solar Installation</div><div class="ddi-sub">Full setup at your property</div></div></button>
-      </div>
-    </div>
-
+    <a class="nav-page-link" href="calculator.html">⚡ Calculator</a>
+    <a class="nav-page-link" href="learn.html">📚 Learn</a>
+    <a class="nav-page-link" href="about.html">About</a>
     <div class="nav-item" id="dd-tools">
-      <button class="nav-btn" onclick="toggleDd('dd-tools')">Tools <span class="nav-arr">▾</span></button>
+      <button class="nav-btn" onclick="toggleDd('dd-tools')" aria-haspopup="true" aria-expanded="false">More <span class="nav-arr">▾</span></button>
       <div class="dropdown">
-        <button class="ddi" onclick="openCalc();closeAllDd()"><span class="ddi-icon">⚡</span><div><div class="ddi-label">Load Calculator</div><div class="ddi-sub">Find your solar match</div></div></button>
         <button class="ddi" onclick="scrollS('#fuel');closeAllDd()"><span class="ddi-icon">⛽</span><div><div class="ddi-label">Fuel Cost Calculator</div><div class="ddi-sub">See your generator's true cost</div></div></button>
         <button class="ddi" onclick="scrollS('#gencounter');closeAllDd()"><span class="ddi-icon">📡</span><div><div class="ddi-label">Live Spending Counter</div><div class="ddi-sub">Nigeria's fuel bill in real time</div></div></button>
+        <div class="dd-sep"></div>
+        <button class="ddi" onclick="scrollS('#reviews');closeAllDd()"><span class="ddi-icon">⭐</span><div><div class="ddi-label">Reviews</div><div class="ddi-sub">What people are saying</div></div></button>
+        <button class="ddi" onclick="scrollS('#ask');closeAllDd()"><span class="ddi-icon">💬</span><div><div class="ddi-label">Ask a Question</div><div class="ddi-sub">Free direct advice</div></div></button>
       </div>
     </div>
-    <div class="nav-item" id="dd-learn">
-      <button class="nav-btn" onclick="toggleDd('dd-learn')">Learn <span class="nav-arr">▾</span></button>
-      <div class="dropdown">
-        <button class="ddi" onclick="scrollS('#solar101');closeAllDd()"><span class="ddi-icon">📚</span><div><div class="ddi-label">Solar 101</div><div class="ddi-sub">Plain English, no jargon</div></div></button>
-        <button class="ddi" onclick="scrollS('#myths');closeAllDd()"><span class="ddi-icon">🚫</span><div><div class="ddi-label">Myth Busting</div><div class="ddi-sub">Common solar misconceptions</div></div></button>
-        <button class="ddi" onclick="scrollS('#tips');closeAllDd()"><span class="ddi-icon">💡</span><div><div class="ddi-label">Solar Tips</div><div class="ddi-sub">Make the most of your system</div></div></button>
-        <div class="dd-sep"></div>
-        <button class="ddi" onclick="scrollS('#faq');closeAllDd()"><span class="ddi-icon">❓</span><div><div class="ddi-label">FAQ</div><div class="ddi-sub">Answers to real questions</div></div></button>
-        <button class="ddi" onclick="scrollS('#glossary');closeAllDd()"><span class="ddi-icon">📖</span><div><div class="ddi-label">Glossary</div><div class="ddi-sub">Every solar term explained</div></div></button>
-        <div class="dd-sep"></div>
-        <button class="ddi" onclick="scrollS('#reviews');closeAllDd()"><span class="ddi-icon">⭐</span><div><div class="ddi-label">Reviews</div><div class="ddi-sub">See what others say</div></div></button>
-        <button class="ddi" onclick="scrollS('#ask');closeAllDd()"><span class="ddi-icon">💬</span><div><div class="ddi-label">Ask a Question</div><div class="ddi-sub">Send us your solar question</div></div></button>
-      </div>
-    </div>
-    <button class="nav-btn" onclick="scrollS('#ask');closeAllDd()" style="font-weight:800;color:var(--text)">Ask Us</button>
   </div>
   <div class="nav-end">
-    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle light/dark mode">🌙</button>
-    <a class="nav-cta" href="https://wa.me/+2347057027857" target="_blank">💬 Chat Us</a>
-    <button class="hamburger" onclick="toggleMob()" id="hamBtn">☰</button>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle light/dark mode">🌙</button>
+    <a class="nav-cta" href="https://wa.me/+2347057027857" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">💬 Chat Us</a>
+    <button class="hamburger" onclick="toggleMob()" id="hamBtn" aria-label="Open menu" aria-expanded="false">☰</button>
   </div>
 </nav>
 
 <div class="mob-nav" id="mobNav">
-  <div class="mob-section"><div class="mob-sec-title">Solutions</div>
-    <button class="mob-link" onclick="scrollS('#compare');closeMob()">⚡ Solar Power Stations</button>
-    <button class="mob-link" onclick="scrollS('#compare');closeMob()">🌞 Let There Be Light</button>
-    <button class="mob-link" onclick="scrollS('#compare');closeMob()">🏠 Installation</button>
+  <div class="mob-section"><div class="mob-sec-title">Pages</div>
+    <a class="mob-link" href="index.html">🏠 Home</a>
+    <a class="mob-link" href="calculator.html">⚡ Load Calculator</a>
+    <a class="mob-link" href="learn.html">📚 Learn Solar</a>
+    <a class="mob-link" href="about.html">👋 About Us</a>
   </div>
   <div class="mob-sep"></div>
-  <div class="mob-section"><div class="mob-sec-title">Tools</div>
-    <button class="mob-link" onclick="openCalc();closeMob()">⚡ Load Calculator</button>
+  <div class="mob-section"><div class="mob-sec-title">Tools on This Page</div>
     <button class="mob-link" onclick="scrollS('#fuel');closeMob()">⛽ Fuel Cost Calculator</button>
     <button class="mob-link" onclick="scrollS('#gencounter');closeMob()">📡 Live Spending Counter</button>
-  </div>
-  <div class="mob-sep"></div>
-  <div class="mob-section"><div class="mob-sec-title">Learn</div>
-    <button class="mob-link" onclick="scrollS('#solar101');closeMob()">📚 Solar 101</button>
-    <button class="mob-link" onclick="scrollS('#myths');closeMob()">🚫 Myth Busting</button>
-    <button class="mob-link" onclick="scrollS('#tips');closeMob()">💡 Solar Tips</button>
-    <button class="mob-link" onclick="scrollS('#faq');closeMob()">❓ FAQ</button>
-    <button class="mob-link" onclick="scrollS('#glossary');closeMob()">📖 Glossary</button>
   </div>
   <div class="mob-sep"></div>
   <div class="mob-section">
     <button class="mob-link" onclick="scrollS('#reviews');closeMob()">⭐ Reviews</button>
     <button class="mob-link" onclick="scrollS('#ask');closeMob()">💬 Ask a Question</button>
   </div>
-  <a class="mob-cta" href="https://wa.me/+2347057027857" target="_blank">💬 Chat Us on WhatsApp</a>
+  <a class="mob-cta" href="https://wa.me/+2347057027857" target="_blank" rel="noopener">💬 Chat Us on WhatsApp</a>
 </div>
 
 <!-- HERO -->
@@ -416,9 +430,53 @@
   <p class="cta-note anim d3">Free consultation · No commitment required</p>
 </section>
 
-<footer>
-  <div class="f-logo">⚡ CHIBAIK POWER</div>
-  <div class="f-copy">Powered by the sun · Not NEPA · Not fuel</div>
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">⚡ CHIBAIK POWER</div>
+      <p class="footer-tagline">Nigeria's free solar resource hub. Calculate your load, learn the facts, and get the right system without guesswork or pressure.</p>
+      <div class="footer-social">
+        <a class="footer-soc-btn" href="https://wa.me/+2347057027857" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬 WhatsApp</a>
+        <a class="footer-soc-btn" href="https://www.instagram.com/chibaikpower" target="_blank" rel="noopener" aria-label="Instagram">📸 Instagram</a>
+        <a class="footer-soc-btn" href="https://www.facebook.com/chibaikpower" target="_blank" rel="noopener" aria-label="Facebook">👍 Facebook</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Pages</div>
+      <div class="footer-links">
+        <a class="footer-link" href="index.html">Home</a>
+        <a class="footer-link" href="calculator.html">Load Calculator</a>
+        <a class="footer-link" href="learn.html">Learn Solar</a>
+        <a class="footer-link" href="about.html">About Us</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Tools</div>
+      <div class="footer-links">
+        <a class="footer-link" href="calculator.html">⚡ Load Calculator</a>
+        <a class="footer-link" href="index.html#fuel">⛽ Fuel Calculator</a>
+        <a class="footer-link" href="index.html#gencounter">📡 Live Counter</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Learn</div>
+      <div class="footer-links">
+        <a class="footer-link" href="learn.html#solar101">Solar 101</a>
+        <a class="footer-link" href="learn.html#myths">Myth Busting</a>
+        <a class="footer-link" href="learn.html#tips">Solar Tips</a>
+        <a class="footer-link" href="learn.html#faq">FAQ</a>
+        <a class="footer-link" href="learn.html#glossary">Glossary</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Chibaik Power · Nigeria · <a href="https://wa.me/+2347057027857">Contact Us</a></div>
+    <div class="footer-badges">
+      <span class="footer-badge">🇳🇬 Nigeria</span>
+      <span class="footer-badge">Free Tools</span>
+      <span class="footer-badge">No Bots</span>
+    </div>
+  </div>
 </footer>
 
 <!-- LOAD CALCULATOR OVERLAY -->
@@ -457,31 +515,27 @@
       <div class="rgrid" id="rg-gen"></div>
     </div>
     <div class="rpanel" id="rp-solar">
-      <div class="batt-note"><span class="ni">💡</span><p><strong>How this works:</strong> Configure your battery and panels below. Every card below updates instantly to show exactly what your chosen setup will deliver — the inverter options shown are all the sizes that can safely handle your load.</p></div>
-
+      <div class="batt-note"><span class="ni">⚠️</span><p><strong>Note:</strong> Duration shown is battery-only, e.g. at night. During daylight your panels continuously recharge the battery, giving far longer overall runtime.</p></div>
       <div class="sol-config">
 
-        <!-- BATTERY TYPE -->
+        <!-- BATTERY TYPE TOGGLE -->
         <div class="sol-config-section">
-          <div class="sol-config-label">1. Battery Type</div>
-          <div class="sol-config-sublabel">Lithium lasts longer and needs zero maintenance. Tubular costs less upfront.</div>
+          <div class="sol-config-label">1. Choose Battery Type</div>
           <div class="sol-sel-group" id="battBtns">
             <button class="sol-sel-btn on" onclick="setSolarBatt('lithium',this)">⚡ Lithium (LiFePO4)</button>
             <button class="sol-sel-btn" onclick="setSolarBatt('tubular',this)">🔋 Tubular (Lead-Acid)</button>
           </div>
         </div>
 
-        <!-- BATTERY SIZE -->
+        <!-- BATTERY SIZE SELECTOR -->
         <div class="sol-config-section" id="battSizeSection">
-          <div class="sol-config-label">2. Battery Size</div>
-          <div class="sol-config-sublabel">How much energy each battery stores.</div>
+          <div class="sol-config-label">2. Choose Battery Size</div>
           <div class="sol-sel-group" id="battSizeBtns"></div>
         </div>
 
-        <!-- BATTERY COUNT -->
+        <!-- BATTERY COUNTER -->
         <div class="sol-config-section">
           <div class="sol-config-label">3. Number of Batteries</div>
-          <div class="sol-config-sublabel">More batteries = more backup hours. Multiply freely.</div>
           <div class="sol-counter-row">
             <button class="sol-cnt-btn sol-cnt-minus" onclick="changeBattCount(-1)">−</button>
             <div class="sol-cnt-display">
@@ -497,10 +551,9 @@
           <div class="sol-insight" id="battInsight"></div>
         </div>
 
-        <!-- PANEL SIZE -->
+        <!-- PANEL SIZE SELECTOR -->
         <div class="sol-config-section">
-          <div class="sol-config-label">4. Panel Size</div>
-          <div class="sol-config-sublabel">Higher wattage panels charge your battery faster.</div>
+          <div class="sol-config-label">4. Choose Panel Size</div>
           <div class="sol-sel-group" id="panelBtns">
             <button class="sol-sel-btn" onclick="setSolarPanel(200,this)">200W</button>
             <button class="sol-sel-btn on" onclick="setSolarPanel(300,this)">300W</button>
@@ -510,10 +563,9 @@
           </div>
         </div>
 
-        <!-- PANEL COUNT -->
+        <!-- PANEL COUNTER -->
         <div class="sol-config-section">
           <div class="sol-config-label">5. Number of Panels</div>
-          <div class="sol-config-sublabel">More panels = faster daily recharge of your battery.</div>
           <div class="sol-counter-row">
             <button class="sol-cnt-btn sol-cnt-minus" onclick="changePanelCount(-1)">−</button>
             <div class="sol-cnt-display">
@@ -530,15 +582,11 @@
         </div>
 
       </div>
-
       <div class="batt-compare" id="battCompare"></div>
-
       <div class="disc-box disc-sol">
-        <div class="disc-side"><h4>✅ Advantages</h4><div class="disc-item"><span>•</span>Expandable — add panels or batteries any time</div><div class="disc-item"><span>•</span>Best long-term investment</div><div class="disc-item"><span>•</span>Hybrid inverters also charge from the grid</div></div>
-        <div class="disc-side"><h4>❌ Limitations</h4><div class="disc-item"><span>•</span>Higher upfront cost than a power station</div><div class="disc-item"><span>•</span>Requires professional installation</div></div>
+        <div class="disc-side"><h4>✅ Advantages</h4><div class="disc-item"><span>•</span>Expandable, add panels or batteries</div><div class="disc-item"><span>•</span>Best long-term investment</div><div class="disc-item"><span>•</span>Scales as your needs grow</div></div>
+        <div class="disc-side"><h4>❌ Limitations</h4><div class="disc-item"><span>•</span>Higher upfront cost</div><div class="disc-item"><span>•</span>Requires professional installation</div></div>
       </div>
-
-      <p class="sol-recs-label">Inverters that can handle your <strong id="sol-load-label">load</strong> — all using your chosen battery and panels above ↑</p>
       <div class="rgrid" id="rg-solar"></div>
     </div>
   </div>
@@ -563,6 +611,8 @@
   </div>
 </div>
 
+<!-- DYK POPUP -->
+<div class="dyk-popup" id="dykPopup">
     <button class="dyk-close" id="dykClose" disabled onclick="closeDyk()">
       <svg class="dyk-ring" viewBox="0 0 48 48"><circle class="dyk-track" cx="24" cy="24" r="20"/><circle class="dyk-progress" cx="24" cy="24" r="20" id="dykProgress"/></svg>
       <span class="dyk-x" id="dykX">✕</span>

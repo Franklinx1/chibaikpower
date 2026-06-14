@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Solar Load Calculator Nigeria — Chibaik Power</title>
+<meta name="description" content="Calculate exactly how much solar power you need in Nigeria. Free, instant, no email required. Find the right inverter and battery system for your home.">
+<link rel="canonical" href="https://chibaikpower.vercel.app/calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chibaikpower.vercel.app/calculator.html">
+<meta property="og:title" content="Free Solar Load Calculator — Chibaik Power Nigeria">
+<meta property="og:description" content="Select your appliances, see your total wattage, and get matched to the right solar system. Free, instant, no email required.">
+<meta name="theme-color" content="#FFD000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Chibaik Power Solar Load Calculator",
+  "url": "https://chibaikpower.vercel.app/calculator.html",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web",
+  "description": "Free solar load calculator for Nigerian homes. Select appliances and get matched to the right solar system.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "NGN" }
+}
+</script>
+<style>
+  /* Calculator page fills the whole viewport cleanly */
+  body { overflow: hidden; }
+  .calc-page-outer { display:flex; flex-direction:column; height:100vh; background:#0a0a0a; padding-top:60px; }
+  .calc-page-inner { flex:1; overflow-y:auto; display:flex; flex-direction:column; }
+  /* On the calc page the overlay IS the page — no overlay effect needed */
+  .calc-ov { position:relative; flex:1; display:flex; flex-direction:column; transform:none !important; opacity:1 !important; pointer-events:all !important; background:#0a0a0a; border-radius:0; box-shadow:none; max-width:100%; width:100%; padding:0; overflow:visible; }
+  .calc-nav-bar { display:none; }
+</style>
+</head>
+<body class="dark">
+
+<div class="scroll-prog" id="scrollProg"></div>
+
+<nav id="mainNav">
+  <a class="logo" href="index.html" aria-label="Chibaik Power Home">⚡ <em>CHIBAIK</em> POWER</a>
+  <div class="nav-center">
+    <a class="nav-page-link active" href="calculator.html">⚡ Calculator</a>
+    <a class="nav-page-link" href="learn.html">📚 Learn</a>
+    <a class="nav-page-link" href="about.html">About</a>
+  </div>
+  <div class="nav-end">
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle light/dark mode">🌙</button>
+    <a class="nav-cta" href="https://wa.me/+2347057027857" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬 Chat Us</a>
+    <button class="hamburger" onclick="toggleMob()" id="hamBtn" aria-label="Open menu">☰</button>
+  </div>
+</nav>
+
+<div class="mob-nav" id="mobNav">
+  <div class="mob-section"><div class="mob-sec-title">Pages</div>
+    <a class="mob-link" href="index.html">🏠 Home</a>
+    <a class="mob-link" href="calculator.html">⚡ Load Calculator</a>
+    <a class="mob-link" href="learn.html">📚 Learn Solar</a>
+    <a class="mob-link" href="about.html">👋 About Us</a>
+  </div>
+  <div class="mob-sep"></div>
+  <a class="mob-cta" href="https://wa.me/+2347057027857" target="_blank" rel="noopener">💬 Chat Us on WhatsApp</a>
+</div>
+
+<div class="calc-page-outer">
+  <div class="calc-page-inner">
+    <div class="calc-ov" id="calcOv">
+      <div class="calc-nav-bar">
+        <div class="calc-logo">⚡ CHIBAIK POWER</div>
+        <button class="calc-close-btn" onclick="window.location.href='index.html'">✕ Close</button>
+      </div>
+      <div class="calc-pg on" id="calcPg" style="align-self:flex-start;width:100%">
+        <h1 class="calc-h">What's Your <em>Load?</em></h1>
+        <p class="calc-hint">Select every appliance you want to power and choose the variant that matches yours.</p>
+        <div class="ctabs" id="ctabs"></div>
+        <div class="agrid" id="agrid"></div>
+      </div>
+      <div class="calc-pg" id="resPg" style="align-self:flex-start;width:100%">
+        <button class="back-btn" onclick="showCalcPg()">← Back to Calculator</button>
+        <div class="load-banner"><p>Your Total Load</p><div class="load-big"><span id="loadNum">0</span><small> W</small></div></div>
+        <div class="rtabs">
+          <button class="rtab on" onclick="switchRTab('gen',this)">⚡ Solar Power Station</button>
+          <button class="rtab" onclick="switchRTab('solar',this)">🌞 Let There Be Light</button>
+        </div>
+        <div class="calc-share-bar">
+          <p>Share Your Load Profile</p>
+          <div class="calc-share-btns">
+            <button class="share-btn share-wa" onclick="shareCalc('whatsapp')">💬 WhatsApp</button>
+            <button class="share-btn share-tw" onclick="shareCalc('twitter')">𝕏 Twitter</button>
+            <button class="share-btn share-cp" onclick="shareCalc('copy')" id="calcCopyBtn">📋 Copy</button>
+          </div>
+        </div>
+        <div class="rpanel on" id="rp-gen">
+          <div class="batt-note"><span class="ni">⚠️</span><p><strong>Note:</strong> More appliances running at once means faster battery drain. Running fewer at a time gives you longer battery life.</p></div>
+          <div class="disc-box disc-gen">
+            <div class="disc-side"><h4>✅ Advantages</h4><div class="disc-item"><span>•</span>Lower upfront cost</div><div class="disc-item"><span>•</span>Plug and play, no installation</div><div class="disc-item"><span>•</span>Portable, move it anywhere</div></div>
+            <div class="disc-side"><h4>❌ Limitations</h4><div class="disc-item"><span>•</span>Cannot be upgraded as load grows</div><div class="disc-item"><span>•</span>Fixed capacity, what you buy is final</div></div>
+          </div>
+          <div class="rgrid" id="rg-gen"></div>
+        </div>
+        <div class="rpanel" id="rp-solar">
+          <div class="batt-note"><span class="ni">💡</span><p><strong>How this works:</strong> Configure your battery and panels below. Every card updates instantly to show exactly what your chosen setup will deliver.</p></div>
+          <div class="sol-config">
+            <div class="sol-config-section">
+              <div class="sol-config-label">1. Battery Type</div>
+              <div class="sol-config-sublabel">Lithium lasts longer and needs zero maintenance. Tubular costs less upfront.</div>
+              <div class="sol-sel-group" id="battBtns">
+                <button class="sol-sel-btn on" onclick="setSolarBatt('lithium',this)">⚡ Lithium (LiFePO4)</button>
+                <button class="sol-sel-btn" onclick="setSolarBatt('tubular',this)">🔋 Tubular (Lead-Acid)</button>
+              </div>
+            </div>
+            <div class="sol-config-section" id="battSizeSection">
+              <div class="sol-config-label">2. Battery Size</div>
+              <div class="sol-config-sublabel">How much energy each battery stores.</div>
+              <div class="sol-sel-group" id="battSizeBtns"></div>
+            </div>
+            <div class="sol-config-section">
+              <div class="sol-config-label">3. Number of Batteries</div>
+              <div class="sol-config-sublabel">More batteries = more backup hours.</div>
+              <div class="sol-counter-row">
+                <button class="sol-cnt-btn sol-cnt-minus" onclick="changeBattCount(-1)" aria-label="Remove battery">−</button>
+                <div class="sol-cnt-display"><span class="sol-cnt-num" id="battCount">1</span><span class="sol-cnt-unit">battery</span></div>
+                <button class="sol-cnt-btn sol-cnt-plus" onclick="changeBattCount(1)" aria-label="Add battery">+</button>
+                <div class="sol-cnt-result" id="battTotalResult"><span class="sol-cnt-result-val" id="battTotalKwh">0</span><span class="sol-cnt-result-lbl">total storage</span></div>
+              </div>
+              <div class="sol-insight" id="battInsight"></div>
+            </div>
+            <div class="sol-config-section">
+              <div class="sol-config-label">4. Panel Size</div>
+              <div class="sol-config-sublabel">Higher wattage panels charge your battery faster.</div>
+              <div class="sol-sel-group" id="panelBtns">
+                <button class="sol-sel-btn" onclick="setSolarPanel(200,this)">200W</button>
+                <button class="sol-sel-btn on" onclick="setSolarPanel(300,this)">300W</button>
+                <button class="sol-sel-btn" onclick="setSolarPanel(400,this)">400W</button>
+                <button class="sol-sel-btn" onclick="setSolarPanel(450,this)">450W</button>
+                <button class="sol-sel-btn" onclick="setSolarPanel(550,this)">550W</button>
+              </div>
+            </div>
+            <div class="sol-config-section">
+              <div class="sol-config-label">5. Number of Panels</div>
+              <div class="sol-config-sublabel">More panels = faster daily recharge.</div>
+              <div class="sol-counter-row">
+                <button class="sol-cnt-btn sol-cnt-minus" onclick="changePanelCount(-1)" aria-label="Remove panel">−</button>
+                <div class="sol-cnt-display"><span class="sol-cnt-num" id="panelCount">2</span><span class="sol-cnt-unit">panels</span></div>
+                <button class="sol-cnt-btn sol-cnt-plus" onclick="changePanelCount(1)" aria-label="Add panel">+</button>
+                <div class="sol-cnt-result" id="panelTotalResult"><span class="sol-cnt-result-val" id="panelTotalW">0W</span><span class="sol-cnt-result-lbl">total generation</span></div>
+              </div>
+              <div class="sol-insight" id="panelInsight"></div>
+            </div>
+          </div>
+          <div class="batt-compare" id="battCompare"></div>
+          <div class="disc-box disc-sol">
+            <div class="disc-side"><h4>✅ Advantages</h4><div class="disc-item"><span>•</span>Expandable — add panels or batteries any time</div><div class="disc-item"><span>•</span>Best long-term investment</div><div class="disc-item"><span>•</span>Hybrid inverters also charge from the grid</div></div>
+            <div class="disc-side"><h4>❌ Limitations</h4><div class="disc-item"><span>•</span>Higher upfront cost than a power station</div><div class="disc-item"><span>•</span>Requires professional installation</div></div>
+          </div>
+          <p class="sol-recs-label">Inverters that can handle your <strong id="sol-load-label">load</strong> — using your chosen battery and panels above ↑</p>
+          <div class="rgrid" id="rg-solar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="total-bar" id="totalBar">
+  <div class="tb-l"><span class="tb-lbl">Total Load</span><span class="tb-w" id="tb-w">0</span><span class="tb-u">Watts</span></div>
+  <div class="tb-r"><button class="tb-reset" onclick="resetAll()">↺ Reset</button><button class="tb-rec" id="tb-rec" disabled onclick="showRes()">See Recommendations →</button></div>
+</div>
+
+<div class="wa-ov" id="waOv" onclick="closeWaOut(event)">
+  <div class="wa-box">
+    <button class="wa-x" onclick="closeWa()" aria-label="Close">✕</button>
+    <span class="wa-icon">💬</span>
+    <h3 class="wa-title">Ask If Available</h3>
+    <p class="wa-item">Enquiring about:<br><strong id="waItem"></strong></p>
+    <label class="wa-lbl" for="waName">Your Name (optional)</label>
+    <input class="wa-inp" id="waName" type="text" placeholder="e.g. Emeka, Amara..." maxlength="50">
+    <button class="wa-send" onclick="sendWa()">💬 Send Message on WhatsApp</button>
+    <button class="wa-skip" onclick="sendWaAnon()">Skip, chat without my name</button>
+  </div>
+</div>
+
+<div class="dyk-popup" id="dykPopup">
+  <button class="dyk-close" id="dykClose" disabled onclick="closeDyk()" aria-label="Close">
+    <svg class="dyk-ring" viewBox="0 0 48 48"><circle class="dyk-track" cx="24" cy="24" r="20"/><circle class="dyk-progress" cx="24" cy="24" r="20" id="dykProgress"/></svg>
+    <span class="dyk-x" id="dykX">✕</span>
+  </button>
+  <div class="dyk-inner">
+    <span class="dyk-icon" id="dykIcon">💡</span>
+    <div class="dyk-badge">Did You Know?</div>
+    <p class="dyk-text" id="dykText"></p>
+    <div class="dyk-rule"></div>
+    <p class="dyk-source">Chibaik Power · Solar Education</p>
+    <div class="dyk-share">
+      <span class="dyk-share-label">Share</span>
+      <button class="dyk-share-btn dyk-wa-btn" onclick="shareDyk('whatsapp')">💬 WhatsApp</button>
+      <button class="dyk-share-btn dyk-tw-btn" onclick="shareDyk('twitter')">𝕏 Twitter</button>
+      <button class="dyk-share-btn dyk-cp-btn" onclick="shareDyk('copy')" id="dykCopyBtn">📋 Copy</button>
+    </div>
+  </div>
+</div>
+
+<a class="wa-float" href="https://wa.me/+2347057027857" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a>
+<div class="calc-toast" id="calcToast"></div>
+
+<script src="script.js"></script>
+<script>
+  // On the calc page, auto-open the calculator immediately
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('calcOv').classList.add('on');
+  });
+</script>
+</body>
+</html>
