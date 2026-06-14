@@ -762,3 +762,138 @@ function submitReview() {
   const msg    = `Hi! I want to leave a review for Chibaik Power.\n\nName: ${who}${loc}\nRating: ${stars}\n\nReview: ${text}\n\n(You may share this on your website if you like)`;
   window.open(`https://wa.me/+2347057027857?text=${encodeURIComponent(msg)}`, '_blank');
 }
+
+// ═══ PANEL + BATTERY COUNTER ═══
+
+const lithiumSizes = [
+  { label:'2.4kWh',  kWh:2.4,  note:'Ideal for small apartments. Powers fan, TV, lights and phone charging for 4 to 6 hours.' },
+  { label:'5kWh',    kWh:5,    note:'Most popular for Nigerian homes. Powers a small to medium home through a full night outage.' },
+  { label:'7.68kWh', kWh:7.68, note:'Great for homes with a fridge plus other loads. Comfortable overnight backup.' },
+  { label:'10kWh',   kWh:10,   note:'The sweet spot for medium to large homes. Can power an AC for several hours overnight.' },
+  { label:'15kWh',   kWh:15,   note:'For large homes or businesses with heavy loads including multiple ACs.' },
+];
+
+const tubularSizes = [
+  { label:'100Ah / 12V', kWh:1.0,  note:'Entry level. Good for lights, fan and TV only. Needs replacing every 3 to 4 years.' },
+  { label:'150Ah / 12V', kWh:1.5,  note:'Handles small home loads comfortably. Widely available from most dealers in Nigeria.' },
+  { label:'200Ah / 12V', kWh:2.0,  note:'The most common choice for Nigerian homes. Good balance of cost and capacity.' },
+  { label:'220Ah / 12V', kWh:2.2,  note:'Slightly more capacity than 200Ah. Good if you want a little extra backup time.' },
+];
+
+let solarPanelW    = 300;
+let solarBattType  = 'lithium';
+let solarBattSizeKwh = 5;
+let solarBattCount = 1;
+let solarPanelCount = 2;
+
+// Nigeria average peak sun hours
+const PEAK_SUN_HOURS = 5;
+
+function initBattSizes() {
+  const list = solarBattType === 'lithium' ? lithiumSizes : tubularSizes;
+  const el = document.getElementById('battSizeBtns');
+  if (!el) return;
+  // default to first size
+  solarBattSizeKwh = list[0].kWh;
+  el.innerHTML = list.map((s, i) =>
+    `<button class="sol-sel-btn${i===0?' on':''}" onclick="setBattSize(${s.kWh},this)">${s.label}</button>`
+  ).join('');
+  updateCounterInsights();
+}
+
+function setBattSize(kwh, btn) {
+  solarBattSizeKwh = kwh;
+  document.querySelectorAll('#battSizeBtns .sol-sel-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  updateCounterInsights();
+  buildSolRecs();
+}
+
+function changeBattCount(delta) {
+  solarBattCount = Math.max(1, Math.min(8, solarBattCount + delta));
+  document.getElementById('battCount').textContent = solarBattCount;
+  updateCounterInsights();
+  buildSolRecs();
+}
+
+function changePanelCount(delta) {
+  solarPanelCount = Math.max(1, Math.min(20, solarPanelCount + delta));
+  document.getElementById('panelCount').textContent = solarPanelCount;
+  updateCounterInsights();
+  buildSolRecs();
+}
+
+function setSolarPanel(w, btn) {
+  solarPanelW = w;
+  document.querySelectorAll('#panelBtns .sol-sel-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  updateCounterInsights();
+  buildSolRecs();
+}
+
+function setSolarBatt(type, btn) {
+  solarBattType = type;
+  document.querySelectorAll('#battBtns .sol-sel-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  initBattSizes();
+  updateBattCompare();
+  buildSolRecs();
+}
+
+function updateCounterInsights() {
+  // Battery total
+  const totalKwh = (solarBattSizeKwh * solarBattCount).toFixed(1);
+  const battEl = document.getElementById('battTotalKwh');
+  if (battEl) {
+    battEl.textContent = solarBattType === 'lithium'
+      ? totalKwh + 'kWh'
+      : (solarBattCount * solarBattSizeKwh).toFixed(1) + 'kWh';
+  }
+
+  // Battery backup insight
+  const battInsightEl = document.getElementById('battInsight');
+  if (battInsightEl && totalLoad > 0) {
+    const usable = solarBattType === 'lithium'
+      ? solarBattSizeKwh * solarBattCount * 0.9
+      : solarBattSizeKwh * solarBattCount * 0.5;
+    const hours = usable / (totalLoad / 1000);
+    const battSizeList = solarBattType === 'lithium' ? lithiumSizes : tubularSizes;
+    const sizeNote = battSizeList.find(s => s.kWh === solarBattSizeKwh)?.note || '';
+    battInsightEl.innerHTML = `With <strong>${solarBattCount} x ${solarBattType === 'lithium' ? solarBattSizeKwh + 'kWh lithium' : (tubularSizes.find(s=>s.kWh===solarBattSizeKwh)?.label||'')}</strong> your backup at your current load (<strong>${totalLoad.toLocaleString()}W</strong>) is approximately <strong>${fmtD(hours)}</strong>. ${sizeNote}`;
+    battInsightEl.classList.add('show');
+  } else if (battInsightEl) {
+    battInsightEl.classList.remove('show');
+  }
+
+  // Panel total
+  const totalPanelW = solarPanelW * solarPanelCount;
+  const panelWEl = document.getElementById('panelTotalW');
+  if (panelWEl) panelWEl.textContent = totalPanelW.toLocaleString() + 'W';
+
+  // Panel charge time insight
+  const panelInsightEl = document.getElementById('panelInsight');
+  if (panelInsightEl) {
+    const totalBattKwh = solarBattSizeKwh * solarBattCount;
+    const panelDailyKwh = (totalPanelW / 1000) * PEAK_SUN_HOURS;
+    const chargeHours = totalBattKwh / (totalPanelW / 1000);
+    const coveragePercent = Math.min(100, Math.round((panelDailyKwh / totalBattKwh) * 100));
+    panelInsightEl.innerHTML = `<strong>${solarPanelCount} x ${solarPanelW}W panels</strong> generate <strong>${panelDailyKwh.toFixed(1)}kWh per day</strong> on average in Nigeria (based on 5 peak sun hours). At that rate, they can fully charge your <strong>${totalBattKwh.toFixed(1)}kWh of storage</strong> in approximately <strong>${fmtD(chargeHours)}</strong> of direct sun. They replenish <strong>${coveragePercent}%</strong> of your total battery capacity each sunny day.`;
+    panelInsightEl.classList.add('show');
+  }
+}
+
+// Patch showRes and recalc to also update counter insights
+const _origRecalc = recalc;
+recalc = function() {
+  _origRecalc();
+  updateCounterInsights();
+};
+
+// Init on results page open
+const _origShowRes = showRes;
+showRes = function() {
+  _origShowRes();
+  initBattSizes();
+  updateBattCompare();
+  updateCounterInsights();
+};

@@ -458,23 +458,71 @@
     </div>
     <div class="rpanel" id="rp-solar">
       <div class="batt-note"><span class="ni">⚠️</span><p><strong>Note:</strong> Duration shown is battery-only, e.g. at night. During daylight your panels continuously recharge the battery, giving far longer overall runtime.</p></div>
-      <div class="sol-selectors">
-        <div class="sol-sel-row">
-          <span class="sol-sel-label">Panel Size</span>
+      <div class="sol-config">
+
+        <!-- BATTERY TYPE TOGGLE -->
+        <div class="sol-config-section">
+          <div class="sol-config-label">1. Choose Battery Type</div>
+          <div class="sol-sel-group" id="battBtns">
+            <button class="sol-sel-btn on" onclick="setSolarBatt('lithium',this)">⚡ Lithium (LiFePO4)</button>
+            <button class="sol-sel-btn" onclick="setSolarBatt('tubular',this)">🔋 Tubular (Lead-Acid)</button>
+          </div>
+        </div>
+
+        <!-- BATTERY SIZE SELECTOR -->
+        <div class="sol-config-section" id="battSizeSection">
+          <div class="sol-config-label">2. Choose Battery Size</div>
+          <div class="sol-sel-group" id="battSizeBtns"></div>
+        </div>
+
+        <!-- BATTERY COUNTER -->
+        <div class="sol-config-section">
+          <div class="sol-config-label">3. Number of Batteries</div>
+          <div class="sol-counter-row">
+            <button class="sol-cnt-btn sol-cnt-minus" onclick="changeBattCount(-1)">−</button>
+            <div class="sol-cnt-display">
+              <span class="sol-cnt-num" id="battCount">1</span>
+              <span class="sol-cnt-unit">battery</span>
+            </div>
+            <button class="sol-cnt-btn sol-cnt-plus" onclick="changeBattCount(1)">+</button>
+            <div class="sol-cnt-result" id="battTotalResult">
+              <span class="sol-cnt-result-val" id="battTotalKwh">0</span>
+              <span class="sol-cnt-result-lbl">total storage</span>
+            </div>
+          </div>
+          <div class="sol-insight" id="battInsight"></div>
+        </div>
+
+        <!-- PANEL SIZE SELECTOR -->
+        <div class="sol-config-section">
+          <div class="sol-config-label">4. Choose Panel Size</div>
           <div class="sol-sel-group" id="panelBtns">
+            <button class="sol-sel-btn" onclick="setSolarPanel(200,this)">200W</button>
             <button class="sol-sel-btn on" onclick="setSolarPanel(300,this)">300W</button>
             <button class="sol-sel-btn" onclick="setSolarPanel(400,this)">400W</button>
             <button class="sol-sel-btn" onclick="setSolarPanel(450,this)">450W</button>
             <button class="sol-sel-btn" onclick="setSolarPanel(550,this)">550W</button>
           </div>
         </div>
-        <div class="sol-sel-row">
-          <span class="sol-sel-label">Battery Type</span>
-          <div class="sol-sel-group" id="battBtns">
-            <button class="sol-sel-btn on" onclick="setSolarBatt('lithium',this)">⚡ Lithium (LiFePO4)</button>
-            <button class="sol-sel-btn" onclick="setSolarBatt('tubular',this)">🔋 Tubular (Lead-Acid)</button>
+
+        <!-- PANEL COUNTER -->
+        <div class="sol-config-section">
+          <div class="sol-config-label">5. Number of Panels</div>
+          <div class="sol-counter-row">
+            <button class="sol-cnt-btn sol-cnt-minus" onclick="changePanelCount(-1)">−</button>
+            <div class="sol-cnt-display">
+              <span class="sol-cnt-num" id="panelCount">2</span>
+              <span class="sol-cnt-unit">panels</span>
+            </div>
+            <button class="sol-cnt-btn sol-cnt-plus" onclick="changePanelCount(1)">+</button>
+            <div class="sol-cnt-result" id="panelTotalResult">
+              <span class="sol-cnt-result-val" id="panelTotalW">0W</span>
+              <span class="sol-cnt-result-lbl">total generation</span>
+            </div>
           </div>
+          <div class="sol-insight" id="panelInsight"></div>
         </div>
+
       </div>
       <div class="batt-compare" id="battCompare"></div>
       <div class="disc-box disc-sol">
