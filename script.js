@@ -501,30 +501,38 @@ const dykFacts = [
 
 let currentDykFact = '';
 
-(function initDyk() {
+function initDyk() {
   const fact = dykFacts[Math.floor(Math.random() * dykFacts.length)];
   currentDykFact = fact.text;
-  document.getElementById('dykText').textContent = fact.text;
-  document.getElementById('dykIcon').textContent = fact.icon;
+  const textEl = document.getElementById('dykText');
+  const iconEl = document.getElementById('dykIcon');
+  if (textEl) textEl.textContent = fact.text;
+  if (iconEl) iconEl.textContent = fact.icon;
+
+  // enable close button after 5 seconds
   setTimeout(() => {
     const btn = document.getElementById('dykClose');
-    const x = document.getElementById('dykX');
-    btn.disabled = false;
-    btn.classList.add('ready');
-    x.classList.add('pop');
-    document.getElementById('dykProgress').style.stroke = '#00C853';
+    const x   = document.getElementById('dykX');
+    const prog = document.getElementById('dykProgress');
+    if (btn) { btn.disabled = false; btn.classList.add('ready'); }
+    if (x)   { x.classList.add('pop'); }
+    if (prog) { prog.style.stroke = '#00C853'; }
   }, 6000);
-})();
+}
 
 function closeDyk() {
-  if (!document.getElementById('dykClose').classList.contains('ready')) return;
-  document.getElementById('dykCard').classList.add('closing');
-  document.getElementById('dykOverlay').classList.add('closing');
-  setTimeout(() => document.getElementById('dykOverlay').remove(), 500);
+  const btn = document.getElementById('dykClose');
+  if (!btn || !btn.classList.contains('ready')) return;
+  const card    = document.getElementById('dykCard');
+  const overlay = document.getElementById('dykOverlay');
+  if (card)    card.classList.add('closing');
+  if (overlay) overlay.classList.add('closing');
+  setTimeout(() => { if (overlay) overlay.remove(); }, 500);
 }
 
 // ═══ SHARE, DYK ═══
 function shareDyk(platform) {
+  if (!currentDykFact) { alert('No fact loaded yet.'); return; }
   const siteUrl = window.location.hostname !== 'localhost' ? window.location.href : 'https://chibaikpower.vercel.app';
   const msg = `Solar fact from Chibaik Power: "${currentDykFact}" Learn more at ${siteUrl} ⚡`;
   if (platform === 'whatsapp') window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
@@ -882,18 +890,4 @@ function updateCounterInsights() {
   }
 }
 
-// Patch showRes and recalc to also update counter insights
-const _origRecalc = recalc;
-recalc = function() {
-  _origRecalc();
-  updateCounterInsights();
-};
-
-// Init on results page open
-const _origShowRes = showRes;
-showRes = function() {
-  _origShowRes();
-  initBattSizes();
-  updateBattCompare();
-  updateCounterInsights();
-};
+// counter patches moved to DOMContentLoaded
