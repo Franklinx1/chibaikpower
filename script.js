@@ -481,58 +481,7 @@ function sendWa() { const n = document.getElementById('waName').value.trim(); wi
 function sendWaAnon() { window.open(`https://wa.me/+2347057027857?text=${encodeURIComponent(buildMsg(''))}`, '_blank'); closeWa(); }
 
 // ═══ DYK POPUP ═══
-const dykFacts = [
-  { icon:'⛽', text:'Add up every naira you spent on fuel last year. Most Lagos and Abuja households spend between ₦300,000 and ₦600,000 annually on generator fuel alone. That is school fees. A trip. A business investment. All going up in smoke, literally.' },
-  { icon:'😤', text:'NEPA takes light, you start the generator. NEPA brings light, you turn it off. The average Nigerian does this dance 3 to 5 times a day. Solar does not know that dance. It just stays on.' },
-  { icon:'🌞', text:'The same sun that makes you sweat in Lagos, Abuja, Kano or Port Harcourt is powerful enough to run your AC, charge your devices and power every light in your house for free. Most people just have not captured it yet.' },
-  { icon:'🔧', text:'Your generator has been serviced at least twice this year. New spark plug, engine oil, repair man. Your solar panel? It just sits on the roof and works. No moving parts means almost nothing to fix for 25 to 30 years.' },
-  { icon:'📉', text:'Solar panels that cost ₦500,000 in 2010 now cost under ₦80,000. The price dropped over 90 percent in 15 years. Right now, today, is the best time in history to switch to solar. It only gets better from here.' },
-  { icon:'🌬️', text:'During harmattan, the dust settling on solar panels can quietly cut their output by up to 25 percent. A simple rinse with water once or twice a month during that season keeps your system running at full power.' },
-  { icon:'🔋', text:'Many Nigerians buy a solar system and drain the battery to zero every night, then wonder why it stopped holding charge within two years. Lithium batteries are designed to stop at 20 percent. Push past that regularly and you are slowly killing it.' },
-  { icon:'🌍', text:'If you live in Kano, Kaduna, Jos, Maiduguri or anywhere in the north, you sit on some of the strongest solar radiation on the planet. The same sun that makes the afternoon brutal is enough to power an entire compound for the whole night.' },
-  { icon:'💡', text:'Most Nigerians just want to charge their phone, watch TV, feel a fan moving and keep their fridge cold. Those four things together use roughly 250 to 300 watts. Even a basic entry-level solar system handles that comfortably for hours.' },
-  { icon:'❄️', text:'That 1.5HP AC pulling 1,200 watts is the number one reason solar systems disappoint buyers who skip the load calculation. One AC running all night can empty a mid-range battery before 3am. Know your load before you buy anything.' },
-  { icon:'🏫', text:'Think about children studying at night. In homes without stable power, kids read by candlelight or under generator lighting switched off by 10pm. One small solar system changes that permanently for the life of the home.' },
-  { icon:'🧊', text:'Every time NEPA takes light for hours, food spoils in the freezer. Businesses lose stock. Restaurants throw out ingredients. Solar keeps your freezer running through every outage, quietly saving you money you never track but always feel.' },
-  { icon:'🏭', text:'Nigerian businesses lose an estimated $29 billion every year to bad electricity, according to the World Bank. That is enough to build six brand new international airports. That money is not missing, it is just going to fuel and lost productivity.' },
-  { icon:'♻️', text:'Your generator will need a full overhaul within 3 to 4 years and will likely need replacing within 8 to 10. A quality lithium solar battery is still running at over 80 percent capacity after 8 to 10 years of daily use. One is a constant cost. The other is a one-time investment.' },
-  { icon:'☀️', text:'The sun rises every single day in Nigeria without fail. It does not go on strike. It does not collapse the grid. It does not send a bill. It is the most reliable source of energy available to every Nigerian, completely free, every morning.' },
-];
-
-let currentDykFact = '';
-
-function initDyk() {
-  const fact = dykFacts[Math.floor(Math.random() * dykFacts.length)];
-  currentDykFact = fact.text;
-  const textEl = document.getElementById('dykText');
-  const iconEl = document.getElementById('dykIcon');
-  if (textEl) textEl.textContent = fact.text;
-  if (iconEl) iconEl.textContent = fact.icon;
-
-  // enable close button after 5 seconds
-  setTimeout(() => {
-    const btn = document.getElementById('dykClose');
-    const x   = document.getElementById('dykX');
-    const prog = document.getElementById('dykProgress');
-    if (btn) { btn.disabled = false; btn.classList.add('ready'); }
-    if (x)   { x.classList.add('pop'); }
-    if (prog) { prog.style.stroke = '#00C853'; }
-  }, 6000);
-}
-
-function closeDyk() {
-  const btn = document.getElementById('dykClose');
-  if (!btn || !btn.classList.contains('ready')) return;
-  const card    = document.getElementById('dykCard');
-  const overlay = document.getElementById('dykOverlay');
-  if (card)    card.classList.add('closing');
-  if (overlay) overlay.classList.add('closing');
-  setTimeout(() => { if (overlay) overlay.remove(); }, 500);
-}
-
 // ═══ SHARE, DYK ═══
-function shareDyk(platform) {
-  if (!currentDykFact) { alert('No fact loaded yet.'); return; }
   const siteUrl = window.location.hostname !== 'localhost' ? window.location.href : 'https://chibaikpower.vercel.app';
   const msg = `Solar fact from Chibaik Power: "${currentDykFact}" Learn more at ${siteUrl} ⚡`;
   if (platform === 'whatsapp') window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
@@ -885,9 +834,6 @@ function updateCounterInsights() {
 }
 // ═══ SINGLE INIT BLOCK ═══
 document.addEventListener('DOMContentLoaded', () => {
-
-  // 1. DYK popup
-  initDyk();
 
   // 2. Hero quick calculator chips
   renderHeroChips();

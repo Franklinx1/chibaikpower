@@ -386,43 +386,43 @@ footer{background:#0A0A0A;border-top:1px solid rgba(255,255,255,.05);padding:16p
 .wa-skip{width:100%;background:transparent;border:none;color:#2a2a2a;font-size:10px;margin-top:8px;cursor:pointer;text-decoration:underline;font-family:'Plus Jakarta Sans',sans-serif}
 .wa-skip:hover{color:#555}
 
-/* DYK POPUP, always dark */
-.dyk-overlay{position:fixed;inset:0;z-index:1100;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;background:rgba(0,0,0,.86);backdrop-filter:blur(10px);animation:fadeIn .4s .2s ease forwards}
-.dyk-card{background:#0a0a0a;border:1.5px solid rgba(255,208,0,.25);border-radius:26px;max-width:520px;width:100%;position:relative;padding:44px 38px 28px;text-align:center;overflow:hidden;opacity:0;transform:scale(.82) translateY(24px);animation:cardIn .55s .5s cubic-bezier(.34,1.56,.64,1) forwards,borderPulse 3s 1.5s ease-in-out infinite;box-shadow:0 0 80px rgba(255,208,0,.06),0 28px 60px rgba(0,0,0,.6)}
-.dyk-card::before{content:'';position:absolute;inset:0;border-radius:26px;background:repeating-linear-gradient(0deg,transparent,transparent 44px,rgba(255,208,0,.02) 44px,rgba(255,208,0,.02) 45px),repeating-linear-gradient(90deg,transparent,transparent 44px,rgba(255,208,0,.02) 44px,rgba(255,208,0,.02) 45px);pointer-events:none}
-.dyk-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#FFD000,#FF8C00,#FFD000,transparent);border-radius:26px 26px 0 0;opacity:0;animation:fadeIn .4s 1s ease forwards}
-.dyk-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;border-radius:26px}
-.dyk-particles span{position:absolute;width:4px;height:4px;background:#FFD000;border-radius:50%;opacity:0;animation:particle 4s ease-in-out infinite}
-.dyk-particles span:nth-child(1){left:8%;top:18%;animation-delay:0s}
-.dyk-particles span:nth-child(2){right:12%;top:25%;animation-delay:.8s;width:3px;height:3px}
-.dyk-particles span:nth-child(3){left:18%;bottom:22%;animation-delay:1.4s}
-.dyk-particles span:nth-child(4){right:8%;bottom:18%;animation-delay:2s;width:3px;height:3px}
-.dyk-particles span:nth-child(5){left:48%;top:8%;animation-delay:2.6s}
-.dyk-particles span:nth-child(6){right:30%;bottom:10%;animation-delay:3.2s;width:3px;height:3px}
-.dyk-close{position:absolute;top:14px;right:14px;width:48px;height:48px;background:none;border:none;cursor:not-allowed;display:flex;align-items:center;justify-content:center;z-index:2;opacity:0;animation:fadeIn .3s .9s ease forwards}
-.dyk-close.ready{cursor:pointer}
-.dyk-ring{position:absolute;width:48px;height:48px;transform:rotate(-90deg)}
-.dyk-track{fill:none;stroke:#1e1e1e;stroke-width:2.5}
-.dyk-progress{fill:none;stroke:#FFD000;stroke-width:2.5;stroke-linecap:round;stroke-dasharray:125.66;stroke-dashoffset:125.66;animation:ringFill 5s 1s linear forwards}
-.dyk-x{position:relative;font-size:14px;font-weight:800;color:#444;transition:color .3s;z-index:1}
-.dyk-close.ready .dyk-x{color:#fff}
-.dyk-close.ready:hover .dyk-x{transform:rotate(90deg);display:inline-block}
-.dyk-x.pop{animation:popIn .45s cubic-bezier(.34,1.56,.64,1) forwards}
-.dyk-inner{position:relative;z-index:1}
-.dyk-icon{font-size:52px;display:block;margin-bottom:10px;opacity:0;transform:translateY(12px);animation:fadeUp .45s .75s ease forwards,iconFloat 3s 1.5s ease-in-out infinite}
-.dyk-badge{display:inline-block;background:#FFD000;color:#0a0a0a;font-family:'Dela Gothic One',sans-serif;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;padding:6px 18px;border-radius:100px;margin-bottom:20px;opacity:0;transform:translateY(10px);animation:fadeUp .4s .95s ease forwards}
-.dyk-text{font-size:clamp(14px,2.4vw,17px);font-weight:600;color:#e8e8e8;line-height:1.7;margin-bottom:20px;opacity:0;transform:translateY(12px);animation:fadeUp .5s 1.1s ease forwards}
-.dyk-rule{height:1px;background:linear-gradient(90deg,transparent,rgba(255,208,0,.35),transparent);margin-bottom:12px;opacity:0;animation:fadeUp .4s 1.3s ease forwards}
-.dyk-source{font-size:10px;font-weight:700;color:#3a3a3a;letter-spacing:1.5px;text-transform:uppercase;opacity:0;animation:fadeUp .4s 1.4s ease forwards;margin-bottom:16px}
-.dyk-share{opacity:0;animation:fadeUp .4s 1.5s ease forwards;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
-.dyk-share-label{font-size:10px;font-weight:700;color:#3a3a3a;text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
-.dyk-share-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border-radius:100px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:11px;cursor:pointer;border:none;transition:transform .15s}
-.dyk-share-btn:hover{transform:scale(1.08)}
-.dyk-wa-btn{background:#25D366;color:#fff}
-.dyk-tw-btn{background:#000;color:#fff;border:1px solid #333}
-.dyk-cp-btn{background:#222;color:#aaa}
-.dyk-card.closing{animation:cardOut .3s ease forwards!important}
-.dyk-overlay.closing{animation:overlayOut .4s .1s ease forwards!important}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* ANIMATIONS */
 @keyframes fadeIn{to{opacity:1}}
@@ -431,14 +431,14 @@ footer{background:#0A0A0A;border-top:1px solid rgba(255,255,255,.05);padding:16p
 @keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
 @keyframes bobHint{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 @keyframes glowPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,208,0,.3)}50%{box-shadow:0 0 40px 10px rgba(255,208,0,.15)}}
-@keyframes cardIn{to{opacity:1;transform:scale(1) translateY(0)}}
-@keyframes cardOut{to{opacity:0;transform:scale(.9) translateY(12px)}}
-@keyframes overlayOut{to{opacity:0}}
-@keyframes borderPulse{0%,100%{border-color:rgba(255,208,0,.22)}50%{border-color:rgba(255,208,0,.5)}}
-@keyframes particle{0%,100%{opacity:0;transform:translateY(0) scale(1)}50%{opacity:.5;transform:translateY(-13px) scale(1.6)}}
-@keyframes ringFill{to{stroke-dashoffset:0}}
-@keyframes popIn{0%{transform:scale(.3);opacity:.3}100%{transform:scale(1);opacity:1}}
-@keyframes iconFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-7px) rotate(2deg)}}
+}
+}
+}
+50%{border-color:rgba(255,208,0,.5)}}
+50%{opacity:.5;transform:translateY(-13px) scale(1.6)}}
+}
+100%{transform:scale(1);opacity:1}}
+50%{transform:translateY(-7px) rotate(2deg)}}
 
 .anim{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
 .anim.d1{transition-delay:.1s}.anim.d2{transition-delay:.18s}.anim.d3{transition-delay:.26s}
@@ -462,7 +462,7 @@ footer{background:#0A0A0A;border-top:1px solid rgba(255,255,255,.05);padding:16p
   .t-dot{display:none}
   .map-grid{grid-template-columns:repeat(9,1fr);gap:2px}
   .map-cell{min-height:32px;font-size:7px;padding:3px 1px}
-  .dyk-card{padding:36px 20px 24px}
+  
   .calc-share-bar{flex-direction:column;align-items:flex-start}
 }
 
