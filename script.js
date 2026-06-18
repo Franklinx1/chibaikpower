@@ -366,26 +366,34 @@ function buildSolRecs() {
     grid.innerHTML = `<div class="no-match"><p>Your load of <strong>${totalLoad.toLocaleString()}W</strong> exceeds standard packages. Chat us directly and we will put together a custom system for you.</p></div>`;
     return;
   }
-  const ref = Math.max(...matches.map(p => {
-    const bWh = solarBattType === 'lithium' ? p.bWh_li : p.bWh_tu;
-    return bWh / (totalLoad * 0.25);
-  }));
+
+  // Use the user's actual battery selection for capacity
+  const usableMultiplier = solarBattType === 'lithium' ? 0.9 : 0.5;
+  const userBattWh = solarBattCount * solarBattSizeKwh * 1000 * usableMultiplier;
+
+  // User's actual panel selection
+  const userPanelStr = `${solarPanelCount} x ${solarPanelW}W Monocrystalline Panel${solarPanelCount > 1 ? 's' : ''}`;
+
+  // Battery display string based on user selection
+  const battSizeList = solarBattType === 'lithium' ? lithiumSizes : tubularSizes;
+  const selectedSize = battSizeList.find(s => s.kWh === solarBattSizeKwh) || battSizeList[0];
+  const userBatStr = `${solarBattCount} x ${selectedSize.label} ${solarBattType === 'lithium' ? 'LiFePO4' : 'Tubular'} Battery${solarBattCount > 1 ? 'ies' : ''}`;
+
+  const ref = Math.max(...matches.map(p => userBattWh / (totalLoad * 0.25 || 1)));
+
   grid.innerHTML = matches.map(p => {
-    const bat  = solarBattType === 'lithium' ? p.bat_li  : p.bat_tu;
-    const bWh  = solarBattType === 'lithium' ? p.bWh_li  : p.bWh_tu;
     const ctrl = solarBattType === 'lithium' ? p.ctrl_li : p.ctrl_tu;
-    const panelCount = Math.ceil(p.panelTotalW / solarPanelW);
-    const panelStr   = `${panelCount} x ${solarPanelW}W Monocrystalline Panel${panelCount > 1 ? 's' : ''}`;
-    const yH = bWh / totalLoad, fH = bWh / p.max, lH = bWh / (totalLoad * 0.3);
-    const detail = `${p.inv}, ${bat}, ${panelStr}`;
+    const bWh  = userBattWh; // use user's actual selected capacity
+    const yH = bWh / (totalLoad || 1), fH = bWh / p.max, lH = bWh / ((totalLoad * 0.3) || 1);
+    const detail = `${p.inv}, ${userBatStr}, ${userPanelStr}`;
     return `<div class="rcard" onclick="openWa('${p.n}','${p.n} (${detail})',${totalLoad})">
       <span class="rbadge bg-sol">Let There Be Light</span>
       <div class="r-title">${p.n}</div>
       <div class="pkg-specs">
         <div class="pkg-row"><span class="pi">⚡</span><strong>${p.inv}</strong></div>
-        <div class="pkg-row"><span class="pi">🔋</span><strong>${bat}</strong></div>
+        <div class="pkg-row"><span class="pi">🔋</span><strong>${userBatStr}</strong></div>
         <div class="pkg-row"><span class="pi">🔌</span><strong>${ctrl}</strong></div>
-        <div class="pkg-row"><span class="pi">🌞</span><strong>${panelStr}</strong></div>
+        <div class="pkg-row"><span class="pi">🌞</span><strong>${userPanelStr}</strong></div>
       </div>
       <div class="dur-row"><div class="dur-lbl">Your Load (${totalLoad.toLocaleString()}W) <span>${fmtD(yH)}</span></div><div class="dur-track"><div class="dur-fill" style="width:${bW(yH,ref)}%;background:linear-gradient(90deg,#FFD000,#FF8C00)"></div></div></div>
       <div class="dur-row"><div class="dur-lbl">Inverter Full Load (${p.max.toLocaleString()}W) <span>${fmtD(fH)}</span></div><div class="dur-track"><div class="dur-fill" style="width:${bW(fH,ref)}%;background:linear-gradient(90deg,#FF4444,#FF8C00)"></div></div></div>
