@@ -17,7 +17,7 @@
   </url>
   <url>
     <loc>https://chibaikpower.vercel.app/about.html</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>

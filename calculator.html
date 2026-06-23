@@ -207,6 +207,41 @@
 <a class="wa-float" href="https://wa.me/+2347057027857" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">💬</a>
 <div class="calc-toast" id="calcToast"></div>
 
+
+<!-- CHIDI AI CHAT WIDGET -->
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <div class="chat-avatar">⚡</div>
+      <div class="chat-header-info">
+        <div class="chat-name">Chidi</div>
+        <div class="chat-status">● Online · Solar AI Assistant</div>
+      </div>
+      <button class="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">
+        <div class="chat-msg-bubble">Hey! I am Chidi, your solar assistant. Ask me anything about solar energy in Nigeria.</div>
+        <div class="chat-msg-time">Just now</div>
+      </div>
+    </div>
+    <div class="chat-typing" id="chatTyping"><span></span><span></span><span></span></div>
+    <div class="chat-suggestions" id="chatSuggestions">
+      <button class="chat-sug" onclick="sendSuggestion(this)">Can solar run my AC?</button>
+      <button class="chat-sug" onclick="sendSuggestion(this)">What battery should I buy?</button>
+      <button class="chat-sug" onclick="sendSuggestion(this)">Lithium vs Tubular?</button>
+    </div>
+    <div class="chat-footer">
+      <input class="chat-input" id="chatInput" type="text" placeholder="Ask Chidi anything about solar..." maxlength="500">
+      <button class="chat-send" id="chatSend" onclick="sendChat()">➤</button>
+    </div>
+  </div>
+  <div class="chat-bubble" onclick="toggleChat()">
+    <span>⚡</span>
+    <span class="chat-bubble-label">Ask Chidi</span>
+  </div>
+</div>
+
 <script src="script.js"></script>
 <script>
   // On the calc page, auto-open the calculator immediately
