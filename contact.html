@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact & Get a Quote — Chibaik Power</title>
+<meta name="description" content="Get a free solar quote, ask us a question, or leave a review. Chibaik Power serves all of Nigeria.">
+<meta name="theme-color" content="#FFD000">
+<script defer src="/_vercel/insights/script.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="scroll-prog" id="scrollProg"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="logo" href="index.html">⚡ <em>CHIBAIK</em> POWER</a>
+  <div class="nav-center">
+    <div class="nav-item" id="dd-sol">
+      <button class="nav-btn" onclick="toggleDd('dd-sol')">Solutions <span class="nav-arr">▾</span></button>
+      <div class="dropdown">
+        <button class="ddi" onclick="window.location.href='index.html'"><span class="ddi-icon">⚡</span><div><div class="ddi-label">Solar Power Stations</div><div class="ddi-sub">Portable, plug and play</div></div></button>
+        <button class="ddi" onclick="window.location.href='index.html'"><span class="ddi-icon">🌞</span><div><div class="ddi-label">Let There Be Light</div><div class="ddi-sub">Full inverter and battery system</div></div></button>
+      </div>
+    </div>
+    <a class="nav-page-link" href="calculator.html">Tools</a>
+    <a class="nav-page-link" href="learn.html">Learn</a>
+    <a class="nav-page-link" href="about.html">About</a>
+    <a class="nav-page-link active" href="contact.html">Contact</a>
+  </div>
+  <div class="nav-end">
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
+    <a class="nav-cta" href="https://wa.me/+2347057027857" target="_blank">💬 Chat Us</a>
+    <button class="hamburger" onclick="toggleMob()" id="hamBtn" aria-label="Open menu">☰</button>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mob-nav" id="mobNav">
+  <div class="mob-section">
+    <a class="mob-link" href="index.html" onclick="closeMob()">🏠 Home</a>
+    <a class="mob-link" href="calculator.html" onclick="closeMob()">⛽ Calculator</a>
+    <a class="mob-link" href="learn.html" onclick="closeMob()">📚 Learn</a>
+    <a class="mob-link" href="about.html" onclick="closeMob()">ℹ️ About</a>
+    <a class="mob-link active" href="contact.html" onclick="closeMob()">📋 Contact</a>
+  </div>
+  <a class="mob-cta" href="https://wa.me/+2347057027857" target="_blank">💬 Chat Us on WhatsApp</a>
+</div>
+
+<!-- HERO -->
+<section class="contact-hero">
+  <div class="inner center">
+    <span class="eyebrow">Get In Touch</span>
+    <h1 class="contact-h1">We Are Here.<br><em>Let's Talk Solar.</em></h1>
+    <p class="contact-sub">Get a free quote, ask any question, or simply send us a message on WhatsApp. No commitment, no pressure, no jargon.</p>
+  </div>
+</section>
+
+<!-- QUICK ACTIONS -->
+<section class="section">
+  <div class="inner">
+    <div class="contact-quick">
+      <a class="contact-quick-card" href="#quote">
+        <span class="contact-quick-icon">📋</span>
+        <div class="contact-quick-title">Get a Quote</div>
+        <div class="contact-quick-sub">Tell us your needs, we give you honest pricing</div>
+      </a>
+      <a class="contact-quick-card" href="#ask">
+        <span class="contact-quick-icon">❓</span>
+        <div class="contact-quick-title">Ask a Question</div>
+        <div class="contact-quick-sub">Free solar advice, straight answers</div>
+      </a>
+      <a class="contact-quick-card" href="#review">
+        <span class="contact-quick-icon">⭐</span>
+        <div class="contact-quick-title">Leave a Review</div>
+        <div class="contact-quick-sub">Help other Nigerians make better decisions</div>
+      </a>
+      <a class="contact-quick-card" href="https://wa.me/+2347057027857" target="_blank">
+        <span class="contact-quick-icon">💬</span>
+        <div class="contact-quick-title">WhatsApp Us Now</div>
+        <div class="contact-quick-sub">Fastest way to reach us, typically within hours</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- GET A QUOTE -->
+<section class="quote-sec" id="quote">
+  <div class="quote-inner">
+    <span class="eyebrow">Serious Buyer?</span>
+    <h2 class="sec-h anim">Get a Proper Quote</h2>
+    <p class="sec-sub anim d1">Fill this in and we come back to you with exact pricing, availability and delivery timeline. No vague numbers, no runaround.</p>
+    <div class="quote-form anim d2">
+      <div class="quote-row">
+        <div><label class="quote-label">Your Name</label><input class="quote-input" id="qName" type="text" placeholder="e.g. Emeka Okafor"></div>
+        <div><label class="quote-label">WhatsApp Number</label><input class="quote-input" id="qPhone" type="tel" placeholder="e.g. 08012345678"></div>
+      </div>
+      <div class="quote-row">
+        <div>
+          <label class="quote-label">Your State</label>
+          <select class="quote-select" id="qState">
+            <option value="">Select your state</option>
+            <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
+          </select>
+        </div>
+        <div>
+          <label class="quote-label">Budget Range</label>
+          <select class="quote-select" id="qBudget">
+            <option value="">Select budget range</option>
+            <option>Under ₦200,000</option>
+            <option>₦200,000 to ₦500,000</option>
+            <option>₦500,000 to ₦1,000,000</option>
+            <option>₦1,000,000 to ₦2,000,000</option>
+            <option>Above ₦2,000,000</option>
+          </select>
+        </div>
+      </div>
+      <div><label class="quote-label">What do you want to power?</label><textarea class="quote-textarea" id="qNeeds" placeholder="e.g. 3 fans, 1 TV, 1 fridge, phone charging. Generator running 8 hours daily. Looking for something that runs the whole night without generator."></textarea></div>
+      <button class="quote-btn" onclick="submitQuote()">💬 Send My Quote Request</button>
+      <p class="quote-note">We typically respond within a few hours on WhatsApp. No commitment required.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ASK A QUESTION -->
+<section class="section" id="ask">
+  <div class="inner-xs center">
+    <span class="eyebrow anim">Free Advice</span>
+    <h2 class="sec-h anim d1">Ask Us Anything</h2>
+    <p class="ask-sub anim d2">Have a solar question you cannot find the answer to? Send it and we will give you a straight answer. Or ask Chidi, our AI assistant, for an instant response.</p>
+    <div class="ask-form anim d3">
+      <div><label class="ask-label">Your Name (optional)</label><input class="ask-input" id="askName" type="text" placeholder="e.g. Emeka"></div>
+      <div>
+        <label class="ask-label">Your State</label>
+        <select class="ask-select" id="askState">
+          <option value="">Select your state</option>
+          <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
+        </select>
+      </div>
+      <div><label class="ask-label">Your Question</label><textarea class="ask-textarea" id="askQuestion" placeholder="e.g. Can a 1kW solar system run my fridge and 2 fans overnight?"></textarea></div>
+      <button class="ask-btn" onclick="sendQuestion()">💬 Send Question on WhatsApp</button>
+      <button class="ask-btn" style="background:var(--bg-alt);color:var(--text);border:var(--border);margin-top:8px" onclick="sendToChidi()">⚡ Ask Chidi Instead (Instant)</button>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section section-alt" id="review">
+  <div class="inner-sm">
+    <p class="eyebrow anim center">Your Feedback</p>
+    <h2 class="sec-h anim d1 center">Leave a Review</h2>
+    <p class="sec-sub anim d2 center">Did this site help you? Share your experience and help other Nigerians make better solar decisions.</p>
+    <div class="review-form-box anim d3">
+      <div class="star-row">
+        <span class="star-row-label">Your Rating</span>
+        <button class="star-btn" data-val="1" onclick="setRating(1)">★</button>
+        <button class="star-btn" data-val="2" onclick="setRating(2)">★</button>
+        <button class="star-btn" data-val="3" onclick="setRating(3)">★</button>
+        <button class="star-btn" data-val="4" onclick="setRating(4)">★</button>
+        <button class="star-btn" data-val="5" onclick="setRating(5)">★</button>
+      </div>
+      <div class="review-fields">
+        <div><label class="ask-label">Your Name (optional)</label><input class="review-input" id="revName" type="text" placeholder="e.g. Emeka"></div>
+        <div>
+          <label class="ask-label">Your State</label>
+          <select class="review-input" id="revState">
+            <option value="">Select state</option>
+            <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
+          </select>
+        </div>
+      </div>
+      <textarea class="review-textarea" id="revText" placeholder="Share your experience or a recommendation..."></textarea>
+      <button class="review-btn" onclick="submitReview()">💬 Send Review on WhatsApp</button>
+      <p class="review-note">Your review goes directly to us on WhatsApp. If you give permission we may add it to this page to help others.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">⚡ CHIBAIK POWER</div>
+  <div class="f-links">
+    <a class="f-link" href="learn.html">Learn</a>
+    <a class="f-link" href="calculator.html">Calculator</a>
+    <a class="f-link" href="about.html">About</a>
+    <a class="f-link" href="contact.html">Contact</a>
+  </div>
+  <div class="f-copy">Powered by the sun · Not NEPA · Not fuel</div>
+</footer>
+
+<a class="wa-float" id="waFloat" href="https://wa.me/+2347057027857" target="_blank" title="Chat us on WhatsApp">💬</a>
+
+<!-- CHIDI CHAT WIDGET -->
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-window" id="chatWindow">
+    <div class="chat-header">
+      <div class="chat-avatar">⚡</div>
+      <div class="chat-header-info">
+        <div class="chat-name">Chidi</div>
+        <div class="chat-status">● Online · Solar AI Assistant</div>
+      </div>
+      <button class="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-msg bot">
+        <div class="chat-msg-bubble">Hey! I am Chidi, your solar assistant. Ask me anything about solar energy in Nigeria. What do you want to know?</div>
+        <div class="chat-msg-time">Just now</div>
+      </div>
+    </div>
+    <div class="chat-typing" id="chatTyping"><span></span><span></span><span></span></div>
+    <div class="chat-suggestions" id="chatSuggestions">
+      <button class="chat-sug" onclick="sendSuggestion(this)">Can solar run my AC?</button>
+      <button class="chat-sug" onclick="sendSuggestion(this)">How much does solar cost?</button>
+    </div>
+    <div class="chat-footer">
+      <input class="chat-input" id="chatInput" type="text" placeholder="Ask Chidi anything..." maxlength="500">
+      <button class="chat-send" id="chatSend" onclick="sendChat()">➤</button>
+    </div>
+  </div>
+  <div class="chat-bubble" onclick="toggleChat()">
+    <span>⚡</span>
+    <span class="chat-bubble-label">Ask Chidi</span>
+  </div>
+</div>
+
+<div class="calc-toast" id="calcToast"></div>
+
+<script src="script.js"></script>
+<script>
+// Contact-page specific functions
+function submitQuote() {
+  const name = document.getElementById('qName').value.trim();
+  const phone = document.getElementById('qPhone').value.trim();
+  const state = document.getElementById('qState').value;
+  const budget = document.getElementById('qBudget').value;
+  const needs = document.getElementById('qNeeds').value.trim();
+  if (!needs) { alert('Please describe what you want to power.'); return; }
+  const msg = `Hi Chibaik Power! I want a quote.\n\nName: ${name || 'Not given'}\nPhone: ${phone || 'Not given'}\nState: ${state || 'Not given'}\nBudget: ${budget || 'Not given'}\n\nWhat I want to power:\n${needs}`;
+  window.open(`https://wa.me/+2347057027857?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function sendQuestion() {
+  const name = document.getElementById('askName').value.trim();
+  const state = document.getElementById('askState').value;
+  const question = document.getElementById('askQuestion').value.trim();
+  if (!question) { alert('Please type your question.'); return; }
+  const msg = `Hi! I have a solar question.\n\nName: ${name || 'Anonymous'}${state ? '\nState: ' + state : ''}\n\nQuestion: ${question}`;
+  window.open(`https://wa.me/+2347057027857?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function sendToChidi() {
+  const question = document.getElementById('askQuestion').value.trim();
+  if (!question) { alert('Please type your question first.'); return; }
+  const input = document.getElementById('chatInput');
+  if (input) { input.value = question; }
+  toggleChat();
+  setTimeout(() => sendChat(), 200);
+}
+
+let reviewRating = 5;
+function setRating(n) {
+  reviewRating = n;
+  document.querySelectorAll('.star-btn').forEach((b, i) => {
+    b.classList.toggle('on', i < n);
+  });
+}
+
+function submitReview() {
+  const name = document.getElementById('revName').value.trim();
+  const state = document.getElementById('revState').value;
+  const text = document.getElementById('revText').value.trim();
+  if (!text) { alert('Please write your review before sending.'); return; }
+  const stars = '★'.repeat(reviewRating) + '☆'.repeat(5 - reviewRating);
+  const who = name || 'Anonymous';
+  const loc = state ? ` from ${state}` : '';
+  const msg = `Hi! I want to leave a review for Chibaik Power.\n\nName: ${who}${loc}\nRating: ${stars}\n\nReview: ${text}\n\n(You may share this on your website if you like)`;
+  window.open(`https://wa.me/+2347057027857?text=${encodeURIComponent(msg)}`, '_blank');
+}
+</script>
+</body>
+</html>

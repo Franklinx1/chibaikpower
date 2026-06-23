@@ -5,9 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chibaik Power — Nigeria's Solar Resource Hub</title>
 <meta name="description" content="Free solar load calculator for Nigeria. Find the right solar power station or full inverter system for your home. Learn everything about solar in plain English.">
-<meta name="keywords" content="solar Nigeria, solar panel price Nigeria, load calculator solar, inverter Nigeria, solar power station Lagos, Chibaik Power, solar education Nigeria">
 <meta property="og:title" content="Chibaik Power — Nigeria's Solar Resource Hub">
-<meta property="og:description" content="Calculate your load, learn everything about solar and get the right system delivered anywhere in Nigeria. 100% free.">
+<meta property="og:description" content="Calculate your load, learn about solar, get the right system delivered anywhere in Nigeria. 100% free.">
 <meta property="og:image" content="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200&q=80">
 <meta name="theme-color" content="#FFD000">
 <script defer src="/_vercel/insights/script.js"></script>
@@ -61,21 +60,22 @@
 <!-- NAV -->
 <nav id="mainNav">
   <a class="logo" href="index.html">⚡ <em>CHIBAIK</em> POWER</a>
+
+  <!-- Desktop Nav -->
   <div class="nav-center">
     <div class="nav-item" id="dd-sol">
       <button class="nav-btn" onclick="toggleDd('dd-sol')">Solutions <span class="nav-arr">▾</span></button>
       <div class="dropdown">
         <button class="ddi" onclick="openCalc();closeAllDd()"><span class="ddi-icon">⚡</span><div><div class="ddi-label">Solar Power Stations</div><div class="ddi-sub">Portable, plug and play</div></div></button>
         <button class="ddi" onclick="openCalc();closeAllDd()"><span class="ddi-icon">🌞</span><div><div class="ddi-label">Let There Be Light</div><div class="ddi-sub">Full inverter and battery system</div></div></button>
-        <button class="ddi" onclick="scrollS('#quote');closeAllDd()"><span class="ddi-icon">📋</span><div><div class="ddi-label">Get a Quote</div><div class="ddi-sub">Tell us what you need</div></div></button>
+        <a class="ddi" href="contact.html"><span class="ddi-icon">📋</span><div><div class="ddi-label">Get a Quote</div><div class="ddi-sub">Tell us what you need</div></div></a>
       </div>
     </div>
     <div class="nav-item" id="dd-tools">
       <button class="nav-btn" onclick="toggleDd('dd-tools')">Tools <span class="nav-arr">▾</span></button>
       <div class="dropdown">
         <button class="ddi" onclick="openCalc();closeAllDd()"><span class="ddi-icon">⚡</span><div><div class="ddi-label">Load Calculator</div><div class="ddi-sub">Find your exact solar match</div></div></button>
-        <button class="ddi" onclick="scrollS('#fuel');closeAllDd()"><span class="ddi-icon">⛽</span><div><div class="ddi-label">Fuel Cost Calculator</div><div class="ddi-sub">See your generator's true cost</div></div></button>
-        <button class="ddi" onclick="scrollS('#gencounter');closeAllDd()"><span class="ddi-icon">📡</span><div><div class="ddi-label">Live Spending Counter</div><div class="ddi-sub">Nigeria's fuel bill in real time</div></div></button>
+        <a class="ddi" href="calculator.html"><span class="ddi-icon">⛽</span><div><div class="ddi-label">Fuel Cost Calculator</div><div class="ddi-sub">See your generator's true cost</div></div></a>
       </div>
     </div>
     <div class="nav-item" id="dd-learn">
@@ -83,46 +83,47 @@
       <div class="dropdown">
         <a class="ddi" href="learn.html#solar101"><span class="ddi-icon">📚</span><div><div class="ddi-label">Solar 101</div><div class="ddi-sub">Plain English, no jargon</div></div></a>
         <a class="ddi" href="learn.html#myths"><span class="ddi-icon">🚫</span><div><div class="ddi-label">Myth Busting</div><div class="ddi-sub">Common solar misconceptions</div></div></a>
-        <a class="ddi" href="learn.html#tips"><span class="ddi-icon">💡</span><div><div class="ddi-label">Solar Tips</div><div class="ddi-sub">Make the most of your system</div></div></a>
-        <div class="dd-sep"></div>
         <a class="ddi" href="learn.html#faq"><span class="ddi-icon">❓</span><div><div class="ddi-label">FAQ</div><div class="ddi-sub">Answers to real questions</div></div></a>
         <a class="ddi" href="learn.html#glossary"><span class="ddi-icon">📖</span><div><div class="ddi-label">Glossary</div><div class="ddi-sub">Every solar term explained</div></div></a>
       </div>
     </div>
+    <a class="nav-btn" href="about.html" style="font-weight:700;color:var(--text-muted);text-decoration:none">About</a>
     <button class="nav-btn" onclick="toggleChat()" style="font-weight:800;color:var(--text)">⚡ Ask Chidi</button>
   </div>
+
   <div class="nav-end">
-    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle light/dark mode">🌙</button>
-    <a class="nav-cta" href="https://wa.me/+2347057027857" target="_blank">💬 Chat Us</a>
-    <button class="hamburger" onclick="toggleMob()" id="hamBtn">☰</button>
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
+    <a class="nav-cta" href="contact.html">💬 Get a Quote</a>
+    <button class="hamburger" onclick="toggleMob()" id="hamBtn" aria-label="Open menu">☰</button>
   </div>
 </nav>
 
 <!-- MOBILE NAV -->
 <div class="mob-nav" id="mobNav">
-  <div class="mob-section"><div class="mob-sec-title">Solutions</div>
+  <div class="mob-section">
+    <div class="mob-sec-title">Solutions</div>
     <button class="mob-link" onclick="openCalc();closeMob()">⚡ Solar Power Stations</button>
     <button class="mob-link" onclick="openCalc();closeMob()">🌞 Let There Be Light</button>
-    <button class="mob-link" onclick="scrollS('#quote');closeMob()">📋 Get a Quote</button>
-  </div>
-  <div class="mob-sep"></div>
-  <div class="mob-section"><div class="mob-sec-title">Tools</div>
-    <button class="mob-link" onclick="openCalc();closeMob()">⚡ Load Calculator</button>
-    <button class="mob-link" onclick="scrollS('#fuel');closeMob()">⛽ Fuel Cost Calculator</button>
-    <button class="mob-link" onclick="scrollS('#gencounter');closeMob()">📡 Live Counter</button>
-  </div>
-  <div class="mob-sep"></div>
-  <div class="mob-section"><div class="mob-sec-title">Learn</div>
-    <a class="mob-link" href="learn.html#solar101">📚 Solar 101</a>
-    <a class="mob-link" href="learn.html#myths">🚫 Myth Busting</a>
-    <a class="mob-link" href="learn.html#faq">❓ FAQ</a>
-    <a class="mob-link" href="learn.html#glossary">📖 Glossary</a>
+    <a class="mob-link" href="contact.html" onclick="closeMob()">📋 Get a Quote</a>
   </div>
   <div class="mob-sep"></div>
   <div class="mob-section">
+    <div class="mob-sec-title">Tools</div>
+    <button class="mob-link" onclick="openCalc();closeMob()">⚡ Load Calculator</button>
+    <a class="mob-link" href="calculator.html" onclick="closeMob()">⛽ Fuel Cost Calculator</a>
+  </div>
+  <div class="mob-sep"></div>
+  <div class="mob-section">
+    <div class="mob-sec-title">Learn</div>
+    <a class="mob-link" href="learn.html#solar101" onclick="closeMob()">📚 Solar 101</a>
+    <a class="mob-link" href="learn.html#myths" onclick="closeMob()">🚫 Myth Busting</a>
+    <a class="mob-link" href="learn.html#faq" onclick="closeMob()">❓ FAQ</a>
+    <a class="mob-link" href="learn.html#glossary" onclick="closeMob()">📖 Glossary</a>
+  </div>
+  <div class="mob-sep"></div>
+  <div class="mob-section">
+    <a class="mob-link" href="about.html" onclick="closeMob()">ℹ️ About Us</a>
     <button class="mob-link" onclick="toggleChat();closeMob()">⚡ Ask Chidi (AI Solar Assistant)</button>
-    <button class="mob-link" onclick="scrollS('#reviews');closeMob()">⭐ Reviews</button>
-    <button class="mob-link" onclick="scrollS('#ask');closeMob()">💬 Ask a Question</button>
   </div>
   <a class="mob-cta" href="https://wa.me/+2347057027857" target="_blank">💬 Chat Us on WhatsApp</a>
 </div>
@@ -132,7 +133,7 @@
   <div class="hero-img"></div>
   <span class="hero-badge">Nigeria's Solar Resource Hub ⚡</span>
   <h1>Forget<br><span class="strike">NEPA</span><br>Forever.</h1>
-  <p class="hero-sub">Learn everything about solar, calculate your exact power needs and get the right system delivered anywhere in Nigeria. Free, honest, no pressure.</p>
+  <p class="hero-sub">Calculate your exact power needs, learn everything about solar in plain English, and get the right system delivered anywhere in Nigeria. Free. Honest. No pressure.</p>
   <div class="hero-btns">
     <button class="btn-dark" onclick="openCalc()">⚡ Calculate My Load Free</button>
     <a class="btn-outline" href="https://wa.me/+2347057027857" target="_blank">💬 Chat Us</a>
@@ -180,13 +181,13 @@
         <div class="step-n">02</div>
         <span class="step-icon">🎯</span>
         <div class="step-title">See What Fits You</div>
-        <p class="step-desc">Based on your load, see real solar power stations and full solar packages available in Nigeria right now, with honest runtime estimates and battery backup times.</p>
+        <p class="step-desc">Based on your load, see real solar power stations and full solar packages available in Nigeria, with honest runtime estimates and battery backup times.</p>
       </div>
       <div class="step anim d3">
         <div class="step-n">03</div>
         <span class="step-icon">📦</span>
         <div class="step-title">We Source and Deliver</div>
-        <p class="step-desc">No showroom needed. You pick what you want, we source it from trusted Nigerian suppliers and deliver it straight to your door anywhere in the country.</p>
+        <p class="step-desc">No showroom needed. Pick what you want, we source it from trusted Nigerian suppliers and deliver straight to your door anywhere in the country.</p>
       </div>
     </div>
   </div>
@@ -242,99 +243,75 @@
   </div>
 </div>
 
-<!-- GENERATOR COUNTER -->
-<section class="gen-sec" id="gencounter">
-  <div class="gen-inner">
-    <span class="eyebrow">Real Time</span>
-    <h2 class="sec-h anim">Nigeria Is Spending <em>Right Now</em></h2>
-    <p class="gen-sub anim d1">Estimated amount spent on generator fuel across Nigeria since midnight today. Every second, this number grows.</p>
-    <div class="gen-cards">
-      <div class="gen-card anim d1">
-        <div class="gen-card-label">Today So Far</div>
-        <div class="gen-card-val" id="genToday">Calculating...</div>
-        <div class="gen-card-note">since midnight</div>
-      </div>
-      <div class="gen-card anim d2">
-        <div class="gen-card-label">This Month</div>
-        <div class="gen-card-val" id="genMonth">Calculating...</div>
-        <div class="gen-card-note">and counting</div>
-      </div>
-      <div class="gen-card gen-card-highlight anim d3">
-        <div class="gen-card-label">This Year So Far</div>
-        <div class="gen-card-val" id="genYear">Calculating...</div>
-        <div class="gen-card-note">in 2026</div>
-      </div>
-    </div>
-    <p class="gen-disclaimer anim d4">Based on a conservative estimate of 38 billion naira spent daily on generator fuel across Nigeria. This money buys nothing permanent. Every naira is gone forever.</p>
-    <button class="gen-cta anim d5" onclick="scrollS('#fuel')">Calculate Your Personal Generator Cost</button>
-  </div>
-</section>
+<!-- PAGE CARDS — replaces all the crammed sections -->
+<section class="section" id="explore">
+  <div class="inner">
+    <p class="eyebrow anim center">Everything You Need</p>
+    <h2 class="sec-h anim d1 center">Tools. Knowledge.<br><em>All Free.</em></h2>
+    <div class="page-cards anim d2">
 
-<!-- FUEL CALCULATOR -->
-<section class="fuel-sec" id="fuel">
-  <div class="fuel-inner">
-    <span class="eyebrow">Reality Check</span>
-    <h2 class="sec-h anim">What Is Your Generator<br>Actually Costing You?</h2>
-    <p class="fuel-desc anim d1">Type in your numbers and see the true cost of running a generator over time.</p>
-    <div class="fuel-form anim d2">
-      <div><label class="fuel-label">Litres of fuel per week</label><input type="number" id="fc-l" class="fuel-input" placeholder="e.g. 10" min="0"></div>
-      <div><label class="fuel-label">Fuel price per litre (₦)</label><input type="number" id="fc-p" class="fuel-input" placeholder="e.g. 950" min="0"></div>
-      <div><label class="fuel-label">Generator hours per day</label><input type="number" id="fc-h" class="fuel-input" placeholder="e.g. 8" min="0" max="24"></div>
-    </div>
-    <button class="fuel-go anim d3" onclick="calcFuel()">Calculate My Generator Cost →</button>
-    <div class="fuel-results" id="fuelRes">
-      <div class="fuel-panel">
-        <div class="fuel-row"><span class="fuel-lbl">Per Week</span><span class="fuel-val" id="fc-weekly">—</span></div>
-        <div class="fuel-row"><span class="fuel-lbl">Per Month</span><span class="fuel-val" id="fc-monthly">—</span></div>
-        <div class="fuel-row"><span class="fuel-lbl">Per Year</span><span class="fuel-val" id="fc-yearly">—</span></div>
-        <div class="fuel-row"><span class="fuel-lbl" style="font-size:13px;font-weight:800;color:#999">Over 5 Years</span><span class="fuel-val big" id="fc-5yr">—</span></div>
+      <div class="page-card">
+        <div class="page-card-icon">⚡</div>
+        <div class="page-card-body">
+          <div class="page-card-title">Load Calculator</div>
+          <p class="page-card-desc">Select your appliances and see exactly which solar system can power your home. Takes 2 minutes. Completely free.</p>
+          <button class="page-card-btn" onclick="openCalc()">Open Calculator →</button>
+        </div>
       </div>
-      <div class="fuel-insight">
-        <p id="fc-insight">Calculating...</p>
-        <button class="fuel-cta-btn" onclick="openCalc()">⚡ See Solar Options for Your Load →</button>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- SOLAR 101 TEASER -->
-<section class="section" id="learn-teaser">
-  <div class="inner center">
-    <span class="eyebrow anim">Free Education</span>
-    <h2 class="sec-h anim d1">Everything You Need to Know<br>Before Spending a <em>Single Naira</em></h2>
-    <p class="sec-sub anim d2">From what a watt-hour actually means to why inverter ACs are a must for solar, the learning hub covers it all in plain Nigerian English with zero jargon.</p>
-    <div class="learn-preview anim d3">
-      <div class="learn-prev-grid">
-        <a class="learn-prev-card" href="learn.html#solar101">
-          <span class="learn-prev-icon">📚</span>
-          <div class="learn-prev-title">Solar 101</div>
-          <div class="learn-prev-sub">8 essential concepts explained simply</div>
-        </a>
-        <a class="learn-prev-card" href="learn.html#myths">
-          <span class="learn-prev-icon">🚫</span>
-          <div class="learn-prev-title">Myth Busting</div>
-          <div class="learn-prev-sub">8 common solar myths, debunked</div>
-        </a>
-        <a class="learn-prev-card" href="learn.html#tips">
-          <span class="learn-prev-icon">💡</span>
-          <div class="learn-prev-title">Solar Tips</div>
-          <div class="learn-prev-sub">6 practical tips for Nigerian homes</div>
-        </a>
-        <a class="learn-prev-card" href="learn.html#glossary">
-          <span class="learn-prev-icon">📖</span>
-          <div class="learn-prev-title">Glossary</div>
-          <div class="learn-prev-sub">Every solar term in plain English</div>
-        </a>
+      <div class="page-card">
+        <div class="page-card-icon">⛽</div>
+        <div class="page-card-body">
+          <div class="page-card-title">Fuel Cost Calculator</div>
+          <p class="page-card-desc">Find out how much your generator is actually costing you — per month, per year, over 5 years. The number will shock you.</p>
+          <a class="page-card-btn" href="calculator.html">See My Generator Cost →</a>
+        </div>
       </div>
-      <a class="btn-dark anim d4" href="learn.html" style="display:inline-flex;margin-top:32px;background:var(--text);color:var(--bg)">📚 Go to Learning Hub →</a>
+
+      <div class="page-card">
+        <div class="page-card-icon">📚</div>
+        <div class="page-card-body">
+          <div class="page-card-title">Solar Learning Hub</div>
+          <p class="page-card-desc">Solar 101, myth busting, glossary, tips and FAQ — everything you need to know before spending a single naira.</p>
+          <a class="page-card-btn" href="learn.html">Go to Learning Hub →</a>
+        </div>
+      </div>
+
+      <div class="page-card">
+        <div class="page-card-icon">📋</div>
+        <div class="page-card-body">
+          <div class="page-card-title">Get a Quote</div>
+          <p class="page-card-desc">Tell us what you need, your budget and your state. We come back with honest pricing and a system that works for you.</p>
+          <a class="page-card-btn" href="contact.html">Request a Quote →</a>
+        </div>
+      </div>
+
+      <div class="page-card">
+        <div class="page-card-icon">⚡</div>
+        <div class="page-card-body">
+          <div class="page-card-title">Ask Chidi — AI Solar Assistant</div>
+          <p class="page-card-desc">Have a question? Chidi is our AI solar assistant. Ask anything — system sizing, battery types, cost estimates — and get an instant honest answer.</p>
+          <button class="page-card-btn" onclick="toggleChat()">Chat with Chidi →</button>
+        </div>
+      </div>
+
+      <div class="page-card">
+        <div class="page-card-icon">ℹ️</div>
+        <div class="page-card-body">
+          <div class="page-card-title">About Chibaik Power</div>
+          <p class="page-card-desc">Who we are, what we believe and why we built a free solar education hub for Nigerians. No jargon. No pressure. Just help.</p>
+          <a class="page-card-btn" href="about.html">Learn About Us →</a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- REVIEWS -->
+<!-- REVIEWS SNAPSHOT -->
 <section class="section section-alt" id="reviews">
   <div class="inner">
-    <span class="eyebrow anim center">Community Feedback</span>
+    <p class="eyebrow anim center">Community Feedback</p>
     <h2 class="sec-h anim d1 center">What People Are Saying</h2>
     <div class="reviews-grid">
       <div class="review-card anim d1">
@@ -344,7 +321,7 @@
       </div>
       <div class="review-card anim d2">
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">"I used the fuel calculator and almost fell off my chair. I am spending over ₦480,000 a year on generator fuel. That number made me finally make the switch. Site is very educational."</p>
+        <p class="review-text">"I used the fuel calculator and almost fell off my chair. I am spending over ₦480,000 a year on generator fuel. That number made me finally make the switch."</p>
         <div class="review-author">Fatima I. · Abuja</div>
       </div>
       <div class="review-card anim d3">
@@ -353,86 +330,8 @@
         <div class="review-author">Tunde B. · Ibadan</div>
       </div>
     </div>
-    <div class="review-form-box anim d2">
-      <h3 class="review-form-title">Leave Your Review</h3>
-      <p class="review-form-sub">Did this site help you? Share your experience and help other Nigerians make better solar decisions.</p>
-      <div class="star-row">
-        <span class="star-row-label">Your Rating</span>
-        <button class="star-btn" data-val="1" onclick="setRating(1)">★</button>
-        <button class="star-btn" data-val="2" onclick="setRating(2)">★</button>
-        <button class="star-btn" data-val="3" onclick="setRating(3)">★</button>
-        <button class="star-btn" data-val="4" onclick="setRating(4)">★</button>
-        <button class="star-btn" data-val="5" onclick="setRating(5)">★</button>
-      </div>
-      <div class="review-fields">
-        <div><label class="ask-label">Your Name (optional)</label><input class="review-input" id="revName" type="text" placeholder="e.g. Emeka"></div>
-        <div><label class="ask-label">Your State</label>
-          <select class="review-input" id="revState">
-            <option value="">Select state</option>
-            <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
-          </select>
-        </div>
-        <textarea class="review-textarea" id="revText" placeholder="Share your experience or a recommendation..."></textarea>
-      </div>
-      <button class="review-btn" onclick="submitReview()">💬 Send Review on WhatsApp</button>
-      <p class="review-note">Your review goes directly to us on WhatsApp. If you give permission we may add it to this page to help others.</p>
-    </div>
-  </div>
-</section>
-
-<!-- GET A QUOTE -->
-<section class="quote-sec" id="quote">
-  <div class="quote-inner">
-    <span class="eyebrow">Serious Buyer?</span>
-    <h2 class="sec-h anim">Get a Proper Quote</h2>
-    <p class="sec-sub anim d1">Fill this in and we come back to you with exact pricing, availability and delivery timeline. No vague numbers, no runaround.</p>
-    <div class="quote-form anim d2">
-      <div class="quote-row">
-        <div><label class="quote-label">Your Name</label><input class="quote-input" id="qName" type="text" placeholder="e.g. Emeka Okafor"></div>
-        <div><label class="quote-label">WhatsApp Number</label><input class="quote-input" id="qPhone" type="tel" placeholder="e.g. 08012345678"></div>
-      </div>
-      <div class="quote-row">
-        <div><label class="quote-label">Your State</label>
-          <select class="quote-select" id="qState">
-            <option value="">Select your state</option>
-            <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
-          </select>
-        </div>
-        <div><label class="quote-label">Budget Range</label>
-          <select class="quote-select" id="qBudget">
-            <option value="">Select budget range</option>
-            <option>Under ₦200,000</option>
-            <option>₦200,000 to ₦500,000</option>
-            <option>₦500,000 to ₦1,000,000</option>
-            <option>₦1,000,000 to ₦2,000,000</option>
-            <option>Above ₦2,000,000</option>
-          </select>
-        </div>
-      </div>
-      <div><label class="quote-label">What do you want to power?</label><textarea class="quote-textarea" id="qNeeds" placeholder="e.g. 3 fans, 1 TV, 1 fridge, phone charging. Generator running 8 hours daily. Looking for something that runs the whole night without generator."></textarea></div>
-      <button class="quote-btn" onclick="submitQuote()">💬 Send My Quote Request</button>
-      <p class="quote-note">We typically respond within a few hours on WhatsApp. No commitment required.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ASK A QUESTION -->
-<section class="section" id="ask">
-  <div class="inner-xs center">
-    <span class="eyebrow anim">Free Advice</span>
-    <h2 class="sec-h anim d1">Ask Us Anything</h2>
-    <p class="ask-sub anim d2">Have a solar question you cannot find the answer to? Send it and we will give you a straight answer. Or ask Chidi, our AI assistant, for an instant response.</p>
-    <div class="ask-form anim d3">
-      <div><label class="ask-label">Your Name (optional)</label><input class="ask-input" id="askName" type="text" placeholder="e.g. Emeka"></div>
-      <div><label class="ask-label">Your State</label>
-        <select class="ask-select" id="askState">
-          <option value="">Select your state</option>
-          <option>Abia</option><option>Adamawa</option><option>Akwa Ibom</option><option>Anambra</option><option>Bauchi</option><option>Bayelsa</option><option>Benue</option><option>Borno</option><option>Cross River</option><option>Delta</option><option>Ebonyi</option><option>Edo</option><option>Ekiti</option><option>Enugu</option><option>FCT</option><option>Gombe</option><option>Imo</option><option>Jigawa</option><option>Kaduna</option><option>Kano</option><option>Katsina</option><option>Kebbi</option><option>Kogi</option><option>Kwara</option><option>Lagos</option><option>Nasarawa</option><option>Niger</option><option>Ogun</option><option>Ondo</option><option>Osun</option><option>Oyo</option><option>Plateau</option><option>Rivers</option><option>Sokoto</option><option>Taraba</option><option>Yobe</option><option>Zamfara</option>
-        </select>
-      </div>
-      <div><label class="ask-label">Your Question</label><textarea class="ask-textarea" id="askQuestion" placeholder="e.g. Can a 1kW solar system run my fridge and 2 fans overnight?"></textarea></div>
-      <button class="ask-btn" onclick="sendQuestion()">💬 Send Question on WhatsApp</button>
-      <button class="ask-btn" style="background:var(--bg-alt);color:var(--text);border:var(--border);margin-top:8px" onclick="sendToChidi()">⚡ Ask Chidi Instead (Instant)</button>
+    <div style="text-align:center;margin-top:32px">
+      <a class="page-card-btn" href="contact.html#review" style="display:inline-flex;align-items:center;gap:6px;background:var(--pri);color:#111;padding:12px 28px;border-radius:100px;text-decoration:none;font-family:'Dela Gothic One',sans-serif;font-size:13px;">⭐ Leave Your Review</a>
     </div>
   </div>
 </section>
@@ -452,7 +351,7 @@
     <a class="f-link" href="learn.html">Learn</a>
     <a class="f-link" href="calculator.html">Calculator</a>
     <a class="f-link" href="about.html">About</a>
-    <a class="f-link" href="https://wa.me/+2347057027857" target="_blank">Contact</a>
+    <a class="f-link" href="contact.html">Contact</a>
   </div>
   <div class="f-copy">Powered by the sun · Not NEPA · Not fuel</div>
 </footer>
@@ -477,9 +376,7 @@
         <div class="chat-msg-time">Just now</div>
       </div>
     </div>
-    <div class="chat-typing" id="chatTyping">
-      <span></span><span></span><span></span>
-    </div>
+    <div class="chat-typing" id="chatTyping"><span></span><span></span><span></span></div>
     <div class="chat-suggestions" id="chatSuggestions">
       <button class="chat-sug" onclick="sendSuggestion(this)">Can solar run my AC?</button>
       <button class="chat-sug" onclick="sendSuggestion(this)">What battery should I buy?</button>
@@ -487,7 +384,7 @@
       <button class="chat-sug" onclick="sendSuggestion(this)">Lithium vs Tubular?</button>
     </div>
     <div class="chat-footer">
-      <input class="chat-input" id="chatInput" type="text" placeholder="Ask Chidi anything about solar..." maxlength="500">
+      <input class="chat-input" id="chatInput" type="text" placeholder="Ask Chidi anything..." maxlength="500">
       <button class="chat-send" id="chatSend" onclick="sendChat()">➤</button>
     </div>
   </div>
@@ -531,7 +428,7 @@
       </div>
     </div>
     <div class="rpanel on" id="rp-gen">
-      <div class="batt-note"><span class="ni">⚠️</span><p><strong>Note:</strong> More appliances running at once means faster battery drain. Running fewer at a time gives you longer battery life.</p></div>
+      <div class="batt-note"><span class="ni">⚠️</span><p><strong>Note:</strong> More appliances running at once means faster battery drain.</p></div>
       <div class="disc-box disc-gen">
         <div class="disc-side"><h4>✅ Advantages</h4><div class="disc-item"><span>•</span>Lower upfront cost</div><div class="disc-item"><span>•</span>Plug and play, no installation</div><div class="disc-item"><span>•</span>Portable, move it anywhere</div></div>
         <div class="disc-side"><h4>❌ Limitations</h4><div class="disc-item"><span>•</span>Cannot be upgraded as load grows</div><div class="disc-item"><span>•</span>Fixed capacity, what you buy is final</div></div>
@@ -539,7 +436,7 @@
       <div class="rgrid" id="rg-gen"></div>
     </div>
     <div class="rpanel" id="rp-solar">
-      <div class="batt-note"><span class="ni">⚠️</span><p><strong>Note:</strong> Duration shown is battery-only backup at night. During daylight your panels continuously recharge, giving far longer overall runtime.</p></div>
+      <div class="batt-note"><span class="ni">⚠️</span><p><strong>Note:</strong> Duration shown is battery-only backup at night. During daylight your panels continuously recharge.</p></div>
       <div class="sol-config">
         <div class="sol-config-section">
           <div class="sol-config-label">1. Choose Battery Type</div>
@@ -585,7 +482,7 @@
       </div>
       <div class="batt-compare" id="battCompare"></div>
       <div class="disc-box disc-sol">
-        <div class="disc-side"><h4>✅ Advantages</h4><div class="disc-item"><span>•</span>Expandable, add panels or batteries later</div><div class="disc-item"><span>•</span>Best long-term investment</div><div class="disc-item"><span>•</span>Scales as your needs grow</div></div>
+        <div class="disc-side"><h4>✅ Advantages</h4><div class="disc-item"><span>•</span>Expandable, add panels or batteries later</div><div class="disc-item"><span>•</span>Best long-term investment</div></div>
         <div class="disc-side"><h4>❌ Limitations</h4><div class="disc-item"><span>•</span>Higher upfront cost</div><div class="disc-item"><span>•</span>Requires professional installation</div></div>
       </div>
       <div class="rgrid" id="rg-solar"></div>
@@ -614,17 +511,6 @@
     <button class="wa-skip" onclick="sendWaAnon()">Skip, chat without my name</button>
   </div>
 </div>
-
-<!-- LEARN PREVIEW STYLES (inline so they don't bloat style.css) -->
-<style>
-.learn-preview { width: 100%; }
-.learn-prev-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
-.learn-prev-card { background: var(--bg-card); border: var(--border); border-radius: var(--radius); padding: 24px 20px; text-decoration: none; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; transition: transform .2s, box-shadow .2s, border-color .2s; }
-.learn-prev-card:hover { transform: translateY(-4px); box-shadow: var(--card-shadow-hover); border-color: var(--pri); }
-.learn-prev-icon { font-size: 32px; }
-.learn-prev-title { font-family: 'Dela Gothic One', sans-serif; font-size: 16px; color: var(--text); }
-.learn-prev-sub { font-size: 11px; color: var(--text-muted); font-weight: 600; }
-</style>
 
 <script src="script.js"></script>
 </body>
