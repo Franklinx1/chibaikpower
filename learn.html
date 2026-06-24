@@ -49,18 +49,19 @@
 <div class="mob-nav" id="mobNav">
   <div class="mob-section"><div class="mob-sec-title">Pages</div>
     <a class="mob-link" href="index.html">🏠 Home</a>
-    <a class="mob-link" href="calculator.html">⚡ Load Calculator</a>
-    <a class="mob-link" href="learn.html">📚 Learn Solar</a>
-    <a class="mob-link" href="about.html">👋 About Us</a>
+    <a class="mob-link" href="calculator.html">⚡ Calculator</a>
+    <a class="mob-link active" href="learn.html">📚 Learn Solar</a>
+    <a class="mob-link" href="about.html">About Us</a>
+    <a class="mob-link" href="contact.html">📋 Contact</a>
   </div>
   <div class="mob-sep"></div>
   <div class="mob-section"><div class="mob-sec-title">On This Page</div>
-    <a class="mob-link" href="#solar101">📚 Solar 101</a>
-    <a class="mob-link" href="#myths">🚫 Myth Busting</a>
-    <a class="mob-link" href="#tips">💡 Solar Tips</a>
-    <a class="mob-link" href="#faq">❓ FAQ</a>
-    <a class="mob-link" href="#glossary">📖 Glossary</a>
-    <a class="mob-link" href="#ask">💬 Ask a Question</a>
+    <a class="mob-link" href="#solar101">Solar 101</a>
+    <a class="mob-link" href="#myths">Myth Busting</a>
+    <a class="mob-link" href="#tips">Solar Tips</a>
+    <a class="mob-link" href="#faq">FAQ</a>
+    <a class="mob-link" href="#glossary">Glossary</a>
+    <a class="mob-link" href="#ask">Ask a Question</a>
   </div>
   <div class="mob-sep"></div>
   <a class="mob-cta" href="https://wa.me/+2347057027857" target="_blank" rel="noopener">💬 Chat Us on WhatsApp</a>
@@ -76,12 +77,12 @@
 <!-- STICKY SECTION NAV -->
 <nav class="learn-nav" aria-label="Learn sections">
   <div class="learn-nav-inner">
-    <a class="learn-tab" href="#solar101">📚 Solar 101</a>
-    <a class="learn-tab" href="#myths">🚫 Myths Busted</a>
-    <a class="learn-tab" href="#tips">💡 Tips</a>
-    <a class="learn-tab" href="#faq">❓ FAQ</a>
-    <a class="learn-tab" href="#glossary">📖 Glossary</a>
-    <a class="learn-tab" href="#ask">💬 Ask Us</a>
+    <a class="learn-nav-link" href="#solar101">Solar 101</a>
+    <a class="learn-nav-link" href="#myths">Myths Busted</a>
+    <a class="learn-nav-link" href="#tips">Tips</a>
+    <a class="learn-nav-link" href="#faq">FAQ</a>
+    <a class="learn-nav-link" href="#glossary">Glossary</a>
+    <a class="learn-nav-link" href="#ask">Ask Us</a>
   </div>
 </nav>
 
@@ -284,7 +285,7 @@
 <script src="script.js"></script>
 <script>
   // Active learn tab tracking
-  const learnTabs = document.querySelectorAll('.learn-tab');
+  const learnTabs = document.querySelectorAll('.learn-nav-link');
   const sections = ['solar101','myths','tips','faq','glossary','ask'];
   window.addEventListener('scroll', () => {
     let current = '';
