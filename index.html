@@ -499,9 +499,120 @@
 <!-- CALC TOAST -->
 <div class="calc-toast" id="calcToast"></div>
 
-<!-- CALCULATOR LINK: Removed duplicate overlay. Users navigate to calculator.html for full experience. -->
+<!-- LOAD CALCULATOR OVERLAY -->
+<div class="calc-ov" id="calcOv">
+  <div class="calc-nav-bar">
+    <div class="calc-logo">⚡ CHIBAIK POWER</div>
+    <button class="calc-close-btn" onclick="closeCalc()">✕ Close</button>
+  </div>
+  <div class="calc-pg on" id="calcPg" style="align-self:flex-start;width:100%">
+    <h1 class="calc-h">What's Your <em>Load?</em></h1>
+    <p class="calc-hint">Select every appliance you want to power and choose the variant that matches yours.</p>
+    <div class="ctabs" id="ctabs"></div>
+    <div class="agrid" id="agrid"></div>
+  </div>
+  <div class="calc-pg" id="resPg" style="align-self:flex-start;width:100%">
+    <button class="back-btn" onclick="showCalcPg()">← Back to Calculator</button>
+    <div class="load-banner">
+      <p>Your Total Load</p>
+      <div class="load-big"><span id="loadNum">0</span><small> W</small></div>
+    </div>
+    <div class="rtabs">
+      <button class="rtab on" onclick="switchRTab('gen',this)">⚡ Solar Power Station</button>
+      <button class="rtab" onclick="switchRTab('solar',this)">🌞 Let There Be Light</button>
+    </div>
+    <div class="calc-share-bar">
+      <p>Share Your Load Profile</p>
+      <div class="calc-share-btns">
+        <button class="share-btn share-wa" onclick="shareCalc('whatsapp')">💬 WhatsApp</button>
+        <button class="share-btn share-tw" onclick="shareCalc('twitter')">𝕏 Twitter</button>
+        <button class="share-btn share-cp" onclick="shareCalc('copy')" id="calcCopyBtn">📋 Copy</button>
+      </div>
+    </div>
+    <div class="rpanel on" id="rp-gen">
+      <div class="batt-note"><span class="ni">⚠️</span><p><strong>Note:</strong> More appliances running at once means faster battery drain. Running fewer at a time gives you longer battery life.</p></div>
+      <div class="disc-box disc-gen">
+        <div class="disc-side"><h4>✅ Advantages</h4><div class="disc-item"><span>•</span>Lower upfront cost</div><div class="disc-item"><span>•</span>Plug and play, no installation</div><div class="disc-item"><span>•</span>Portable, move it anywhere</div></div>
+        <div class="disc-side"><h4>❌ Limitations</h4><div class="disc-item"><span>•</span>Cannot be upgraded as load grows</div><div class="disc-item"><span>•</span>Fixed capacity, what you buy is final</div></div>
+      </div>
+      <div class="rgrid" id="rg-gen"></div>
+    </div>
+    <div class="rpanel" id="rp-solar">
+      <div class="batt-note"><span class="ni">⚠️</span><p><strong>Note:</strong> Duration shown is battery-only backup at night. During daylight your panels continuously recharge, giving far longer overall runtime.</p></div>
+      <div class="sol-config">
+        <div class="sol-config-section">
+          <div class="sol-config-label">1. Choose Battery Type</div>
+          <div class="sol-sel-group" id="battBtns">
+            <button class="sol-sel-btn on" onclick="setSolarBatt('lithium',this)">⚡ Lithium (LiFePO4)</button>
+            <button class="sol-sel-btn" onclick="setSolarBatt('tubular',this)">🔋 Tubular (Lead-Acid)</button>
+          </div>
+        </div>
+        <div class="sol-config-section">
+          <div class="sol-config-label">2. Choose Battery Size</div>
+          <div class="sol-sel-group" id="battSizeBtns"></div>
+        </div>
+        <div class="sol-config-section">
+          <div class="sol-config-label">3. Number of Batteries</div>
+          <div class="sol-counter-row">
+            <button class="sol-cnt-btn sol-cnt-minus" onclick="changeBattCount(-1)">−</button>
+            <div class="sol-cnt-display"><span class="sol-cnt-num" id="battCount">1</span><span class="sol-cnt-unit">battery</span></div>
+            <button class="sol-cnt-btn sol-cnt-plus" onclick="changeBattCount(1)">+</button>
+            <div class="sol-cnt-result"><span class="sol-cnt-result-val" id="battTotalKwh">0kWh</span><span class="sol-cnt-result-lbl">total storage</span></div>
+          </div>
+          <div class="sol-insight" id="battInsight"></div>
+        </div>
+        <div class="sol-config-section">
+          <div class="sol-config-label">4. Choose Panel Size</div>
+          <div class="sol-sel-group" id="panelBtns">
+            <button class="sol-sel-btn" onclick="setSolarPanel(200,this)">200W</button>
+            <button class="sol-sel-btn on" onclick="setSolarPanel(300,this)">300W</button>
+            <button class="sol-sel-btn" onclick="setSolarPanel(400,this)">400W</button>
+            <button class="sol-sel-btn" onclick="setSolarPanel(450,this)">450W</button>
+            <button class="sol-sel-btn" onclick="setSolarPanel(550,this)">550W</button>
+          </div>
+        </div>
+        <div class="sol-config-section">
+          <div class="sol-config-label">5. Number of Panels</div>
+          <div class="sol-counter-row">
+            <button class="sol-cnt-btn sol-cnt-minus" onclick="changePanelCount(-1)">−</button>
+            <div class="sol-cnt-display"><span class="sol-cnt-num" id="panelCount">2</span><span class="sol-cnt-unit">panels</span></div>
+            <button class="sol-cnt-btn sol-cnt-plus" onclick="changePanelCount(1)">+</button>
+            <div class="sol-cnt-result"><span class="sol-cnt-result-val" id="panelTotalW">600W</span><span class="sol-cnt-result-lbl">total generation</span></div>
+          </div>
+          <div class="sol-insight" id="panelInsight"></div>
+        </div>
+      </div>
+      <div class="batt-compare" id="battCompare"></div>
+      <div class="disc-box disc-sol">
+        <div class="disc-side"><h4>✅ Advantages</h4><div class="disc-item"><span>•</span>Expandable, add panels or batteries later</div><div class="disc-item"><span>•</span>Best long-term investment</div><div class="disc-item"><span>•</span>Scales as your needs grow</div></div>
+        <div class="disc-side"><h4>❌ Limitations</h4><div class="disc-item"><span>•</span>Higher upfront cost</div><div class="disc-item"><span>•</span>Requires professional installation</div></div>
+      </div>
+      <div class="rgrid" id="rg-solar"></div>
+    </div>
+  </div>
+</div>
 
-<!-- WA MODAL: Removed. Simplified to WhatsApp-only flow. -->
+<div class="total-bar" id="totalBar">
+  <div class="tb-l"><span class="tb-lbl">Total Load</span><span class="tb-w" id="tb-w">0</span><span class="tb-u">Watts</span></div>
+  <div class="tb-r">
+    <button class="tb-reset" onclick="resetAll()">↺ Reset</button>
+    <button class="tb-rec" id="tb-rec" disabled onclick="showRes()">See Recommendations →</button>
+  </div>
+</div>
+
+<!-- WA MODAL -->
+<div class="wa-ov" id="waOv" onclick="closeWaOut(event)">
+  <div class="wa-box">
+    <button class="wa-x" onclick="closeWa()">✕</button>
+    <span class="wa-icon">💬</span>
+    <h3 class="wa-title">Ask If Available</h3>
+    <p class="wa-item">Enquiring about:<br><strong id="waItem">—</strong></p>
+    <label class="wa-lbl" for="waName">Your Name (optional)</label>
+    <input class="wa-inp" id="waName" type="text" placeholder="e.g. Emeka, Amara..." maxlength="50">
+    <button class="wa-send" onclick="sendWa()">💬 Send Message on WhatsApp</button>
+    <button class="wa-skip" onclick="sendWaAnon()">Skip, chat without my name</button>
+  </div>
+</div>
 
 <!-- LEARN PREVIEW STYLES (inline so they don't bloat style.css) -->
 <style>
@@ -513,40 +624,6 @@
 .learn-prev-title { font-family: 'Dela Gothic One', sans-serif; font-size: 16px; color: var(--text); }
 .learn-prev-sub { font-size: 11px; color: var(--text-muted); font-weight: 600; }
 </style>
-
-<!-- CHIDI AI CHAT WIDGET -->
-<div class="chat-widget" id="chatWidget">
-  <div class="chat-window" id="chatWindow">
-    <div class="chat-header">
-      <div class="chat-avatar">⚡</div>
-      <div class="chat-header-info">
-        <div class="chat-name">Chidi</div>
-        <div class="chat-status">● Online · Solar AI Assistant</div>
-      </div>
-      <button class="chat-close" onclick="toggleChat()">✕</button>
-    </div>
-    <div class="chat-messages" id="chatMessages">
-      <div class="chat-msg bot">
-        <div class="chat-msg-bubble">Hey! I am Chidi, your solar assistant. Ask me anything about solar energy in Nigeria.</div>
-        <div class="chat-msg-time">Just now</div>
-      </div>
-    </div>
-    <div class="chat-typing" id="chatTyping"><span></span><span></span><span></span></div>
-    <div class="chat-suggestions" id="chatSuggestions">
-      <button class="chat-sug" onclick="sendSuggestion(this)">Can solar run my AC?</button>
-      <button class="chat-sug" onclick="sendSuggestion(this)">What battery should I buy?</button>
-      <button class="chat-sug" onclick="sendSuggestion(this)">Lithium vs Tubular?</button>
-    </div>
-    <div class="chat-footer">
-      <input class="chat-input" id="chatInput" type="text" placeholder="Ask Chidi anything about solar..." maxlength="500">
-      <button class="chat-send" id="chatSend" onclick="sendChat()">➤</button>
-    </div>
-  </div>
-  <div class="chat-bubble" onclick="toggleChat()">
-    <span>⚡</span>
-    <span class="chat-bubble-label">Ask Chidi</span>
-  </div>
-</div>
 
 <script src="script.js"></script>
 </body>
