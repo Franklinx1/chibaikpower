@@ -361,12 +361,20 @@ function getAppSVG(id) {
 
 // ═══ CALCULATOR FUNCTIONS ═══
 function openCalc() {
-  // Redirect to dedicated calculator page for full experience
-  window.location.href = 'calculator.html';
+  document.getElementById('calcOv').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  const waFloat = document.getElementById('waFloat');
+  if (waFloat) waFloat.classList.add('hide');
+  if (!document.getElementById('ctabs').childElementCount) { renderCats(); renderApps(); }
+  updateTB();
 }
 
 function closeCalc() {
-  // Not needed on homepage anymore
+  document.getElementById('calcOv').classList.remove('open');
+  document.body.style.overflow = '';
+  const waFloat = document.getElementById('waFloat');
+  if (waFloat) waFloat.classList.remove('hide');
+  hideTB();
 }
 
 function showCalcPg() {

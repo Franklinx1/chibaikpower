@@ -29,13 +29,12 @@
 </script>
 <style>
   /* Calculator page fills the whole viewport cleanly */
+  body { overflow: hidden; }
   .calc-page-outer { display:flex; flex-direction:column; height:100vh; background:#0a0a0a; padding-top:60px; }
-  .calc-page-inner { flex:1; overflow-y:auto; display:flex; flex-direction:column; position:relative; }
+  .calc-page-inner { flex:1; overflow-y:auto; display:flex; flex-direction:column; }
   /* On the calc page the overlay IS the page — no overlay effect needed */
   .calc-ov { position:relative; flex:1; display:flex; flex-direction:column; transform:none !important; opacity:1 !important; pointer-events:all !important; background:#0a0a0a; border-radius:0; box-shadow:none; max-width:100%; width:100%; padding:0; overflow:visible; }
   .calc-nav-bar { display:none; }
-  /* Fuel panel needs scroll inside the same container */
-  #fuelTabPanel { min-height: 100%; }
 </style>
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
@@ -69,14 +68,7 @@
 </div>
 
 <div class="calc-page-outer">
-  <!-- TAB SWITCHER -->
-  <div class="calc-page-tabs">
-    <button class="calc-page-tab on" id="tab-load" onclick="switchCalcTab('load')">⚡ Load Calculator</button>
-    <button class="calc-page-tab" id="tab-fuel" onclick="switchCalcTab('fuel')">⛽ Fuel Cost Calculator</button>
-  </div>
-
   <div class="calc-page-inner">
-    <!-- LOAD CALCULATOR PANEL -->
     <div class="calc-ov" id="calcOv">
       <div class="calc-nav-bar">
         <div class="calc-logo">⚡ CHIBAIK POWER</div>
@@ -171,43 +163,6 @@
         </div>
       </div>
     </div>
-
-    <!-- FUEL COST CALCULATOR PANEL -->
-    <div class="fuel-tab-panel" id="fuelTabPanel">
-      <div class="fuel-sec" style="background:transparent;padding:0">
-        <div class="fuel-inner">
-          <p class="eyebrow" style="color:#444;text-align:center">Stop Guessing</p>
-          <h2 class="sec-h" style="color:#fff;text-align:center">What Is Your Generator<br><em>Really Costing You?</em></h2>
-          <p class="fuel-desc">Enter how much fuel you buy and the current price per litre. See the real annual cost — and what that money could buy in solar.</p>
-          <div class="fuel-form">
-            <div>
-              <label class="fuel-label" for="fc-l">Litres Per Week</label>
-              <input class="fuel-input" id="fc-l" type="number" min="1" max="500" placeholder="e.g. 20" inputmode="decimal">
-            </div>
-            <div>
-              <label class="fuel-label" for="fc-p">Fuel Price Per Litre (₦)</label>
-              <input class="fuel-input" id="fc-p" type="number" min="100" max="5000" placeholder="e.g. 800" inputmode="decimal">
-            </div>
-          </div>
-          <div style="text-align:center;margin-bottom:32px">
-            <button class="fuel-go" onclick="calcFuel()">⚡ Show Me The Truth</button>
-          </div>
-          <div class="fuel-results" id="fuelRes">
-            <div class="fuel-panel">
-              <div class="fuel-row"><span class="fuel-lbl">Weekly fuel spend</span><span class="fuel-val" id="fc-weekly">—</span></div>
-              <div class="fuel-row"><span class="fuel-lbl">Monthly fuel spend</span><span class="fuel-val" id="fc-monthly">—</span></div>
-              <div class="fuel-row"><span class="fuel-lbl">Yearly fuel spend</span><span class="fuel-val" id="fc-yearly">—</span></div>
-              <div class="fuel-row"><span class="fuel-lbl">Over 5 years (₦)</span><span class="fuel-val big" id="fc-5yr">—</span></div>
-            </div>
-            <div class="fuel-insight">
-              <p id="fc-insight"></p>
-              <a class="fuel-cta-btn" href="https://wa.me/+2347057027857" target="_blank">💬 Let's Get You Off Fuel</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>
 
@@ -293,28 +248,6 @@
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('calcOv').classList.add('on');
   });
-
-  function switchCalcTab(tab) {
-    const loadTab  = document.getElementById('tab-load');
-    const fuelTab  = document.getElementById('tab-fuel');
-    const calcOv   = document.getElementById('calcOv');
-    const fuelPanel = document.getElementById('fuelTabPanel');
-    const totalBar = document.getElementById('totalBar');
-
-    if (tab === 'load') {
-      loadTab.classList.add('on');
-      fuelTab.classList.remove('on');
-      calcOv.style.display = 'flex';
-      fuelPanel.classList.remove('on');
-      if (totalBar) totalBar.classList.add('on');
-    } else {
-      fuelTab.classList.add('on');
-      loadTab.classList.remove('on');
-      calcOv.style.display = 'none';
-      fuelPanel.classList.add('on');
-      if (totalBar) totalBar.classList.remove('on');
-    }
-  }
 </script>
 </body>
 </html>
