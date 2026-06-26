@@ -1576,7 +1576,7 @@ footer { background: #0a0a0a; border-top: 1px solid rgba(255,255,255,.05); paddi
   font-weight: 500;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 100%) {
   .page-hero {
     padding: 96px 20px 44px;
   }
