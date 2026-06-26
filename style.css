@@ -1576,8 +1576,76 @@ footer { background: #0a0a0a; border-top: 1px solid rgba(255,255,255,.05); paddi
   font-weight: 500;
 }
 
-@media (max-width: 100%) {
+@media (max-width: 480px) {
   .page-hero {
     padding: 96px 20px 44px;
+  }
+}
+
+/* ============================================================
+   ABOUT PAGE — body and values grid
+============================================================ */
+.about-sec { padding: 48px 24px 72px; }
+.about-inner { max-width: 1100px; margin: 0 auto; }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.about-body p {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.85;
+  margin-bottom: 18px;
+  transition: color .3s;
+}
+.about-body strong { color: var(--text); }
+
+.about-values {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.about-val {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--bg-card);
+  border: var(--border);
+  border-radius: var(--radius-sm);
+  padding: 18px 16px;
+  transition: background .3s, border-color .3s;
+}
+.about-val:hover { border-color: var(--pri); }
+
+.about-val-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.about-val-title {
+  font-family: 'Dela Gothic One', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  margin-bottom: 5px;
+  transition: color .3s;
+}
+
+.about-val-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  transition: color .3s;
+}
+
+@media (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
 }
