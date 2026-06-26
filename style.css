@@ -1544,3 +1544,40 @@ footer { background: #0a0a0a; border-top: 1px solid rgba(255,255,255,.05); paddi
   }
   .founder-socials { justify-content: center; }
 }
+
+/* ============================================================
+   PAGE HERO (about, learn, calculator inner pages)
+============================================================ */
+.page-hero {
+  padding: 100px 28px 56px;
+  margin-top: 0;
+  text-align: center;
+}
+.page-hero-eyebrow {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: inline-block;
+}
+.page-hero-h {
+  font-family: 'Dela Gothic One', sans-serif;
+  font-size: clamp(32px, 7vw, 64px);
+  line-height: 1;
+  letter-spacing: -1.5px;
+  margin-bottom: 16px;
+}
+.page-hero-sub {
+  font-size: clamp(13px, 2vw, 16px);
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto;
+  font-weight: 500;
+}
+
+@media (max-width: 480px) {
+  .page-hero {
+    padding: 96px 20px 44px;
+  }
+}
