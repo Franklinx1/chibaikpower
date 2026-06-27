@@ -1366,9 +1366,10 @@ footer { background: #0a0a0a; border-top: 1px solid rgba(255,255,255,.05); paddi
 @media (max-width: 768px) {
   .compare { grid-template-columns: 1fr; }
   .cmp-b, .cmp-a { padding: 48px 24px; min-height: 50vh; }
-  nav { padding: 0 16px; }
+  nav { padding: 0 16px; gap: 8px; }
   .nav-center { display: none; }
-  .hamburger { display: flex; }
+  .nav-cta { display: none; }
+  .hamburger { display: flex; flex-shrink: 0; }
   .showcase { grid-template-columns: 1fr 1fr; }
   .showcase-item:first-child { grid-column: span 2; }
   footer { flex-direction: column; text-align: center; }
@@ -1398,6 +1399,9 @@ footer { background: #0a0a0a; border-top: 1px solid rgba(255,255,255,.05); paddi
   .hero-quickcalc { padding: 16px 14px; }
   .hero-chip { font-size: 11px; padding: 7px 11px; }
   .chat-window { width: calc(100vw - 32px); right: -8px; }
+  .logo { font-size: 13px; }
+  .theme-btn { width: 32px; height: 32px; font-size: 14px; }
+  .hamburger { width: 32px; height: 32px; font-size: 15px; }
 }
 
 /* ============================================================
